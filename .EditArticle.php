@@ -99,6 +99,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                                 required>
                         </div>
                     </div>
+                    <div class="col">
+                        <input type="file" class="form-control" id="fileUpload" name="fileUpload[]" multiple
+                            accept="image/*">
+                    </div>
                     <div class="d-flex justify-content-end">
                         <div>
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">取消</button>
@@ -110,6 +114,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
         </div>
     </div>
 </div>
-
 
 </html>

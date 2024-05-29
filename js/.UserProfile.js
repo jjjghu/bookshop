@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bio.onclick = openModal;
     }
     else console.log("can't find intro");
-    // EditArticle 當中, 防止上傳圖片
+    // .EditArticle 當中, 防止上傳圖片
     document.getElementById('editArticle').addEventListener('submit', function (event) {
         var files = document.getElementById('fileUpload').files;
         for (var i = 0; i < files.length; i++) {
