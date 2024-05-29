@@ -98,10 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                             <input type="date" class="form-control" id="write_date" name="write_date" placeholder="撰寫日期"
                                 required>
                         </div>
-                    </div>
-                    <div class="col">
-                        <input type="file" class="form-control" id="fileUpload" name="fileUpload[]" multiple
-                            accept="image/*">
+                        <div class="col">
+                            <input type="file" class="form-control" id="fileUpload" name="fileUpload[]" multiple
+                                accept="image/*">
+                        </div>
                     </div>
                     <div class="d-flex justify-content-end">
                         <div>

@@ -96,14 +96,14 @@ if (isset($_GET['delete_user'])) {
                                 data-phone="<?php echo $row['phone']; ?>"
                                 data-is_admin="<?php echo $row['is_admin']; ?>">編輯</button>
                             <a href="admin.php?delete_user=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm"
-                                onclick="return confirm('確定要刪除這個使用者嗎？');">刪除</a>
+                                onclick="return confirm('確定要刪除這個使用者嗎?');">刪除</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
         <!-- 按鈕觸發 Modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddUserModal">
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#AddUserModal">
             新增使用者
         </button>
         <!-- 顯示所有商品按鈕 -->
