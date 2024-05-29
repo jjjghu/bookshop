@@ -1,4 +1,5 @@
 /.vscode/
 /images/
+.sql
 # git ignore: git rm -r --cached 忽略名稱
 # 需要移除掉
