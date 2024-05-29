@@ -14,7 +14,7 @@
     <!-- 標題橫條 + 切換按鈕 -->
     <?php include '.Header.php'; ?>
     <?php include '.ProductDetail.php'; ?>
-    <main class="container text-center">
+    <main class="container">
         <div class="row">
             <div class="col-md-6">
                 <!-- 距離標題 10vh -->
@@ -54,82 +54,85 @@
                 </div>
             </div>
         </div>
-    </main>
-    <!-- 簡介區域, 透過按鈕導覽 -->
-    <div class="container mt-5">
-        <div class="row">
-            <!-- 橫向12個物件 -->
-            <div class="col-md-12">
-                <!-- role: 無障礙訪問 (從bootstrap 文檔上看到的, 用不用沒有太大差別) -->
-                <ul class="nav nav-tabs bold-hr" role="tablist">
-                    <!-- nav-item, 導覽物件, nav-link 導覽連接, active 為預設選取的東西 -->
-                    <li class="nav-item">
-                        <a class="nav-link active text_effect" data-bs-toggle="tab" href="#content-intro">內容簡介</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-details">詳細資料</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-author">作者介紹</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-comments">留言區</a>
-                        <!-- 外部連接留言區 -->
-                    </li>
-                </ul>
-                <!-- table-content -->
-                <div class="tab-content mt-3">
-                    <div class="tab-pane fade show active" id="content-intro">
-                        <p><?php echo $product_description ?></p>
-                    </div>
-                    <div class="tab-pane fade" id="content-details">
-                        <p><?php echo $product_content ?></p>
-                    </div>
-                    <div class="tab-pane fade" id="content-author">
-                        <p><?php echo $author_bio ?> </p>
-                    </div>
-                    <div class="tab-pane fade" id="content-comments">
-                        <div class="comment-section">
-                            <div class="comment">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img src="images/book.png" class="comment-image me-2">
-                                        <span class="comment-username">桂桂的鹹辣豆汁</span>
+        <!-- 簡介區域, 透過按鈕導覽 -->
+        <div class="container mt-5">
+            <div class="row">
+                <!-- 橫向12個物件 -->
+                <div class="col-md-12">
+                    <!-- role: 無障礙訪問 (從bootstrap 文檔上看到的, 用不用沒有太大差別) -->
+                    <ul class="nav nav-tabs bold-hr" role="tablist">
+                        <!-- nav-item, 導覽物件, nav-link 導覽連接, active 為預設選取的東西 -->
+                        <li class="nav-item">
+                            <a class="nav-link active text_effect" data-bs-toggle="tab" href="#content-intro">內容簡介</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-details">詳細資料</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-author">作者介紹</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text_effect" data-bs-toggle="tab" href="#content-comments">留言區</a>
+                            <!-- 外部連接留言區 -->
+                        </li>
+                    </ul>
+                    <!-- table-content -->
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane fade show active" id="content-intro">
+                            <p><?php echo $product_description ?></p>
+                        </div>
+                        <div class="tab-pane fade" id="content-details">
+                            <p><?php echo $product_content ?></p>
+                        </div>
+                        <div class="tab-pane fade" id="content-author">
+                            <p><?php echo $author_bio ?> </p>
+                        </div>
+                        <div class="tab-pane fade" id="content-comments">
+                            <div class="comment-section">
+                                <div class="comment">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img src="images/book.png" class="comment-image me-2">
+                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
+                                        </div>
+                                        <span class="comment-time">17:57, 2024-05-20</span>
                                     </div>
-                                    <span class="comment-time">17:57, 2024-05-20</span>
+                                    <p class="comment-content">
+                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
+                                    </p>
                                 </div>
-                                <div class="comment-content">
-                                    啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img src="images/book.png" class="comment-image me-2">
-                                        <span class="comment-username">桂桂的鹹辣豆汁</span>
+                                <div class="comment">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img src="images/book.png" class="comment-image me-2">
+                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
+                                        </div>
+                                        <span class="comment-time">17:57, 2024-05-20</span>
                                     </div>
-                                    <span class="comment-time">17:57, 2024-05-20</span>
+                                    <p class="comment-content ">
+                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
+                                    </p>
                                 </div>
-                                <div class="comment-content ">
-                                    啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
+                                <div class="comment">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img src="images/book.png" class="comment-image me-2">
+                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
+                                        </div>
+                                        <span class="comment-time">17:57, 2024-05-20</span>
+                                    </div>
+                                    <p class="comment-content">
+                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="bold-hr"></div>
         </div>
-        <div class="bold-hr"></div>
-    </div>
-    <div class="container mt-5">
-        <pre>
-不同比例的圖片都必須要能夠顯示
-商品放大鏡 或是詳細查看的頁面
-商品推薦(相同作者的書籍, 相似主題的書籍)
-現正熱賣 
-</pre>
-        <!-- 推薦書籍, 最近閱覽,　 -->
-    </div>
+    </main>
     <!-- 一個可透過按鈕選取要查看的內容, 內容簡介, 詳細資料, 作者介紹, 留言區  -->
     <!-- footer 開始 -->
     <?php include '.Footer.php'; ?>
