@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -30,21 +30,22 @@ if (!isset($_SESSION['username'])) {
                 <h2>購物車</h2>
                 <?php
                 $quantity = 1;
+                $imageLink = "images/book_big.png";
                 $pre_products = [
-                    ['name' => '關於我為甚麼變成勇者之後拿著一把玩具刀亂砍義大利麵的起因與後續', 'image' => 'images/book.png', 'price' => '123.00', 'quantity' => 1],
-                    ['name' => '廢線彼端的人造神明', 'image' => 'images/book.png', 'price' => '123.00', 'quantity' => 1],
-                    ['name' => '玻璃彈珠都是貓的眼睛', 'image' => 'images/book.png', 'price' => '55688.00', 'quantity' => 1],
-                    ['name' => '大話設計模式', 'image' => 'images/book.png', 'price' => '9527.00', 'quantity' => 20],
-                    ['name' => '奧本海默', 'image' => 'images/book.png', 'price' => '9527.00', 'quantity' => 1],
-                    ['name' => '擇天記', 'image' => 'images/book.png', 'price' => '500.00', 'quantity' => 1],
-                    ['name' => '有關星神的二三事', 'image' => 'images/book.png', 'price' => '9527.00', 'quantity' => 1],
-                    ['name' => '物種起源', 'image' => 'images/book.png', 'price' => '42.00', 'quantity' => 1],
-                    ['name' => '三體', 'image' => 'images/book.png', 'price' => '3.333', 'quantity' => 1],
-                    ['name' => '發呆改變世界', 'image' => 'images/book.png', 'price' => '777.00', 'quantity' => 1],
-                    ['name' => '我的小鯊魚', 'image' => 'images/book.png', 'price' => '22.00', 'quantity' => 1],
-                    ['name' => '最幸福的人', 'image' => 'images/book.png', 'price' => '99.00', 'quantity' => 1],
-                    ['name' => '為甚麼你總是學不會?', 'image' => 'images/book.png', 'price' => '22.00', 'quantity' => 1],
-                    ['name' => '銀河鐵道之夜', 'image' => 'images/book.png', 'price' => '22.00', 'quantity' => 1]
+                    ['name' => '關於我為甚麼變成勇者之後拿著一把玩具刀亂砍義大利麵的起因與後續', 'image' => $imageLink, 'price' => '123.00', 'quantity' => 1],
+                    ['name' => '廢線彼端的人造神明', 'image' => $imageLink, 'price' => '123.00', 'quantity' => 1],
+                    ['name' => '玻璃彈珠都是貓的眼睛', 'image' => $imageLink, 'price' => '55688.00', 'quantity' => 1],
+                    ['name' => '大話設計模式', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 20],
+                    ['name' => '奧本海默', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 1],
+                    ['name' => '擇天記', 'image' => $imageLink, 'price' => '500.00', 'quantity' => 1],
+                    ['name' => '有關星神的二三事', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 1],
+                    ['name' => '物種起源', 'image' => $imageLink, 'price' => '42.00', 'quantity' => 1],
+                    ['name' => '三體', 'image' => $imageLink, 'price' => '3.333', 'quantity' => 1],
+                    ['name' => '發呆改變世界', 'image' => $imageLink, 'price' => '777.00', 'quantity' => 1],
+                    ['name' => '我的小鯊魚', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1],
+                    ['name' => '最幸福的人', 'image' => $imageLink, 'price' => '99.00', 'quantity' => 1],
+                    ['name' => '為甚麼你總是學不會?', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1],
+                    ['name' => '銀河鐵道之夜', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1]
                 ];
                 ?>
                 <?php foreach ($pre_products as $product): ?>
@@ -94,7 +95,8 @@ if (!isset($_SESSION['username'])) {
                     <?php endforeach; ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <h5><strong><span class="text-orange">總計</span></strong></h5>
-                        <h5><strong class="text-orange  w-25">$<span id="total-price"><?php echo $total; ?></span></strong>
+                        <h5><strong class="text-orange  w-25">$<span
+                                    id="total-price"><?php echo $total; ?></span></strong>
                         </h5>
                     </li>
                 </ul>

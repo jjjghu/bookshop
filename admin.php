@@ -155,7 +155,6 @@ if (isset($_GET['delete_user'])) {
                 </div>
             </div>
         </div>
-
     </main>
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php'; ?>
