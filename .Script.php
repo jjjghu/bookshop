@@ -7,6 +7,3 @@
 <script src="js/.Header.js"></script>
 <script src="js/.Register.js"></script>
 <script src="js/.Slider.js"></script>
-<script src="js/.Index.js"></script>
-<script src="js/.UserProfile.js"></script>
-<script src="js/.Admin.js"></script>

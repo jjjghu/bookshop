@@ -218,7 +218,7 @@ if ($stmt->num_rows == 1) {
     <!-- 主要頁面內容結束 -->
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php' ?>
-
+    <script src="js/.UserProfile.js"></script>
 </body>
 
 </html>

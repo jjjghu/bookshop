@@ -158,6 +158,8 @@ if (isset($_GET['delete_user'])) {
     </main>
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php'; ?>
+    <script src="js/.Admin.js"></script>
 </body>
+
 
 </html>
