@@ -21,7 +21,7 @@
                 <div class="slider-wrapper product mt-10vh">
                     <div class="slider product">
                         <?php foreach ($images as $index => $image_path): ?>
-                            <img id="slider-<?php echo $index + 1; ?>" src="<?php echo $image_path; ?>"
+                            <img id="slider-<?php echo $index + 1; ?>" src="<?php echo $image_path; ?>" class="slider-img"
                                 alt="slider <?php echo $index + 1; ?>">
                         <?php endforeach; ?>
                     </div>
@@ -36,7 +36,6 @@
                         echo '<div class="prev-arrow fs-2"><i class="bx bx-chevron-left"></i></div>';
                         echo '<div class="next-arrow fs-2"><i class="bx bx-chevron-right"></i></div>';
                     }
-
                     ?>
                 </div>
             </div>

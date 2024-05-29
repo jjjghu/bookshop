@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 將 .slider-nav.product a 元素的背景圖片設定為對應的圖片 URL
                 nav.style.backgroundImage = 'url(' + imageUrl + ')';
                 nav.style.backgroundSize = 'cover';
+                nav.style.backgroundRepeat = 'no-repeat';
+                nav.style.backgroundPosition = 'center center';
             });
         }
     };
