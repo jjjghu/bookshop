@@ -32,6 +32,10 @@ if ($stmt->num_rows == 1) {
     $stmt->bind_result($username, $bio, $phone, $email, $penName);
     $stmt->fetch();
 }
+
+// 獲取所有分類
+$category_query = "SELECT * FROM categories";
+$category_result = $link->query($category_query);
 ?>
 
 <body class=<?php echo $theme ?>>
@@ -183,36 +187,8 @@ if ($stmt->num_rows == 1) {
                     </div>
                 </div>
             </div>
-            <!-- 撰寫新文章Modal -->
-            <!-- <div class="modal fade" id="editArticleModal" tabindex="-1" aria-labelledby="editArticleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editArticleModalLabel">編輯文章</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="articleTitle" placeholder="輸入標題">
-                                </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control " id="articleContent" rows="20"
-                                        placeholder="輸入內容"></textarea>
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <div>
-                                        <button type="button" class="btn btn-secondary me-2"
-                                            data-bs-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary">保存變更</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> -->
-        </div>
-        <?php include '.EditArticle.php'; ?>
+            
+            <?php include '.EditArticle.php'; ?>
         </div>
     </main>
     <!-- 主要頁面內容結束 -->
