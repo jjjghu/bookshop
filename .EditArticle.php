@@ -85,7 +85,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                             <select class="form-control" id="category_id" name="category_id" required>
                                 <!-- 可以改成多選的, 資料庫支持 -->
                                 <option value="">選擇分類</option>
-                                <?php while ($row = $category_result->fetch_assoc()): ?>
+                                <?php
+                                $first = true;
+                                while ($row = $category_result->fetch_assoc()):
+                                    if ($first) {
+                                        $first = false;
+                                        continue;
+                                    }
+                                    ?>
                                     <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                 <?php endwhile; ?>
                             </select>
@@ -95,11 +102,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                                 placeholder="價格" required>
                         </div>
                         <div class="col">
-                            <div style="position: relative;">
+                            <div class="relative">
                                 <input type="date" class="form-control" id="write_date" name="write_date"
                                     placeholder="撰寫日期" required>
-                                <i class="bi bi-calendar icon-right"></i>
+                                <i class="bi bi-calendar icon-right" id="toggleDate"></i>
                             </div>
+                            <script>
+                                var write_date = document.getElementById('write_date')
+                                document.getElementById('toggleDate').addEventListener('click', function () {
+                                    write_date.showPicker();
+                                });
+                            </script>
                         </div>
                         <div class="col">
                             <input type="file" class="form-control" id="fileUpload" name="fileUpload[]" multiple

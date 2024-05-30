@@ -964,15 +964,6 @@ footer {
     border-right: none;
 }
 
-/* 背景顏色設定 */
-.text-main {
-    color: var(--jjjghu-main);
-}
-
-.text-Nmain {
-    color: var(--jjjghu-Nmain);
-}
-
 /* 標題 fixed 10 vh, 因此要往下放 */
 .mt-10vh {
     margin-top: 10vh !important;
@@ -984,7 +975,20 @@ footer {
     overflow-y: auto;
 }
 
+.relative {
+    position: relative !important;
+}
+
+
 /* 背景顏色設定 */
+.text-main {
+    color: var(--jjjghu-main);
+}
+
+.text-Nmain {
+    color: var(--jjjghu-Nmain);
+}
+
 .text-brown {
     color: var(--jjjghu-brown) !important;
 }
