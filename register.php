@@ -20,34 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $passwordCheck = $_POST['passwordCheck'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];
-
-  // 檢查是否所有欄位都有值
-  $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-  $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
-  $stmt = $link->prepare($check_sql);
-  $stmt->bind_param("ss", $username, $email); // 兩個問號分別取代變數
-  $stmt->execute();
-  $stmt->store_result();
-
-  if ($stmt->num_rows > 0) {
-    $message = "使用者名稱或電子郵件已存在";
-  } else {
-    // 插入新用戶資料
-    $sql = "INSERT INTO author (username, password, email, phone) VALUES (?, ?, ?, ?)";
-    $stmt = $link->prepare($sql);
-    $stmt->bind_param("ssss", $username, $hashed_password, $email, $phone);
-
-    if ($stmt->execute()) {
-      $message = "註冊成功";
-      header("Location: login.php"); // 註冊成功後重定向到登入頁面
-      exit;
-    } else {
-      $message = "註冊失敗: " . $stmt->error;
-    }
-  }
-  $stmt->close();
-  $link->close();
 }
 ?>
 
@@ -97,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" class="btn" id="submitButton">註冊</button>
         <div class="link-out">
           <p>已有帳戶?<a href="login.php">登入</a></p>
-          <div class='text-danger' id="message"><?php echo $message; ?></div>
+          <div class='text-danger' id="message"></div>
         </div>
       </form>
     </div>
@@ -107,34 +79,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- footer結束 -->
 </body>
 <?php include '.Script.php' ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-  $(document).ready(function () {
-    $('#RegisterForm').on('submit', function (e) {
-      e.preventDefault();
-
-      $.ajax({
-        type: 'POST',
-        url: 'register.php',
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            window.location.href = 'login.php';
-          } else {
-            $('#username-err').text(response.errors.username || '');
-            $('#password-err').text(response.errors.password || '');
-            $('#passwordCheck-err').text(response.errors.passwordCheck || '');
-            $('#email-err').text(response.errors.email || '');
-            $('#phone-err').text(response.errors.phone || '');
-            $('#message').text(response.message || '');
-          }
+  // if #message == "註冊成功", Redirect to login.php
+  $(document).ready(function() {
+    $("#RegisterForm").validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 3,
+          maxlength: 20
+        },
+        password: {
+          required: true,
+          minlength: 8,
+          maxlength: 20
+        },
+        passwordCheck: {
+          required: true,
+          equalTo: "#password"
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        phone: {
+          required: true,
+          minlength: 10,
+          maxlength: 10
         }
-      });
+      },
+      messages: {
+        username: {
+          required: "請輸入使用者名稱",
+          minlength: "使用者名稱至少要有3個字元",
+          maxlength: "使用者名稱最多20個字元"
+        },
+        password: {
+          required: "請輸入密碼",
+          minlength: "密碼至少要有8個字元",
+          maxlength: "密碼最多20個字元"
+        },
+        passwordCheck: {
+          required: "請再次輸入密碼",
+          equalTo: "兩次密碼輸入不一致"
+        },
+        email: {
+          required: "請輸入電子信箱",
+          email: "請輸入正確的電子信箱"
+        },
+        phone: {
+          required: "請輸入手機號碼",
+          minlength: "手機號碼至少要有10個字元",
+          maxlength: "手機號碼最多10個字元"
+        }
+      },
+      submitHandler: function(form) {
+        $.ajax({
+          url: 'register_action.php',
+          type: 'POST',
+          data: $('#RegisterForm').serialize(),
+          success: function(response) {
+            if (response == '註冊成功') {
+              window.location.href = 'login.php';
+            } else {
+              $('#message').html(response);
+            }
+          }
+        });
+      }
     });
   });
 </script>
-
-
 </html>
