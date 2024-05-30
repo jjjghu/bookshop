@@ -130,13 +130,17 @@
                     </div>
                 </div>
             </div>
-            <div class="bold-hr"></div>
+            <!-- <div class="bold-hr mb-3"></div> -->
         </div>
     </main>
     <!-- 一個可透過按鈕選取要查看的內容, 內容簡介, 詳細資料, 作者介紹, 留言區  -->
-    <!-- footer 開始 -->
+
     <?php include '.Footer.php'; ?>
-    <!-- footer結束 -->
+    <style>
+        input {
+            color-scheme: auto;
+        }
+    </style>
 </body>
 
 </html>

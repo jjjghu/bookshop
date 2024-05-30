@@ -814,6 +814,14 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     right: 0;
 }
 
+
+/* 隱藏calender顯示圖標 */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
 /* 登入介面結束 */
 /* 個人資料編輯開始 userProfile */
 .profile-info {
@@ -948,10 +956,12 @@ footer {
 
 .sub {
     border: 1px solid var(--jjjghu-Nmain);
-    border-radius: 5px;
     /* 設定邊框的圓角 */
-    padding: 10px;
+    border-radius: 5px;
     /* 設定內邊距 */
+    padding: 10px;
+    /* 消除右邊框 (因為有 button) */
+    border-right: none;
 }
 
 /* 背景顏色設定 */

@@ -97,7 +97,7 @@ if ($stmt->num_rows == 1) {
                         <div data-bs-toggle='modal' data-bs-target='#EditArticle'
                             class='edit text-decoration-none text-primary'>
                             <div class='card mb-3 d-flex flex-column'>
-                                <img src='<?php echo $product["image"]; ?>' class='card-img-top' alt='Product Image'>
+                                <img src='images/book_big.png' class='card-img-top' alt='Product Image'>
                                 <div class='card-body d-flex flex-column'>
                                     <h5 class='card-title text-Nmain clamp-lines mb-auto'>
                                         <?php echo htmlspecialchars($product["name"]); ?>
