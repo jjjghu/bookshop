@@ -95,8 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                                 placeholder="價格" required>
                         </div>
                         <div class="col">
-                            <input type="date" class="form-control" id="write_date" name="write_date" placeholder="撰寫日期"
-                                required>
+                            <div style="position: relative;">
+                                <input type="date" class="form-control" id="write_date" name="write_date"
+                                    placeholder="撰寫日期" required>
+                                <i class="bi bi-calendar icon-right"></i>
+                            </div>
                         </div>
                         <div class="col">
                             <input type="file" class="form-control" id="fileUpload" name="fileUpload[]" multiple

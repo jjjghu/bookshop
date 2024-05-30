@@ -715,7 +715,7 @@ input[type="number"]::-webkit-outer-spin-button {
     color: rgb(100, 100, 100);
 }
 
-.input-box .icon-left {
+.icon-left {
     position: absolute;
     /* 相對 input box 靠左 */
     left: 15px;
@@ -726,10 +726,10 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 20px;
 }
 
-.input-box .icon-right {
+.icon-right {
     position: absolute;
     /* 相對 input box 靠左 */
-    right: 20px;
+    right: 15px;
     /* 上下置中 */
     top: 50%;
     transform: translateY(-50%);
