@@ -1,3 +1,8 @@
+<?php
+// 獲取所有分類
+$category_query = "SELECT * FROM categories";
+$category_result = $link->query($category_query);
+?>
 <!-- 撰寫新文章Modal -->
 <div class="modal fade" id="editArticleModal" tabindex="-1" aria-labelledby="editArticleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -6,7 +11,7 @@
                 <h5 class="modal-title" id="editArticleModalLabel">編輯文章</h5>
             </div>
             <div class="modal-body">
-                <form id="editArticle" action=".AddNewArticle.php" method="post">
+                <form id="editArticle" action=".AddNewArticle.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['user_id']; ?>">
                     </div>
@@ -28,6 +33,7 @@
                                 <!-- 可以改成多選的, 資料庫支持 -->
                                 <option value="">選擇分類</option>
                                 <?php
+                                // 忽略第一項 (全部)s
                                 $first = true;
                                 while ($row = $category_result->fetch_assoc()):
                                     if ($first) {

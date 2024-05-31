@@ -41,7 +41,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
     $stmt->execute();
     $stmt->close();
 
-    $_SESSION['message'] = '<div class="alert alert-success" role="alert">商品新增成功</div>';
+    // 插入商品圖片
+    if (isset($_FILES['fileUpload'])) {
+        // 插入商品圖片
+        for ($i = 0; $i < count($_FILES['fileUpload']['tmp_name']); $i++) {
+            if ($_FILES['fileUpload']['error'][$i] === UPLOAD_ERR_OK) {
+                $image_type = $_FILES['fileUpload']['type'][$i];
+                $image_content = file_get_contents($_FILES['fileUpload']['tmp_name'][$i]);
+                $stmt = $link->prepare("INSERT INTO product_images (product_id, image_type, image) VALUES (?, ?, ?)");
+                $stmt->bind_param("iss", $product_id, $image_type, $image_content);
+                $stmt->send_long_data(2, $image_content); // 新增這一行
+                $stmt->execute();
+            } else {
+                echo "File upload error: " . $_FILES['fileUpload']['error'][$i];
+            }
+        }
+    } else {
+        echo "No files uploaded.";
+    }
+
+    $_SESSION['message'] = '商品新增成功';
     header("Location: userProfile.php");
     exit();
 }

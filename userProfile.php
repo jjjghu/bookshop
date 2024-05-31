@@ -32,10 +32,6 @@ if ($stmt->num_rows == 1) {
     $stmt->bind_result($username, $bio, $phone, $email, $penName);
     $stmt->fetch();
 }
-
-// 獲取所有分類
-$category_query = "SELECT * FROM categories";
-$category_result = $link->query($category_query);
 ?>
 
 <body class=<?php echo $theme ?>>

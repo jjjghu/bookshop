@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024 年 05 月 27 日 04:54
+-- 產生時間： 2024 年 05 月 31 日 04:17
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.0.30
 
@@ -47,7 +47,7 @@ CREATE TABLE `author` (
 INSERT INTO `author` (`id`, `username`, `bio`, `password`, `phone`, `email`, `penName`, `is_admin`) VALUES
 (1, 'aaa', '本名羅傳樵，一九八二年生，畢業於東吳大學中文系、臺灣大學哲學所東方組碩士班，專長是儒學。性善論者。對人類學、民俗學、城市發展、腦科學等等有興趣。曾於臺大原住民族研究中心工作，現為臺北地方異聞工作室（網站、FB專頁）共同創辦人。現已出版《臺北城裡妖魔跋扈》、《帝國大學赤雨騷亂》、《金魅殺人魔術》、《都市傳說冒險團：謎樣的作家》、《殖民地之旅》、《魔神仔：被牽走的巨人》，曾參與《華麗島軼聞：鍵》、《筷：怪談競演奇物語》、《歡迎光臨錫爾帕夏車站》等聯合創作計畫。實境遊戲設計師，曾策劃〈金魅殺人魔術〉、〈西門町的四月笨蛋〉、〈城市邊陲的遁逃者〉等實境遊戲，並參與「說妖」的桌遊設計。', '$2y$10$HsCMWggQwqTj.ebApZ8VquKs69VtoHHHlfASnRyI9rgrE5qCLSuha', '09123456789', 'something@gmail.com', '瀟湘神', 0),
 (2, 'jjjghu', '就讀資訊工程學系的大二學生，\r\n目前正為了自己的未來發愁，就像隨處可見的大二學生一樣', '$2y$10$GrtJTNpo1q4Rk5bCHN/GTeaYiXQkgo42SwkPEb9vDPVxXoa1yR.8e', '0933884740', 'chiuliyou@gmail.com', '邱立宇', 1),
-(5, 'cuesta3085', NULL, '$2y$10$4l1WAV0HvfX6dvgC5ULcNOWs/eIpoBYQPKWzyUAY8KEufhSuWxRNm', '0900780455', 'itanki3085@gmail.com', NULL, 0),
+(5, 'cuesta3085', NULL, '$2y$10$4l1WAV0HvfX6dvgC5ULcNOWs/eIpoBYQPKWzyUAY8KEufhSuWxRNm', '0900780455', 'itanki3085@gmail.com', '在地裡的人', 0),
 (22, 'insaneboy58669', NULL, '', '5555666688', 'Wooo@gmail.com', '臉接大招', 0),
 (34, 'SunSet', NULL, '', '1234554321', 'SunSet@gmail.com', '夕陽掛', 0),
 (48, 'elderDirt', '對歷史充滿熱情，熱愛探索古董背後的故事。相信每一件古董都是時光的見證者，記錄著過去的風華。', '$2y$10$aXXXV2LhiahQrnR/skhOd.Q3QvcWPg5Bol0TMo78hV3bFD4sIdRB.', '5544778899', 'elderDirt@elderDirt', '月底吃土', 0),
@@ -339,7 +339,7 @@ ALTER TABLE `product_images`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `author`
 --
 ALTER TABLE `author`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `categories`
