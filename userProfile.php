@@ -146,7 +146,8 @@ if ($stmt->num_rows == 1) {
                                         value="<?php echo $phone; ?>">
                                     <p class="text-danger" id="phone-err"></p>
                                 </div>
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex justify-content-between">
+                                    <div id="message"></div>
                                     <div>
                                         <button type="button" class="btn btn-secondary me-2"
                                             data-bs-dismiss="modal">取消</button>

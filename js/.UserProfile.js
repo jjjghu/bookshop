@@ -120,7 +120,12 @@ $(document).ready(function () {
                     type: "POST",
                     dataType: 'text',
                     success: function (msg) {
-                        alert(msg);
+                        // $('#EditConfirm').html(msg);
+                        $('#message').html(msg);
+                        // 經過2秒之後恢復原狀
+                        setTimeout(function () {
+                            $('#message').html("");
+                        }, 2000);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status);

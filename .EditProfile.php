@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->store_result();
     // 判斷除了自己以外的使用者
     if ($stmt->num_rows > 1) {
-        echo "使用者名稱或電子郵件已存在";
+        echo "<span class='text-danger'>使用者名稱或電子郵件已存在</span>";
         exit;
     }
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
-        echo "筆名已被使用!";
+        echo "<span class='text-danger'>筆名已被使用!</span>";
         exit;
     }
 
@@ -50,6 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $_SESSION['username'] = $username; // 更新 username 值'
     $_SESSION['penName'] = $penName; // 紀錄筆名
-    echo "更新成功!";
+    echo "<span class='text-success'>更新成功!</span>";
     exit;
 }
