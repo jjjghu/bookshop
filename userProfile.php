@@ -124,28 +124,27 @@ if ($stmt->num_rows == 1) {
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="username" name="username"
                                         placeholder="使用者名稱" value="<?php echo $username; ?>">
-
-                                    <p class="text-red" id="username-err"></p>
+                                    <p class="text-danger" id="username-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="penName" name="penName" placeholder="筆名"
                                         value="<?php echo $penName; ?>">
-                                    <p class="text-red" id="penName-err"></p>
+                                    <p class="text-danger" id="penName-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" class="form-control" id="newpassword" name="newpassword"
-                                        placeholder="新密碼">
-                                    <p class="text-red" id="newpassword-err"></p>
+                                        placeholder="新密碼(留空表示不變)">
+                                    <p class="text-danger" id="newpassword-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="電子信箱"
                                         value="<?php echo $email; ?>">
-                                    <p class="text-red" id="email-err"></p>
+                                    <p class="text-danger" id="email-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="tel" class="form-control" id="phone" name="phone" placeholder="手機號碼"
                                         value="<?php echo $phone; ?>">
-                                    <p class="text-red" id="phone-err"></p>
+                                    <p class="text-danger" id="phone-err"></p>
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <div>

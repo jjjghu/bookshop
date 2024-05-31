@@ -29,7 +29,7 @@ if ($product_id > 0) {
 
         $product_name = $row['product_name']; // 商品名稱
         $author_name = $row['author_name']; // 作者
-        $author_bio = $row['author_bio']; // 作者自我介紹
+        $author_bio = empty($row['author_bio']) ? '暫無簡介' : $row['author_bio'];
         $write_date = $row['write_date']; // 寫作時間
         $product_description = nl2br($row['product_description']); // 商品介紹
         $product_content = nl2br($row['product_content']); // 商品內容
