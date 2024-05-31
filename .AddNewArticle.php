@@ -42,24 +42,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
     $stmt->close();
 
     // 插入商品圖片
+    // 設置圖片儲存目錄
+    $imageDir = 'images/';
     if (isset($_FILES['fileUpload'])) {
-        // 插入商品圖片
         for ($i = 0; $i < count($_FILES['fileUpload']['tmp_name']); $i++) {
             if ($_FILES['fileUpload']['error'][$i] === UPLOAD_ERR_OK) {
+                // 獲取圖片資訊
                 $image_type = $_FILES['fileUpload']['type'][$i];
-                $image_content = file_get_contents($_FILES['fileUpload']['tmp_name'][$i]);
-                $stmt = $link->prepare("INSERT INTO product_images (product_id, image_type, image) VALUES (?, ?, ?)");
-                $stmt->bind_param("iss", $product_id, $image_type, $image_content);
-                $stmt->send_long_data(2, $image_content); // 新增這一行
-                $stmt->execute();
+                $tmp_name = $_FILES['fileUpload']['tmp_name'][$i];
+                $file_name = basename($_FILES['fileUpload']['name'][$i]);
+
+                // 設定目標路徑
+                $target_file = $imageDir . $file_name;
+
+                // 將圖片移動到本機
+                if (move_uploaded_file($tmp_name, $target_file)) {
+                    // 將路徑存到資料庫
+                    $stmt = $link->prepare("INSERT INTO product_images (product_id, image_type, image_path) VALUES (?, ?, ?)");
+                    $stmt->bind_param("iss", $product_id, $image_type, $target_file);
+                    $stmt->execute();
+                } else {
+                    echo "上傳失敗";
+                }
             } else {
-                echo "File upload error: " . $_FILES['fileUpload']['error'][$i];
+                echo "上傳時發生錯誤" . $_FILES['fileUpload']['error'][$i];
             }
         }
-    } else {
-        echo "No files uploaded.";
     }
-
+    // else 沒有上傳檔案
     $_SESSION['message'] = '商品新增成功';
     header("Location: userProfile.php");
     exit();

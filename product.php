@@ -20,13 +20,13 @@
                 <!-- 距離標題 10vh -->
                 <div class="slider-wrapper product mt-10vh">
                     <div class="slider product">
-                        <?php foreach ($images as $index => $image_path): ?>
-                            <img id="slider-<?php echo $index + 1; ?>" src="<?php echo $image_path; ?>" class="slider-img"
+                        <?php foreach ($images as $index => $image_data): ?>
+                            <img id="slider-<?php echo $index + 1; ?>" src="<?php echo $image_data; ?>" class="slider-img"
                                 alt="slider <?php echo $index + 1; ?>">
                         <?php endforeach; ?>
                     </div>
                     <div class="slider-nav product">
-                        <?php foreach ($images as $index => $image_path): ?>
+                        <?php foreach ($images as $index => $image_data): ?>
                             <a data-index="<?php echo $index; ?>"></a>
                         <?php endforeach; ?>
                     </div>

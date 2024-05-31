@@ -1,17 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root123456";
-$dbname = "group_29";
-
-$link = new mysqli($servername, $username, $password, $dbname);
-
-if ($link->connect_error) {
-    die("連結失敗: " . $link->connect_error);
-}
-
-mysqli_query($link, "SET CHARACTER SET utf8");
-mysqli_query($link, "SET collation_connection = 'utf8_unicode_ci'");
+include '.LinkSql.php';
 
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
