@@ -157,6 +157,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .table {
     --bs-table-color: var(--jjjghu-Nmain);
+    --bs-table-bg: var(--jjjghu-main);
     --bs-table-striped-color: var(--jjjghu-Nmain);
 }
 

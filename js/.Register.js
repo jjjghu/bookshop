@@ -60,7 +60,6 @@ $(document).ready(function () {
     $.validator.addMethod("pattern", function (value, element, param) {
         return this.optional(element) || param.test(value);
     }, "格式不正確");
-
     // 表單驗證
     $("#RegisterForm").validate({
         onfocusout: false,

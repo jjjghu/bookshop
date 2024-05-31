@@ -113,6 +113,22 @@ $(document).ready(function () {
                     maxlength: "手機號碼為10個數字"
                 }
             },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: ".EditProfile.php",
+                    data: $(form).serialize(), // 確保選擇器正確
+                    type: "POST",
+                    dataType: 'text',
+                    success: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                return false;
+            },
             errorPlacement: function (error, element) {
                 var errorId = element.attr("id") + "-err";
                 $('#' + errorId).html(error.text()); // 顯示錯誤訊息到<p>當中
@@ -127,9 +143,7 @@ $(document).ready(function () {
         event.preventDefault();
         validateProfile(); // 觸發表單驗證
         if ($("#EditProfile").valid()) { // 如果表單驗證通過，則提交表單
-            console.log("validate!");
             $("#EditProfile").submit();
         }
-        else console.log("validate Fail!");
     });
 });

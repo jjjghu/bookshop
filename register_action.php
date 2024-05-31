@@ -3,11 +3,9 @@ include '.LinkSql.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $passwordCheck = $_POST['passwordCheck'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
-    // 檢查是否所有欄位都有值
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";

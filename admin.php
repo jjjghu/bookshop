@@ -4,8 +4,7 @@ include '.LinkSql.php'; // 包含資料庫連接
 
 // 檢查是否為管理員
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
-    header("Location: login.php");
-    exit();
+    echo "權限不足!";
 }
 
 // 獲取所有使用者
@@ -34,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: admin.php");
+    echo "新增使用者成功";  
     exit();
 }
 
@@ -46,10 +45,8 @@ if (isset($_GET['delete_user'])) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $stmt->close();
-
     // 刪除對應作者的商品, 下面的留言
-
-    header("Location: admin.php");
+    echo "刪除使用者成功";
     exit();
 }
 ?>
@@ -62,13 +59,14 @@ if (isset($_GET['delete_user'])) {
     <title>管理員頁面</title>
     <?php include '.Style.php'; ?>
 </head>
+<?php include '.Theme.php'; ?>
 
 <body class="<?php echo $theme; ?>">
     <?php include '.Header.php'; ?>
     <main class="container mt-10vh">
         <!-- 顯示所有使用者 -->
         <h2 class="mb-3">所有使用者</h2>
-        <table class="table table-striped">
+        <table class="table table-striped table-borderless" id="adminTable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -139,10 +137,14 @@ if (isset($_GET['delete_user'])) {
                                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="手機號碼">
                                 <p class="text-danger" id="phone-err"></p>
                             </div>
-                            <div class="mb-3 form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin">
-                                <label class="form-check-label" for="is_admin">設定為管理員</label>
+                            <div class="mb-3 form-check form-switch d-flex justify-content-between">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin">
+                                    <label class="form-check-label" for="is_admin">設定為管理員</label>
+                                </div>
+                                <div id="message" class="text-danger"></div>
                             </div>
+
                             <div class="d-flex justify-content-end">
                                 <div>
                                     <button type="button" class="btn btn-secondary me-2"

@@ -1,7 +1,6 @@
 <?php
 include '.LinkSql.php';
 session_start(); // 確認已啟用會話
-$message = '';
 // 修改個人資料, 簡介的部分都在這裡, 需要判斷更改的內容
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 接收表單內容
@@ -11,6 +10,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $phone = $_POST["phone"];
 
+    // 檢查使用者名稱和電子郵件
+    $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
+    $stmt = $link->prepare($check_sql);
+    $stmt->bind_param("ss", $username, $email); // 兩個問號分別取代變數
+    $stmt->execute();
+    $stmt->store_result();
+    // 判斷除了自己以外的使用者
+    if ($stmt->num_rows > 1) {
+        echo "使用者名稱或電子郵件已存在";
+        exit;
+    }
+
     // 檢查筆名是否已被使用
     $check_sql = "SELECT id, penName FROM author WHERE id != ? AND penName = ?;";
     $stmt = $link->prepare($check_sql);
@@ -18,38 +29,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
-        // <div class="text-red text-start">筆名已被使用!</div>
-        $_SESSION['message'] = '筆名已被使用!';
-        header("Location: userProfile.php");
+        echo "筆名已被使用!";
         exit;
     }
 
-    // 找到使用者 id , 更新資料
-    $check_sql = "SELECT * FROM author WHERE id = ?";
-    $stmt = $link->prepare($check_sql);
-    $stmt->bind_param("s", $_SESSION['user_id']);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        if (empty($newpassword)) {
-            // 如果密碼為空，則不更新密碼
-            $update_sql = "UPDATE author SET username = ?, penName = ?, email = ?, phone = ? WHERE id = ?";
-            $stmt = $link->prepare($update_sql);
-            $stmt->bind_param("sssss", $username, $penName, $email, $phone, $_SESSION['user_id']);
-        } else {
-            // 如果密碼不為空，則更新密碼
-            $hashed_password = password_hash($newpassword, PASSWORD_DEFAULT);
-            $update_sql = "UPDATE author SET username = ?, password = ?, penName = ?, email = ?, phone = ? WHERE id = ?";
-            $stmt = $link->prepare($update_sql);
-            $stmt->bind_param("ssssss", $username, $hashed_password, $penName, $email, $phone, $_SESSION['user_id']);
-        }
-        $stmt->execute();
-        // 將 message 存放到SESSION
-        // <div class="text-success text-start">更新成功!</div>
-        $_SESSION['message'] = '更新成功!';
-        $_SESSION['username'] = $username; // 更新 username 值'
-        $_SESSION['penName'] = $penName; // 紀錄筆名
-        header("Location: userProfile.php");
-        exit;
+    // 都正確則更新密碼和資料
+    if (empty($newpassword)) {
+        // 如果密碼為空，則不更新密碼
+        $update_sql = "UPDATE author SET username = ?, penName = ?, email = ?, phone = ? WHERE id = ?";
+        $stmt = $link->prepare($update_sql);
+        $stmt->bind_param("sssss", $username, $penName, $email, $phone, $_SESSION['user_id']);
+    } else {
+        // 如果密碼不為空，則更新密碼
+        $hashed_password = password_hash($newpassword, PASSWORD_DEFAULT);
+        $update_sql = "UPDATE author SET username = ?, password = ?, penName = ?, email = ?, phone = ? WHERE id = ?";
+        $stmt = $link->prepare($update_sql);
+        $stmt->bind_param("ssssss", $username, $hashed_password, $penName, $email, $phone, $_SESSION['user_id']);
     }
+    $stmt->execute();
+    $stmt->close();
+    $_SESSION['username'] = $username; // 更新 username 值'
+    $_SESSION['penName'] = $penName; // 紀錄筆名
+    echo "更新成功!";
+    exit;
 }

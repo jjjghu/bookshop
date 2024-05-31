@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 用 js 將 cookie 存放在瀏覽器中
             if (document.body.classList.contains('dark-theme')) {
                 document.cookie = "theme=dark-theme; path=/";
+
             } else {
                 document.cookie = "theme=none; path=/";
             }
