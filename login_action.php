@@ -1,10 +1,13 @@
 <?php
 include '.LinkSql.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_username = $_POST['username'];
     $input_password = $_POST['password'];
 
-    $sql = "SELECT id, username, password, is_admin FROM author WHERE username = ?";
+    $sql = "SELECT id, username, password, is_admin, penName FROM author WHERE username = ?";
     $stmt = $link->prepare($sql);
     if ($stmt === false) {
         die("失敗: " . $link->error);
@@ -20,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stored_password = $row['password'];
         // 密碼有正確加密過
         if (password_verify($input_password, $stored_password)) {
+            // 登入成功跳轉到index
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['is_admin'] = $row['is_admin'];
-            $_SESSION['penName'] = isset($row['penName']) ? $row['penName'] : "";
-            // 登入成功跳轉到index
+            $_SESSION['penName'] = $row['penName'];
             echo "登入成功";
         } else {
             echo "密碼不正確";
