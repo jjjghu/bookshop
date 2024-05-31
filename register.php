@@ -12,16 +12,6 @@
 </head>
 <?php include '.Theme.php'; ?>
 <!-- 新增使用者, 將新用戶的資料家入 -->
-<?php
-$message = '';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $passwordCheck = $_POST['passwordCheck'];
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-}
-?>
 
 <body class=<?php echo $theme ?>>
   <!-- 標題橫條 + 切換按鈕 -->
@@ -79,75 +69,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- footer結束 -->
 </body>
 <?php include '.Script.php' ?>
-<script>
-  // if #message == "註冊成功", Redirect to login.php
-  $(document).ready(function() {
-    $("#RegisterForm").validate({
-      rules: {
-        username: {
-          required: true,
-          minlength: 3,
-          maxlength: 20
-        },
-        password: {
-          required: true,
-          minlength: 8,
-          maxlength: 20
-        },
-        passwordCheck: {
-          required: true,
-          equalTo: "#password"
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        phone: {
-          required: true,
-          minlength: 10,
-          maxlength: 10
-        }
-      },
-      messages: {
-        username: {
-          required: "請輸入使用者名稱",
-          minlength: "使用者名稱至少要有3個字元",
-          maxlength: "使用者名稱最多20個字元"
-        },
-        password: {
-          required: "請輸入密碼",
-          minlength: "密碼至少要有8個字元",
-          maxlength: "密碼最多20個字元"
-        },
-        passwordCheck: {
-          required: "請再次輸入密碼",
-          equalTo: "兩次密碼輸入不一致"
-        },
-        email: {
-          required: "請輸入電子信箱",
-          email: "請輸入正確的電子信箱"
-        },
-        phone: {
-          required: "請輸入手機號碼",
-          minlength: "手機號碼至少要有10個字元",
-          maxlength: "手機號碼最多10個字元"
-        }
-      },
-      submitHandler: function(form) {
-        $.ajax({
-          url: 'register_action.php',
-          type: 'POST',
-          data: $('#RegisterForm').serialize(),
-          success: function(response) {
-            if (response == '註冊成功') {
-              window.location.href = 'login.php';
-            } else {
-              $('#message').html(response);
-            }
-          }
-        });
-      }
-    });
-  });
-</script>
+
 </html>

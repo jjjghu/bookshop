@@ -187,7 +187,6 @@ $category_result = $link->query($category_query);
                     </div>
                 </div>
             </div>
-            
             <?php include '.EditArticle.php'; ?>
         </div>
     </main>

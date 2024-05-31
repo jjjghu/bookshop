@@ -7,47 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>登入</title>
     <?php include '.Style.php'; ?>
-    <?php include '.LinkSql.php'; ?>
-    <?php
-    $message = '';
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $input_username = $_POST['username'];
-        $input_password = $_POST['password'];
-
-        $sql = "SELECT id, username, password, is_admin FROM author WHERE username = ?";
-        $stmt = $link->prepare($sql);
-        if ($stmt === false) {
-            die("失敗: " . $link->error);
-        }
-        // 將 ? 使用 input_username 取代
-        $stmt->bind_param("s", $input_username);
-        // 執行搜尋
-        $stmt->execute();
-        // 獲取結果
-        $result = $stmt->get_result();
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            $stored_password = $row['password'];
-            // 密碼有正確加密過
-            // 
-            if (password_verify($input_password, $stored_password)) {
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['is_admin'] = $row['is_admin'];
-                $_SESSION['penName'] = $row['penName'];
-                // 登入成功跳轉到index
-                header("Location: index.php");
-                exit;
-            } else {
-                $message = "密碼不正確";
-            }
-        } else {
-            $message = "使用者名稱不存在";
-        }
-        $stmt->close();
-    }
-    $link->close();
-    ?>
 </head>
 <?php include '.Theme.php'; ?>
 
@@ -78,7 +37,7 @@
                 <button type="submit" class="btn">登入</button>
                 <div class="link-out">
                     <p>沒有帳戶? <a href="register.php">註冊</a></p>
-                    <div class='text-danger'><?php echo $message; ?></div>
+                    <div class='text-danger' id="message"></div>
                 </div>
             </form>
         </div>
@@ -88,5 +47,31 @@
     <!-- footer結束 -->
 </body>
 <?php include '.Script.php'; ?>
+<script>
+    $(document).ready(function () {
+        $("form").on("submit", function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: "login_action.php",
+                data: $(this).serialize(),
+                type: "POST",
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == "登入成功") {
+                        window.location.href = 'index.php';
+                        exit;
+                    }
+                    else
+                        $("#message").html(msg); // 顯示訊息
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            return false;
+        });
+    });
+</script>
 
 </html>
