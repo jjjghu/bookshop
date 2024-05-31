@@ -52,14 +52,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
 if (isset($_GET['delete_user'])) {
     $user_id = $_GET['delete_user'];
 
+    // 找到所有的商品
+    $stmt = $link->prepare("SELECT id FROM products WHERE author_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($product_id);
+
+    $product_ids = [];
+    while ($stmt->fetch()) {
+        $product_ids[] = $product_id;
+    }
+    $stmt->close();
+
+    if (!empty($product_ids)) {
+
+        $product_ids_placeholder = implode(',', array_fill(0, count($product_ids), '?'));
+        $types = str_repeat('i', count($product_ids));
+
+        // 刪除商品圖片
+        $stmt = $link->prepare("DELETE FROM product_images WHERE product_id IN ($product_ids_placeholder)");
+        $stmt->bind_param($types, ...$product_ids);
+        $stmt->execute();
+        $stmt->close();
+
+        // 刪除 product content
+        $stmt = $link->prepare("DELETE FROM product_contents WHERE product_id IN ($product_ids_placeholder)");
+        $stmt->bind_param($types, ...$product_ids);
+        $stmt->execute();
+        $stmt->close();
+
+        // 刪除商品分類
+        $stmt = $link->prepare("DELETE FROM product_category WHERE product_id IN ($product_ids_placeholder)");
+        $stmt->bind_param($types, ...$product_ids);
+        $stmt->execute();
+        $stmt->close();
+
+        // 刪除商品
+        $stmt = $link->prepare("DELETE FROM products WHERE id IN ($product_ids_placeholder)");
+        $stmt->bind_param($types, ...$product_ids);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // 刪除使用者
     $stmt = $link->prepare("DELETE FROM author WHERE id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $stmt->close();
-    // 刪除對應作者的商品, 下面的留言
+
     echo "刪除使用者成功";
+    Header("Location: admin.php");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">

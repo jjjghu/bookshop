@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssss", $username, $hashed_password, $email, $phone);
 
     if ($stmt->execute()) {
-        echo "成功";
+        echo "註冊成功";
     } else {
         echo "註冊失敗: " . $stmt->error;
     }

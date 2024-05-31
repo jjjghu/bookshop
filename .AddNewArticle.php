@@ -48,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
         for ($i = 0; $i < count($_FILES['fileUpload']['tmp_name']); $i++) {
             if ($_FILES['fileUpload']['error'][$i] === UPLOAD_ERR_OK) {
                 // 獲取圖片資訊
-                $image_type = $_FILES['fileUpload']['type'][$i];
                 $tmp_name = $_FILES['fileUpload']['tmp_name'][$i];
                 $file_name = basename($_FILES['fileUpload']['name'][$i]);
 
@@ -58,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
                 // 將圖片移動到本機
                 if (move_uploaded_file($tmp_name, $target_file)) {
                     // 將路徑存到資料庫
-                    $stmt = $link->prepare("INSERT INTO product_images (product_id, image_type, image_path) VALUES (?, ?, ?)");
-                    $stmt->bind_param("iss", $product_id, $image_type, $target_file);
+                    $stmt = $link->prepare("INSERT INTO product_images (product_id, image_path) VALUES (?, ?)");
+                    $stmt->bind_param("is", $product_id, $target_file);
                     $stmt->execute();
                 } else {
                     echo "上傳失敗";
