@@ -65,7 +65,7 @@ $category_result = $link->query($category_query);
                     <div class="d-flex justify-content-end">
                         <div>
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">保存變更</button>
+                            <button type="submit" class="btn btn-primary">確認發布</button>
                         </div>
                     </div>
                 </form>

@@ -65,6 +65,27 @@ $(document).ready(function () {
                     maxlength: "手機號碼為10個數字"
                 }
             },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "admin.php",
+                    data: $(form).serialize(),
+                    type: "POST",
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#message").html(msg); // 顯示訊息
+                        // 等待兩秒 reset message
+                        setTimeout(function () {
+                            $("#message").html("");
+                            location.reload();
+                        }, 2000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                return false;
+            },
             errorPlacement: function (error, element) {
                 var errorId = element.attr("id") + "-err";
                 $('#' + errorId).html(error.text()); // 顯示錯誤訊息到<p>當中
@@ -81,7 +102,6 @@ $(document).ready(function () {
         if ($("#AddUserForm").valid()) { // 如果表單驗證通過，則提交表單
             $("#AddUserForm").submit();
         }
-        else console.log("validate Fail!");
     });
 });
 document.addEventListener('DOMContentLoaded', function () {

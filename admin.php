@@ -18,25 +18,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
     $hashed_password = isset($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : '';
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $is_admin = isset($_POST['is_admin']) ? 1 : 0; // 檢查是否選擇設定為管理員
+    $is_admin = isset($_POST['is_admin']) ? 1 : 0;
+
+    $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
+    $stmt = $link->prepare($check_sql);
+    $stmt->bind_param("ss", $username, $email); // 兩個問號分別取代變數
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 1) {
+        echo "<span class='text-danger'>使用者名稱或電子郵件已存在</span>";
+        exit();
+    }
 
     if (isset($_POST['user_id']) && $_POST['user_id'] != '') {
         // 更新使用者 (密碼不會更新, 表單上只是裝飾用)
         $user_id = $_POST['user_id'];
         $stmt = $link->prepare("UPDATE author SET username = ?, penName = ?, email = ?, phone = ?, is_admin = ? WHERE id = ?");
         $stmt->bind_param("ssssii", $username, $penName, $email, $phone, $is_admin, $user_id);
+        echo "<span class='text-success'>成功更新資訊</span>";
     } else {
         // 新增使用者
         $stmt = $link->prepare("INSERT INTO author (username, penName, password, email, phone, is_admin) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssi", $username, $penName, $hashed_password, $email, $phone, $is_admin);
+        echo "<span class='text-success'>成功新增使用者</span>";
     }
     $stmt->execute();
     $stmt->close();
 
-    echo "新增使用者成功";  
+
     exit();
 }
-
 // 處理刪除使用者
 if (isset($_GET['delete_user'])) {
     $user_id = $_GET['delete_user'];
@@ -145,7 +156,8 @@ if (isset($_GET['delete_user'])) {
                                 <div id="message" class="text-danger"></div>
                             </div>
 
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-between">
+                                <div id="message"></div>
                                 <div>
                                     <button type="button" class="btn btn-secondary me-2"
                                         data-bs-dismiss="modal">取消</button>
