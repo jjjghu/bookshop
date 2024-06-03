@@ -10,6 +10,20 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
 // 獲取所有使用者
 $query = "SELECT * FROM author";
 $result = $link->query($query);
+function ExecuteSQL($link, $sql, $param, $type, $count, $errorMsg)
+{
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param($type, $param);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > $count) {
+        echo "<span class='text-danger'>$errorMsg</span>";
+        $stmt->close();
+        exit();
+    }
+    $stmt->close();
+}
 
 // 處理新增和修改使用者
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
@@ -20,51 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
     $phone = $_POST['phone'];
     $is_admin = isset($_POST['is_admin']) ? 1 : 0;
 
-    // 檢查使用者名稱
-    $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
-    $stmt = $link->prepare($check_sql);
-    $stmt->bind_param("ss", $username, $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        echo "<span class='text-danger'>使用者名稱或電子郵件已存在</span>";
-        $stmt->close();
-        exit();
-    }
-    $stmt->close();
-    // 檢查手機號碼
-    $check_sql = "SELECT id FROM author WHERE phone = ?";
-    $stmt = $link->prepare($check_sql);
-    $stmt->bind_param("s", $phone);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        echo "<span class='text-danger'>手機號碼已被使用</span>";
-        $stmt->close();
-        exit();
-    }
-    $stmt->close();
-
-    // 筆名
-    $check_sql = "SELECT id FROM author WHERE penName = ?";
-    $stmt = $link->prepare($check_sql);
-    $stmt->bind_param("s", $penName);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        echo "<span class='text-danger'>筆名已被使用</span>";
-        $stmt->close();
-        exit();
-    }
-    $stmt->close();
-
-
-
     // 更新使用者資料
     if (isset($_POST['user_id']) && $_POST['user_id'] != '') {
+
+        ExecuteSQL($link, "SELECT id FROM author WHERE username = ?", $username, "s", 1, "使用者名稱已存在");
+        ExecuteSQL($link, "SELECT id FROM author WHERE email = ?", $email, "s", 1, "電子郵件已存在");
+        ExecuteSQL($link, "SELECT id FROM author WHERE phone = ?", $phone, "s", 1, "手機號碼已被使用");
+        ExecuteSQL($link, "SELECT id FROM author WHERE penName = ?", $penName, "s", 1, "筆名已被使用");
+
         // 更新使用者，不更新密碼
         $user_id = $_POST['user_id'];
         $stmt = $link->prepare("UPDATE author SET username = ?, penName = ?, email = ?, phone = ?, is_admin = ? WHERE id = ?");
@@ -76,6 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
         }
     } else {
         // 新增使用者
+        ExecuteSQL($link, "SELECT id FROM author WHERE username = ?", $username, "s", 0, "使用者名稱已存在");
+        ExecuteSQL($link, "SELECT id FROM author WHERE email = ?", $email, "s", 0, "電子郵件已存在");
+        ExecuteSQL($link, "SELECT id FROM author WHERE phone = ?", $phone, "s", 0, "手機號碼已被使用");
+        ExecuteSQL($link, "SELECT id FROM author WHERE penName = ?", $penName, "s", 0, "筆名已被使用");
+
         $stmt = $link->prepare("INSERT INTO author (username, penName, password, email, phone, is_admin) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssi", $username, $penName, $hashed_password, $email, $phone, $is_admin);
         if ($stmt->execute()) {
