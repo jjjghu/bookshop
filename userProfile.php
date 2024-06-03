@@ -44,6 +44,7 @@ if ($stmt->num_rows == 1) {
             <div class="col-md-4">
                 <div class="profile-header">
                     <div class="profile-info d-flex flex-column align-items-center mb-5">
+                        <img src="images/book.png" class="profile-image mb-2">
                         <div class="d-flex">
                             <h2 class="h4">
                                 <!-- 使用 session, 而不是搜尋結果 -->

@@ -11,35 +11,40 @@ if ($product_id > 0) {
                 a.penName AS author_name, 
                 a.bio AS author_bio, 
                 p.write_date, 
-                pc.description AS product_description, 
-                pc.content AS product_content 
+                pc.intro AS product_intro, 
+                pc.detail AS product_detail 
             FROM products p
             JOIN author a ON p.author_id = a.id
             JOIN product_contents pc ON p.id = pc.product_id
-            WHERE p.id = $product_id";
-    $result = $link->query($sql);
+            WHERE p.id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
 
         // 後兩位數都是 0 就只顯示整數
         $price = floatval($row['price']);
-        // 後兩位數都是 0 就只顯示整數
         $formatted_price = ($price == intval($price)) ? intval($price) : number_format($price, 2);
 
         $product_name = $row['product_name']; // 商品名稱
         $author_name = $row['author_name']; // 作者
         $author_bio = empty($row['author_bio']) ? '暫無簡介' : $row['author_bio'];
         $write_date = $row['write_date']; // 寫作時間
-        $product_description = nl2br($row['product_description']); // 商品介紹
-        $product_content = nl2br($row['product_content']); // 商品內容
+        $product_intro = nl2br($row['product_intro']); // 商品介紹 
+        $product_detail = nl2br($row['product_detail']); // 商品資訊 (詳細資料)
 
         // 查詢商品分類
         $sql_categories = "SELECT c.name AS category_name 
                            FROM categories c
                            JOIN product_category pc ON c.id = pc.category_id
-                           WHERE pc.product_id = $product_id";
-        $result_categories = $link->query($sql_categories);
+                           WHERE pc.product_id = ?";
+        $stmt_categories = $link->prepare($sql_categories);
+        $stmt_categories->bind_param("i", $product_id);
+        $stmt_categories->execute();
+        $result_categories = $stmt_categories->get_result();
         $categories = [];
         while ($row_category = $result_categories->fetch_assoc()) {
             $categories[] = $row_category['category_name'];
@@ -47,8 +52,11 @@ if ($product_id > 0) {
         $category_names = implode(', ', $categories);
 
         // 查詢商品圖片
-        $sql_images = "SELECT image_path FROM product_images WHERE product_id = $product_id";
-        $result_images = $link->query($sql_images);
+        $sql_images = "SELECT image_path FROM product_images WHERE product_id = ?";
+        $stmt_images = $link->prepare($sql_images);
+        $stmt_images->bind_param("i", $product_id);
+        $stmt_images->execute();
+        $result_images = $stmt_images->get_result();
         $images = [];
         while ($row_image = $result_images->fetch_assoc()) {
             $images[] = $row_image['image_path'];
@@ -58,6 +66,18 @@ if ($product_id > 0) {
         if (empty($images)) {
             $images[] = 'images/book_big.png';
         }
+
+        // 獲取留言
+        $sql_comments = "SELECT author_name, comment_date, content FROM product_comment WHERE product_id = ?";
+        $stmt_comments = $link->prepare($sql_comments);
+        $stmt_comments->bind_param("i", $product_id);
+        $stmt_comments->execute();
+        $result_comments = $stmt_comments->get_result();
+        $comments = [];
+        while ($row_comment = $result_comments->fetch_assoc()) {
+            $comments[] = $row_comment;
+        }
+
     } else {
         echo $result->num_rows == 0 ? "<div class='mt-10vh'>找不到商品資料</div>" : "<div class='mt-10vh'>找到多筆商品資料, 請確認ID是否正確</div>";
         exit;

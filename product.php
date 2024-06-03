@@ -79,52 +79,43 @@
                     <!-- table-content -->
                     <div class="tab-content mt-3">
                         <div class="tab-pane fade show active" id="content-intro">
-                            <p><?php echo $product_description ?></p>
+                            <p><?php echo $product_intro ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-details">
-                            <p><?php echo $product_content ?></p>
+                            <p><?php echo $product_detail ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-author">
                             <p><?php echo $author_bio ?> </p>
                         </div>
                         <div class="tab-pane fade" id="content-comments">
+                            <!-- Comment Input Section -->
                             <div class="comment-section">
-                                <div class="comment">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img src="images/book.png" class="comment-image me-2">
-                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
-                                        </div>
-                                        <span class="comment-time">17:57, 2024-05-20</span>
-                                    </div>
-                                    <p class="comment-content">
-                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
-                                    </p>
+                                <div class="d-flex">
+                                    <img src="images/book.png" class="comment-image me-2">
+                                    <input type="text" class="form-control" placeholder="輸入你的留言">
+                                    <button type="submit"
+                                        class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
                                 </div>
-                                <div class="comment">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img src="images/book.png" class="comment-image me-2">
-                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
+                            </div>
+                            <div class="comment-section">
+                                <?php foreach ($comments as $comment): ?>
+                                    <div class="comment">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <img src="images/book.png" class="comment-image me-2">
+                                                <span
+                                                    class="comment-username"><?php echo htmlspecialchars($comment['author_name']); ?>
+                                                </span>
+                                            </div>
+                                            <span
+                                                class="comment-time"><?php echo htmlspecialchars($comment['comment_date']); ?>
+                                            </span>
                                         </div>
-                                        <span class="comment-time">17:57, 2024-05-20</span>
+                                        <p class="comment-content">
+                                            <?php echo nl2br(htmlspecialchars($comment['content'])); ?>
+                                        </p>
                                     </div>
-                                    <p class="comment-content ">
-                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
-                                    </p>
-                                </div>
-                                <div class="comment">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img src="images/book.png" class="comment-image me-2">
-                                            <span class="comment-username">桂桂的鹹辣豆汁</span>
-                                        </div>
-                                        <span class="comment-time">17:57, 2024-05-20</span>
-                                    </div>
-                                    <p class="comment-content">
-                                        啊啊啊啊啊啊啊啊啊啊啊我要去我要去！
-                                    </p>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>

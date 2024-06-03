@@ -874,6 +874,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 9rem;
 }
 
+.profile-image {
+    border-radius: 50%;
+    padding: 0.25rem;
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--jjjghu-main);
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+    object-fit: contain;
+    object-position: center center;
+    border: 2px solid var(--jjjghu-grey);
+}
+
 /* 個人資料編輯結束 userProfile */
 /* admin.php 頁面開始 */
 #AddUserForm .mb-3 p {
@@ -917,8 +929,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .comment-image {
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 2.7rem;
+    height: 2.7rem;
     background-color: var(--jjjghu-main);
     /* shadow */
     box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
