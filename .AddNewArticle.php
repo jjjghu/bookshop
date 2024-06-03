@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
     $price = $_POST['price'];
     $author_id = $_POST['author_id'];
     $write_date = $_POST['write_date'];
-    $content = $_POST['content'];
-    $description = $_POST['description'];
+    $intro = $_POST['intro'];
+    $detail = $_POST['detail'];
     $category_id = $_POST['category_id'];
 
     // 插入商品資料
@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
     $stmt->close();
 
     // 插入商品內容
-    $stmt = $link->prepare("INSERT INTO product_contents (product_id, content, description) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $product_id, $content, $description);
+    $stmt = $link->prepare("INSERT INTO product_contents (product_id, intro, detail) VALUES (?, ?, ?)");
+    $stmt->bind_param("iss", $product_id, $intro, $detail);
     $stmt->execute();
     $stmt->close();
 

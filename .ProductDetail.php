@@ -9,8 +9,8 @@ if ($product_id > 0) {
                 a.penName AS author_name, 
                 a.bio AS author_bio, 
                 p.write_date, 
-                pc.intro AS product_intro, 
-                pc.detail AS product_detail 
+                pc.intro AS intro, 
+                pc.detail AS detail 
             FROM products p
             JOIN author a ON p.author_id = a.id
             JOIN product_contents pc ON p.id = pc.product_id
@@ -31,8 +31,8 @@ if ($product_id > 0) {
         $author_name = $row['author_name']; // 作者
         $author_bio = empty($row['author_bio']) ? '暫無簡介' : $row['author_bio'];
         $write_date = $row['write_date']; // 寫作時間
-        $product_intro = nl2br($row['product_intro']); // 商品介紹 
-        $product_detail = nl2br($row['product_detail']); // 商品資訊 (詳細資料)
+        $product_intro = nl2br($row['intro']); // 商品介紹 
+        $product_detail = nl2br($row['detail']); // 商品資訊 (詳細資料)
 
         // 查詢商品分類
         $sql_categories = "SELECT c.name AS category_name 
@@ -66,7 +66,7 @@ if ($product_id > 0) {
         }
 
         // 獲取留言
-        $sql_comments = "SELECT id, author_name, comment_date, content FROM product_comment WHERE product_id = ?";
+        $sql_comments = "SELECT id, author_name, author_id, comment_date, content FROM product_comment WHERE product_id = ?";
         $stmt_comments = $link->prepare($sql_comments);
         $stmt_comments->bind_param("i", $product_id);
         $stmt_comments->execute();

@@ -88,40 +88,48 @@
                             <p><?php echo $author_bio ?> </p>
                         </div>
                         <div class="tab-pane fade" id="content-comments">
-                            <!-- Comment Input Section -->
-                            <form id="commentForm" method="post" class="comment-section">
-                                <div class="d-flex">
-                                    <img src="images/book.png" class="comment-image me-2">
-                                    <input type="text" name="comment" class="form-control" placeholder="輸入你的留言"
-                                        required>
-                                    <button type="submit"
-                                        class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
-                                </div>
-                            </form>
-                            <div class="comment-section" id="comments">
-                                <?php foreach ($comments as $comment): ?>
-                                    <div class="comment" data-comment-id="<?php echo $comment['id']; ?>">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <img src="images/book.png" class="comment-image me-2">
-                                                <span
-                                                    class="comment-username"><?php echo htmlspecialchars($comment['author_name']); ?></span>
-                                            </div>
-                                            <span
-                                                class="comment-time"><?php echo htmlspecialchars($comment['comment_date']); ?></span>
-                                        </div>
-                                        <div class="d-flex justify-content-between comment-content">
-                                            <p>
-                                                <?php echo nl2br(htmlspecialchars($comment['content'])); ?>
-                                            </p>
-                                            <div>
-                                                <i class='bx bxs-edit edit-comment'></i>
-                                                <i class='bx bx-x delete-comment'></i>
-                                            </div>
-                                        </div>
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <form id="commentForm" method="post" class="comment-section">
+                                    <div class="d-flex">
+                                        <img src="images/book.png" class="comment-image me-2">
+                                        <input type="text" name="comment" class="form-control" placeholder="輸入你的留言"
+                                            required>
+                                        <button type="submit"
+                                            class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
                                     </div>
-                                <?php endforeach; ?>
-                            </div>
+                                </form>
+                                <div class="comment-section" id="comments">
+                                    <?php foreach ($comments as $comment): ?>
+                                        <div class="comment" data-comment-id="<?php echo $comment['id']; ?>">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="images/book.png" class="comment-image me-2">
+                                                    <span
+                                                        class="comment-username"><?php echo htmlspecialchars($comment['author_name']); ?></span>
+                                                </div>
+                                                <span
+                                                    class="comment-time"><?php echo htmlspecialchars($comment['comment_date']); ?></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between comment-content">
+                                                <p>
+                                                    <?php echo nl2br(htmlspecialchars($comment['content'])); ?>
+                                                </p>
+                                                <!-- 管理員和留言的人才可以編輯 -->
+                                                <?php if ($_SESSION['user_id'] == $comment['author_id'] || $_SESSION['is_admin'] == 1): ?>
+                                                    <div>
+                                                        <i class="bx bxs-edit edit-comment"></i>
+                                                        <i class="bx bx-x delete-comment"></i>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="login.php" class="btn btn-primary">登入</a>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                     </div>

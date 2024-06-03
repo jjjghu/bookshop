@@ -114,7 +114,19 @@ if (isset($_GET['delete_user'])) {
         $stmt->bind_param($types, ...$product_ids);
         $stmt->execute();
         $stmt->close();
+
+        // 刪除商品的留言
+        $stmt = $link->prepare("DELETE FROM product_comment WHERE product_id IN ($product_ids_placeholder)");
+        $stmt->bind_param($types, ...$product_ids);
+        $stmt->execute();
+        $stmt->close();
     }
+
+    // 刪除使用者留下的留言
+    $stmt = $link->prepare("DELETE FROM product_comment WHERE author_id = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $stmt->close();
 
     // 刪除使用者
     $stmt = $link->prepare("DELETE FROM author WHERE id = ?");

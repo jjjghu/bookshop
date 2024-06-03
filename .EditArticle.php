@@ -20,11 +20,11 @@ $category_result = $link->query($category_query);
                             required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="articleContent" name="content" rows="20"
+                        <textarea class="form-control" id="articleContent" name="intro" rows="20"
                             placeholder="內容簡介"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="description" name="description" rows="5" placeholder="詳細資料"
+                        <textarea class="form-control" id="description" name="detail" rows="5" placeholder="詳細資料"
                             required></textarea>
                     </div>
                     <div class="row mb-3">

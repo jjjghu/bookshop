@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($comment) && $product_id > 0) {
         $author_name = $_SESSION['username'];
+        $author_id = $_SESSION['user_id'];
         $comment_date = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO product_comment (product_id, content, author_name, comment_date) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO product_comment (product_id, content, author_name, author_id, comment_date) VALUES (?, ?, ?, ?, ?)";
         $stmt = $link->prepare($sql);
-        $stmt->bind_param("isss", $product_id, $comment, $author_name, $comment_date);
+        $stmt->bind_param("issss", $product_id, $comment, $author_name, $author_id, $comment_date);
 
         if ($stmt->execute()) {
             $comment_id = $stmt->insert_id;
@@ -24,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'id' => $comment_id,
                     'author_name' => htmlspecialchars($author_name),
                     'comment_date' => htmlspecialchars($comment_date),
-                    'content' => nl2br(htmlspecialchars($comment))
+                    'content' => nl2br(htmlspecialchars($comment)),
+                    'author_id' => htmlspecialchars($author_id)
                 ]
             ];
         } else {

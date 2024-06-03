@@ -9,7 +9,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    include '.Name_mail_check.php';
+
+    $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
+    $stmt = $link->prepare($check_sql);
+    $stmt->bind_param("ss", $username, $email); // 兩個問號分別取代變數
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        echo "使用者名稱或電子郵件已存在";
+        exit();
+    }
     // 插入資料
     $sql = "INSERT INTO author (username, password, email, phone) VALUES (?, ?, ?, ?)";
     $stmt = $link->prepare($sql);
