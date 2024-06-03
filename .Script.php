@@ -8,4 +8,3 @@
 <script src="js/.Header.js"></script>
 <script src="js/.Slider.js"></script>
 <script src="js/.Register.js"></script>
-<script src="js/.Login.js"></script>

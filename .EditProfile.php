@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt->execute();
     $stmt->close();
-    $_SESSION['username'] = $username; // 更新 username 值'
+    $_SESSION['username'] = $username; // 更新 username 值
     $_SESSION['penName'] = $penName; // 紀錄筆名
     echo "<span class='text-success'>更新成功!</span>";
     exit;

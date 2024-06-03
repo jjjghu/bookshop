@@ -66,7 +66,7 @@ if ($product_id > 0) {
         }
 
         // 獲取留言
-        $sql_comments = "SELECT author_name, comment_date, content FROM product_comment WHERE product_id = ?";
+        $sql_comments = "SELECT id, author_name, comment_date, content FROM product_comment WHERE product_id = ?";
         $stmt_comments = $link->prepare($sql_comments);
         $stmt_comments->bind_param("i", $product_id);
         $stmt_comments->execute();

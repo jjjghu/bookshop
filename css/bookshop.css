@@ -16,6 +16,10 @@ a {
     cursor: pointer;
 }
 
+p {
+    margin-bottom: 0 !important;
+}
+
 /* 色彩設定開始 */
 :root {
     /* 色彩設定 */
@@ -945,6 +949,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .comment-header {
     display: flex;
     align-items: center;
+}
+
+.edit-comment::before,
+.delete-comment::before,
+.cancel-edit::before,
+.save-comment::before {
+    font-size: 1.3rem;
+}
+
+.edit-comment:hover::before,
+.delete-comment:hover::before,
+.cancel-edit:hover::before,
+.save-comment:hover::before {
+    color: var(--jjjghu-highlight);
+}
+
+.edit-textarea {
+    max-height: 1rem;
 }
 
 /* 留言區結束 */

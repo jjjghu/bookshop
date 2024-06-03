@@ -47,5 +47,6 @@
     <!-- footer結束 -->
 </body>
 <?php include '.Script.php'; ?>
+<script src="js/.Login.js"></script>
 
 </html>
