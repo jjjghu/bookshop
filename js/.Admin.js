@@ -19,7 +19,7 @@ $(document).ready(function () {
                 penName:
                 {
                     required: true,
-                    maxlength: 10
+                    maxlength: 16
                 },
                 password: {
                     required: true,
@@ -76,7 +76,10 @@ $(document).ready(function () {
                         // 等待兩秒 reset message
                         setTimeout(function () {
                             $("#message").html("");
-                            location.reload();
+                            if (msg.includes("成功")) {
+                                console.log(msg);
+                                location.reload();
+                            }
                         }, 2000);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {

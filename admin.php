@@ -20,34 +20,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
     $phone = $_POST['phone'];
     $is_admin = isset($_POST['is_admin']) ? 1 : 0;
 
+    // 檢查使用者名稱
     $check_sql = "SELECT id FROM author WHERE username = ? OR email = ?";
     $stmt = $link->prepare($check_sql);
-    $stmt->bind_param("ss", $username, $email); // 兩個問號分別取代變數
+    $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
-    if ($stmt->num_rows > 1) {
+
+    if ($stmt->num_rows > 0) {
         echo "<span class='text-danger'>使用者名稱或電子郵件已存在</span>";
+        $stmt->close();
         exit();
     }
+    $stmt->close();
+    // 檢查手機號碼
+    $check_sql = "SELECT id FROM author WHERE phone = ?";
+    $stmt = $link->prepare($check_sql);
+    $stmt->bind_param("s", $phone);
+    $stmt->execute();
+    $stmt->store_result();
 
+    if ($stmt->num_rows > 0) {
+        echo "<span class='text-danger'>手機號碼已被使用</span>";
+        $stmt->close();
+        exit();
+    }
+    $stmt->close();
+
+    // 筆名
+    $check_sql = "SELECT id FROM author WHERE penName = ?";
+    $stmt = $link->prepare($check_sql);
+    $stmt->bind_param("s", $penName);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        echo "<span class='text-danger'>筆名已被使用</span>";
+        $stmt->close();
+        exit();
+    }
+    $stmt->close();
+
+
+
+    // 更新使用者資料
     if (isset($_POST['user_id']) && $_POST['user_id'] != '') {
-        // 更新使用者 (密碼不會更新, 表單上只是裝飾用)
+        // 更新使用者，不更新密碼
         $user_id = $_POST['user_id'];
         $stmt = $link->prepare("UPDATE author SET username = ?, penName = ?, email = ?, phone = ?, is_admin = ? WHERE id = ?");
         $stmt->bind_param("ssssii", $username, $penName, $email, $phone, $is_admin, $user_id);
-        echo "<span class='text-success'>成功更新資訊</span>";
+        if ($stmt->execute()) {
+            echo "<span class='text-success'>成功更新資訊</span>";
+        } else {
+            echo "<span class='text-danger'>更新失敗</span>";
+        }
     } else {
         // 新增使用者
         $stmt = $link->prepare("INSERT INTO author (username, penName, password, email, phone, is_admin) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssi", $username, $penName, $hashed_password, $email, $phone, $is_admin);
-        echo "<span class='text-success'>成功新增使用者</span>";
+        if ($stmt->execute()) {
+            echo "<span class='text-success'>成功新增使用者</span>";
+        } else {
+            echo "<span class='text-danger'>新增失敗</span>";
+        }
     }
-    $stmt->execute();
     $stmt->close();
-
-
     exit();
 }
+
 // 處理刪除使用者
 if (isset($_GET['delete_user'])) {
     $user_id = $_GET['delete_user'];
