@@ -1,8 +1,6 @@
 <?php
 include '.LinkSql.php';
-
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
 if ($product_id > 0) {
     // 查詢商品基本資訊和內容
     $sql = "SELECT 
@@ -77,7 +75,10 @@ if ($product_id > 0) {
         while ($row_comment = $result_comments->fetch_assoc()) {
             $comments[] = $row_comment;
         }
-
+        $stmt->close();
+        $stmt_categories->close();
+        $stmt_images->close();
+        $stmt_comments->close();
     } else {
         echo $result->num_rows == 0 ? "<div class='mt-10vh'>找不到商品資料</div>" : "<div class='mt-10vh'>找到多筆商品資料, 請確認ID是否正確</div>";
         exit;

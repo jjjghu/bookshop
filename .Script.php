@@ -6,5 +6,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!--自定義js連結 -->
 <script src="js/.Header.js"></script>
-<script src="js/.Register.js"></script>
 <script src="js/.Slider.js"></script>
+<script src="js/.Register.js"></script>
+<script src="js/.Login.js"></script>

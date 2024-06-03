@@ -89,14 +89,14 @@
                         </div>
                         <div class="tab-pane fade" id="content-comments">
                             <!-- Comment Input Section -->
-                            <div class="comment-section">
+                            <form id="commentForm" method="post" class="comment-section">
                                 <div class="d-flex">
                                     <img src="images/book.png" class="comment-image me-2">
-                                    <input type="text" class="form-control" placeholder="輸入你的留言">
+                                    <input type="text" name="comment" class="form-control" placeholder="輸入你的留言">
                                     <button type="submit"
                                         class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
                                 </div>
-                            </div>
+                            </form>
                             <div class="comment-section">
                                 <?php foreach ($comments as $comment): ?>
                                     <div class="comment">
@@ -125,13 +125,7 @@
         </div>
     </main>
     <!-- 一個可透過按鈕選取要查看的內容, 內容簡介, 詳細資料, 作者介紹, 留言區  -->
-
     <?php include '.Footer.php'; ?>
-    <style>
-        input {
-            color-scheme: auto;
-        }
-    </style>
 </body>
 
 </html>
