@@ -403,6 +403,13 @@ input[type="number"]::-webkit-outer-spin-button {
     height: auto;
 }
 
+.preview-product {
+    border-bottom: 1px solid var(--jjjghu-card-hover);
+}
+
+.preview-product:first-child {
+    border-top: 1px solid var(--jjjghu-card-hover);
+}
 
 #product-list {
     /* 填滿所有區域 */

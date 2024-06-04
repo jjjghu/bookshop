@@ -61,24 +61,24 @@ if (session_status() == PHP_SESSION_NONE) {
                                         $quantity = 1;
                                         $pre_products = [
                                             ['name' => '關於我為甚麼變成勇者之後拿著一把玩具刀亂砍義大利麵的起因與後續', 'image' => 'images/book.png', 'price' => '123.00', 'quantity' => 1],
-                                            ['name' => '廢線彼端的人造神明', 'image' => 'images\book.png', 'price' => '123.00', 'quantity' => 1],
-                                            ['name' => '玻璃彈珠都是貓的眼睛', 'image' => 'images\book.png', 'price' => '55688.00', 'quantity' => 1],
-                                            ['name' => '大話設計模式', 'image' => 'images\book.png', 'price' => '9527.00', 'quantity' => 20],
-                                            ['name' => '奧本海默', 'image' => 'images\book.png', 'price' => '9527.00', 'quantity' => 1],
-                                            ['name' => '擇天記', 'image' => 'images\book.png', 'price' => '500.00', 'quantity' => 1],
-                                            ['name' => '有關星神的二三事', 'image' => 'images\book.png', 'price' => '9527.00', 'quantity' => 1],
-                                            ['name' => '物種起源', 'image' => 'images\book.png', 'price' => '42.00', 'quantity' => 1],
-                                            ['name' => '三體', 'image' => 'images\book.png', 'price' => '32.00', 'quantity' => 1],
-                                            ['name' => '發呆改變世界', 'image' => 'images\book.png', 'price' => '777.00', 'quantity' => 1],
-                                            ['name' => '我的小鯊魚', 'image' => 'images\book.png', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '最幸福的人', 'image' => 'images\book.png', 'price' => '99.00', 'quantity' => 1],
-                                            ['name' => '為甚麼你總是學不會?', 'image' => 'images\book.png', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '我的小鯊魚', 'image' => 'images\book.png', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '銀河鐵道之夜', 'image' => 'images\book.png', 'price' => '22.00', 'quantity' => 1]
+                                            ['name' => '廢線彼端的人造神明', 'price' => '123.00', 'quantity' => 1],
+                                            ['name' => '玻璃彈珠都是貓的眼睛', 'price' => '55688.00', 'quantity' => 1],
+                                            ['name' => '大話設計模式', 'price' => '9527.00', 'quantity' => 20],
+                                            ['name' => '奧本海默', 'price' => '9527.00', 'quantity' => 1],
+                                            ['name' => '擇天記', 'price' => '500.00', 'quantity' => 1],
+                                            ['name' => '有關星神的二三事', 'price' => '9527.00', 'quantity' => 1],
+                                            ['name' => '物種起源', 'price' => '42.00', 'quantity' => 1],
+                                            ['name' => '三體', 'price' => '32.00', 'quantity' => 1],
+                                            ['name' => '發呆改變世界', 'price' => '777.00', 'quantity' => 1],
+                                            ['name' => '我的小鯊魚', 'price' => '22.00', 'quantity' => 1],
+                                            ['name' => '最幸福的人', 'price' => '99.00', 'quantity' => 1],
+                                            ['name' => '為甚麼你總是學不會?', 'price' => '22.00', 'quantity' => 1],
+                                            ['name' => '我的小鯊魚', 'price' => '22.00', 'quantity' => 1],
+                                            ['name' => '銀河鐵道之夜', 'price' => '22.00', 'quantity' => 1]
                                         ];
                                         ?>
                                         <?php foreach ($pre_products as $product): ?>
-                                            <div class="preview-product py-3">
+                                            <div class="preview-product pt-3">
                                                 <!-- 數量和價格 -->
                                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                                     <div class="w-75">

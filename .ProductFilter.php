@@ -33,8 +33,8 @@ if ($result->num_rows > 0) {
         $products[] = [
             "id" => $row['id'],
             "name" => $row['product_name'],
-            "image" => $row['image'] ? $row['image'] : "https://via.placeholder.com/150",
-            // "image" => $row['image'] ? $row['image'] : "images/book_big.png",
+            // "image" => $row['image'] ? $row['image'] : "https://via.placeholder.com/150",
+            "image" => $row['image'] ? $row['image'] : "images/book_big.png",
             "price" => "$" . $formatted_price
         ];
     }

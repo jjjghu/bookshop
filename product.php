@@ -77,7 +77,7 @@
                         </li>
                     </ul>
                     <!-- table-content -->
-                    <div class="tab-content mt-3">
+                    <div class="tab-content my-3">
                         <div class="tab-pane fade show active" id="content-intro">
                             <p><?php echo $product_intro ?></p>
                         </div>
