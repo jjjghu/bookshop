@@ -106,6 +106,32 @@ $(document).ready(function () {
             $("#AddUserForm").submit();
         }
     });
+    // dataTable
+    $('#UserTable').DataTable({
+        "ajax": ".dataTable_ajax.php",
+        "columns": [
+            { "data": "id" },
+            { "data": "username" },
+            { "data": "penName" },
+            { "data": "email" },
+            { "data": "phone" },
+            { "data": "actions" }
+        ],
+        "language": {
+            "lengthMenu": "顯示 _MENU_ 筆資料", // 客製化顯示文字
+            "zeroRecords": "沒有找到符合的資料",
+            "info": "顯示第 _PAGE_ 頁，共 _PAGES_ 頁",
+            "infoEmpty": "沒有可用的資料",
+            "infoFiltered": "(從 _MAX_ 條資料中篩選)",
+            "search": "搜尋:",
+            "paginate": {
+                "first": "第一頁",
+                "last": "最後一頁",
+                "next": "下一頁",
+                "previous": "上一頁"
+            }
+        }
+    });
 });
 document.addEventListener('DOMContentLoaded', function () {
     const addUserModal = document.getElementById('AddUserModal');

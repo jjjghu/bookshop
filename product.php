@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品頁面</title>
     <?php include '.Style.php' ?>
-    <?php include '.LinkSql.php'; ?>
 </head>
 <?php include '.Theme.php'; ?>
 
@@ -98,6 +97,7 @@
                                             class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
                                     </div>
                                 </form>
+                                <!-- 留言區塊 -->
                                 <div class="comment-section" id="comments">
                                     <?php foreach ($comments as $comment): ?>
                                         <div class="comment" data-comment-id="<?php echo $comment['id']; ?>">
@@ -111,9 +111,7 @@
                                                     class="comment-time"><?php echo htmlspecialchars($comment['comment_date']); ?></span>
                                             </div>
                                             <div class="d-flex justify-content-between comment-content">
-                                                <p>
-                                                    <?php echo nl2br(htmlspecialchars($comment['content'])); ?>
-                                                </p>
+                                                <p><?php echo nl2br(htmlspecialchars($comment['content'])); ?></p>
                                                 <!-- 管理員和留言的人才可以編輯 -->
                                                 <?php if ($_SESSION['user_id'] == $comment['author_id'] || $_SESSION['is_admin'] == 1): ?>
                                                     <div>
@@ -149,7 +147,8 @@
             e.preventDefault();
 
             var comment = $('input[name="comment"]').val();
-            var productId = <?php echo $product_id; ?>;
+            var productId = <?php echo $product_id; ?>; // 獲取網址當中的 ?id=
+            // params.get('id')
             // 新增留言
             $.ajax({
                 url: 'add_comment.php',
@@ -198,7 +197,7 @@
                 '</div>'
             );
         });
-
+        // 存下留言
         $(document).on('click', '.save-comment', function () {
             var commentDiv = $(this).closest('.comment');
             var commentId = commentDiv.data('comment-id');
@@ -229,7 +228,7 @@
                 });
             }
         });
-
+        // 取消留言
         $(document).on('click', '.cancel-edit', function () {
             var commentDiv = $(this).closest('.comment');
             var originalContent = commentDiv.find('.edit-textarea').text();
@@ -245,7 +244,6 @@
         $(document).on('click', '.delete-comment', function () {
             var commentDiv = $(this).closest('.comment');
             var commentId = commentDiv.data('comment-id');
-
             if (confirm('確定要刪除這則留言嗎？')) {
                 $.ajax({
                     url: 'delete_comment.php',
@@ -267,9 +265,7 @@
         });
     });
 </script>
-
-</html>
-
+<!-- <script src="js/.comment_CRUD.js"></script> -->
 <!-- 
 作者： 貓膩
 出版社：人民文學出版社
@@ -289,6 +285,5 @@ ISBN：9787020127238
 Footer
  -->
 </body>
-<?php include '.Script.php' ?>
 
 </html>
