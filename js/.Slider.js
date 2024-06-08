@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 開始自動播放, 設定微 3000ms 
     function startAutoPlay() {
-        console.log('start auto play');
+        // console.log('start auto play');
         autoPlayInterval = setInterval(goToNextSlide, 3000);
     }
 
     // 停止自動播放
     function stopAutoPlay() {
-        console.log('stopAutoPlay');
+        // console.log('stopAutoPlay');
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
             autoPlayInterval = null;  // 清除 autoPlayInterval

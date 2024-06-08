@@ -6,6 +6,31 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit();
 }
+include '.LinkSql.php';
+
+$products = [];
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // 獲取購物車資料
+    $sql = "SELECT p.product_name, p.price, c.quantity, (SELECT image_path FROM product_images WHERE product_id = p.id LIMIT 1) AS image 
+            FROM cart c 
+            JOIN products p ON c.product_id = p.id 
+            WHERE c.user_id = ?";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+
+    $stmt->close();
+}
+$link->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,38 +53,19 @@ if (!isset($_SESSION['username'])) {
             <!-- 商品列表 -->
             <div class="col-md-8">
                 <h2>購物車</h2>
-                <?php
-                $quantity = 1;
-                $imageLink = "images/book_big.png";
-                $pre_products = [
-                    ['name' => '關於我為甚麼變成勇者之後拿著一把玩具刀亂砍義大利麵的起因與後續', 'image' => $imageLink, 'price' => '123.00', 'quantity' => 1],
-                    ['name' => '廢線彼端的人造神明', 'image' => $imageLink, 'price' => '123.00', 'quantity' => 1],
-                    ['name' => '玻璃彈珠都是貓的眼睛', 'image' => $imageLink, 'price' => '55688.00', 'quantity' => 1],
-                    ['name' => '大話設計模式', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 20],
-                    ['name' => '奧本海默', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 1],
-                    ['name' => '擇天記', 'image' => $imageLink, 'price' => '500.00', 'quantity' => 1],
-                    ['name' => '有關星神的二三事', 'image' => $imageLink, 'price' => '9527.00', 'quantity' => 1],
-                    ['name' => '物種起源', 'image' => $imageLink, 'price' => '42.00', 'quantity' => 1],
-                    ['name' => '三體', 'image' => $imageLink, 'price' => '3.333', 'quantity' => 1],
-                    ['name' => '發呆改變世界', 'image' => $imageLink, 'price' => '777.00', 'quantity' => 1],
-                    ['name' => '我的小鯊魚', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1],
-                    ['name' => '最幸福的人', 'image' => $imageLink, 'price' => '99.00', 'quantity' => 1],
-                    ['name' => '為甚麼你總是學不會?', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1],
-                    ['name' => '銀河鐵道之夜', 'image' => $imageLink, 'price' => '22.00', 'quantity' => 1]
-                ];
-                ?>
-                <?php foreach ($pre_products as $product): ?>
+                <?php foreach ($products as $product): ?>
                     <div class="preview-product card m-3 shopping-cart">
                         <div class="row g-0">
                             <div class="d-flex align-items-center m-3">
-                                <img src="<?php echo $product['image']; ?>" class="preview-image">
+                                <img src="<?php echo $product['image'];  ?>" class="preview-image">
                                 <div class="flex-grow-1 ms-3">
                                     <div class="card-body shopping-cart w-75">
                                         <h5 class="card-title clamp-lines">
-                                            <?php echo $product['name']; ?>
+                                            <?php echo htmlspecialchars($product['product_name']); ?>
                                         </h5>
                                         <p class="card-text product-price" data-price="<?php echo $product['price']; ?>">
-                                            $<?php echo $product['price'] * $product['quantity']; ?></p>
+                                            $<?php echo htmlspecialchars(number_format($product['price'] * $product['quantity'], 2)); ?>
+                                        </p>
                                         <div class="btn-group" role="group" aria-label="Quantity">
                                             <button type="button" class="btn btn-secondary decrement">-</button>
                                             <input min="0" value='<?php echo $product['quantity']; ?>' type='number'
@@ -79,30 +85,29 @@ if (!isset($_SESSION['username'])) {
                 <ul class="list-group mt-3" id="summary-list">
                     <?php
                     $total = 0;
-                    foreach ($pre_products as $product):
+                    foreach ($products as $product):
                         $productTotal = $product['price'] * $product['quantity'];
                         $total += $productTotal;
                         ?>
                         <li class="list-group-item d-flex justify-content-between lh-sm ">
                             <div class="w-75">
-                                <h6 class="my-0 clamp-lines"><?php echo $product['name']; ?></h6>
+                                <h6 class="my-0 clamp-lines"><?php echo htmlspecialchars($product['product_name']); ?></h6>
                             </div>
 
                             <span class="text-muted product-total w-25" data-price="<?php echo $product['price']; ?>">$
-                                <?php echo $productTotal; ?>
+                                <?php echo htmlspecialchars(number_format($productTotal, 2)); ?>
                             </span>
                         </li>
                     <?php endforeach; ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <h5><strong><span class="text-orange">總計</span></strong></h5>
-                        <h5><strong class="text-orange  w-25">$<span
-                                    id="total-price"><?php echo $total; ?></span></strong>
+                        <h5><strong class="text-orange w-25">$<span
+                                    id="total-price"><?php echo number_format($total, 2); ?></span></strong>
                         </h5>
                     </li>
                 </ul>
                 <button class="btn btn-success btn-lg btn-block mt-3 w-100">結帳</button>
             </div>
-
         </div>
     </main>
     <!-- 主要頁面內容結束 -->

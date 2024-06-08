@@ -2,6 +2,27 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+include '.LinkSql.php';
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // 獲取購物車資料
+    $sql = "SELECT p.id, p.product_name, p.price, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = ?";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+    $stmt->close();
+    $link->close();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -18,7 +39,6 @@ if (session_status() == PHP_SESSION_NONE) {
         <!-- 顯示當前登入的人, 連結到 userProfile -->
         <a class='userProfile' id="userProfile" href="userProfile.php"><?php if (isset($_SESSION['username']))
             echo $_SESSION['username'] ?></a>
-
             <i class='bx bx-moon bx-rotate-270 themeIcon' id="themeIcon"></i>
             <!-- 標題橫條開始 -->
             <nav id="title-navbar" class="navbar navbar-expand-lg justify-content-between align-items-center fixed-top">
@@ -57,36 +77,17 @@ if (session_status() == PHP_SESSION_NONE) {
                                     <!-- 商品列表開始 -->
                                     <div id='product-list'>
                                         <!-- 商品資訊開始 -->
-                                        <?php
-                                        $quantity = 1;
-                                        $pre_products = [
-                                            ['name' => '關於我為甚麼變成勇者之後拿著一把玩具刀亂砍義大利麵的起因與後續', 'image' => 'images/book.png', 'price' => '123.00', 'quantity' => 1],
-                                            ['name' => '廢線彼端的人造神明', 'price' => '123.00', 'quantity' => 1],
-                                            ['name' => '玻璃彈珠都是貓的眼睛', 'price' => '55688.00', 'quantity' => 1],
-                                            ['name' => '大話設計模式', 'price' => '9527.00', 'quantity' => 20],
-                                            ['name' => '奧本海默', 'price' => '9527.00', 'quantity' => 1],
-                                            ['name' => '擇天記', 'price' => '500.00', 'quantity' => 1],
-                                            ['name' => '有關星神的二三事', 'price' => '9527.00', 'quantity' => 1],
-                                            ['name' => '物種起源', 'price' => '42.00', 'quantity' => 1],
-                                            ['name' => '三體', 'price' => '32.00', 'quantity' => 1],
-                                            ['name' => '發呆改變世界', 'price' => '777.00', 'quantity' => 1],
-                                            ['name' => '我的小鯊魚', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '最幸福的人', 'price' => '99.00', 'quantity' => 1],
-                                            ['name' => '為甚麼你總是學不會?', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '我的小鯊魚', 'price' => '22.00', 'quantity' => 1],
-                                            ['name' => '銀河鐵道之夜', 'price' => '22.00', 'quantity' => 1]
-                                        ];
-                                        ?>
-                                        <?php foreach ($pre_products as $product): ?>
-                                            <div class="preview-product pt-3">
+                                        <?php foreach ($products as $product): ?>
+                                            <div class="preview-product pt-3 ">
                                                 <!-- 數量和價格 -->
                                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                                     <div class="w-75">
                                                         <span
-                                                            class=".clamp-lines me-3 clamp-lines"><?php echo $product['name']; ?></span>
+                                                            class=".clamp-lines me-3 clamp-lines"><?php echo htmlspecialchars($product['product_name']); ?></span>
                                                     </div>
-                                                    <div class='me-3 productPrice w-25'>
-                                                        $<?php echo $product['price'] * $product['quantity'] ?>
+                                                    <div class='me-3 w-25'>
+                                                        $<span class="productPrice"
+                                                            data-product-id='<?php echo $product['id']; ?>'><?php echo htmlspecialchars(number_format($product['price'] * $product['quantity'])); ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -94,8 +95,15 @@ if (session_status() == PHP_SESSION_NONE) {
                                         <!-- 商品資訊結束 -->
                                     </div>
                                     <!-- 商品列表結束 -->
-                                    <div class='mt-3' id='productSum'>總價格:</div>
-                                    <a href="shoppingcart.php" class='btn btn-success mt-3'>結帳</a>
+                                    <div class='mt-3'>總價格:
+                                        $<span id='productSum'><?php
+                                        $total_price = array_reduce($products, function ($sum, $product) {
+                                            return $sum + $product['price'] * $product['quantity'];
+                                        }, 0);
+                                        echo number_format($total_price, 0);
+                                        ?></span>
+                                    </div>
+                                    <a href=" shoppingcart.php" class='btn btn-success mt-3'>結帳</a>
                                 </div>
                                 <!-- 購物車預覽頁面結束 -->
                             </li>

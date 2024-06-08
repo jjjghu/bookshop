@@ -1,4 +1,5 @@
 <?php
+include '.LinkSql.php';
 // 獲取所有分類
 $category_query = "SELECT * FROM categories";
 $category_result = $link->query($category_query);

@@ -8,9 +8,6 @@
     <!-- 樣式 -->
     <?php include '.Style.php' ?>
     <!-- 連結資料庫 -->
-    <?php include '.LinkSql.php'; ?>
-    <!-- 搜尋資料 -->
-    <?php include '.ProductFilter.php'; ?>
 </head>
 <!-- 主題切換 -->
 <?php include '.Theme.php'; ?>
@@ -18,6 +15,8 @@
 <body class=<?php echo $theme ?>>
     <!-- 標題橫條 + 切換按鈕 -->
     <?php include '.Header.php'; ?>
+    <!-- 搜尋資料, 需要放在.Header後面, 因為它有購物車 -->
+    <?php include '.ProductFilter.php'; ?>
     <!-- 主要頁面內容開始 -->
     <main>
         <section>
@@ -86,16 +85,16 @@
                                     class='card-link text-decoration-none text-primary'>
                                     <div class='card mb-3 d-flex flex-column'>
                                         <img src='<?php echo $product["image"]; ?>' class='card-img-top' alt='Product Image'>
-                                        <!-- 確保價格放在最低處, 就算文字過長也一樣 -->
                                         <div class='card-body d-flex flex-column'>
                                             <h5 class='card-title text-Nmain clamp-lines mb-auto'>
                                                 <?php echo htmlspecialchars($product["name"]); ?>
                                             </h5>
-                                            <!-- 購物車按鈕將物品加入購物車, 而不是 product, 使用 javascript 避免回到頁首-->
-                                            <a class='cart-link' href="#">
+                                            <a class='cart-link' href="#" data-product-id="<?php echo $product["id"]; ?>"
+                                                data-product-name="<?php echo htmlspecialchars($product["name"]); ?>"
+                                                data-product-price="<?php echo $product["price"]; ?>">
                                                 <button class='btn cart' aria-label='購物車圖示'><i class='bi bi-cart'></i></button>
                                             </a>
-                                            <p class='card-text fw-bold text-orange mt-auto'><?php echo $product["price"]; ?>
+                                            <p class='card-text fw-bold text-orange mt-auto'>$<?php echo $product["price"]; ?>
                                             </p>
                                         </div>
                                     </div>
@@ -114,6 +113,51 @@
 </body>
 <?php include '.Script.php' ?>
 <script src="js/.Index.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.cart-link').on('click', function (e) {
+            e.preventDefault();
+            var productId = $(this).data('product-id');
+            var productName = $(this).data('product-name');
+            var productPrice = $(this).data('product-price');
+            console.log(productId, productName, productPrice);
+            $.ajax({
+                url: 'add_to_cart.php',
+                type: 'POST',
+                data: {
+                    product_id: productId,
+                    product_name: productName,
+                    product_price: productPrice
+                },
+                dataType: 'json', // 确保 jQuery 解析响应为 JSON 对象
+                success: function (response) {
+                    if (response.success) {
+                        if (response.is_new) {
+                            // 新增商品到購物車
+                            var newProductHtml = '<div class="preview-product pt-3" data-product-id="' + productId + '">' +
+                                '<div class="d-flex justify-content-between align-items-center mb-3">' +
+                                '<div class="w-75">' +
+                                '<span class="me-3 clamp-lines">' + productName + '</span>' +
+                                '</div>' +
+                                '<div class="me-3 w-25">$<span class="productPrice">' + productPrice + '</span></div>' +
+                                '</div>' +
+                                '</div>';
+                            $('#product-list').append(newProductHtml);
+                        } else {
+                            // console.log($("[data-product-id='" + productId + "'] .productPrice").text());
+                            $(".productPrice[data-product-id='" + productId + "']").text(response.newProductSum);
+                        }
+                        // 更新總價格
+                        $('#productSum').text(response.total_price);
+                    } else {
+                        alert('加入購物車失敗');
+                    }
+                }
+            });
+        });
+    });
+
+</script>
 
 </html>
 <!-- 加入新的註解 -->

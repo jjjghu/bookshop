@@ -2,5 +2,6 @@
 /images/
 .sql
 TEST.php
+TEST2.php
 # git ignore: git rm -r --cached 忽略名稱
 # 需要移除掉

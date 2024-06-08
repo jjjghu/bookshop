@@ -17,7 +17,6 @@ if (!isset($_SESSION['username'])) {
     <title>個人資料</title>
     <link href="bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <?php include '.Style.php' ?>
-
 </head>
 <?php include '.Theme.php'; ?>
 <?php include '.LinkSql.php';
@@ -101,10 +100,10 @@ if ($stmt->num_rows == 1) {
                                 <img src='images/book_big.png' class='card-img-top' alt='Product Image'>
                                 <div class='card-body d-flex flex-column'>
                                     <h5 class='card-title text-Nmain clamp-lines mb-auto'>
-                                        <?php echo htmlspecialchars($product["name"]); ?>
+                                        銀河鐵道之夜
                                     </h5>
                                     <button class='btn cart' aria-label='編輯圖示'>編輯</button>
-                                    <p class='card-text fw-bold text-orange mt-auto'><?php echo $product["price"]; ?>
+                                    <p class='card-text fw-bold text-orange mt-auto'>$200
                                     </p>
                                 </div>
                             </div>
