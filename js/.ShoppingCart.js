@@ -62,7 +62,6 @@ function updatePrice(input) {
     });
     updateTotalPrice();
 }
-
 function updateTotalPrice() {
     let totalPrice = 0;
     document.querySelectorAll('.product-total').forEach(function (priceElement) {
@@ -71,7 +70,6 @@ function updateTotalPrice() {
     });
     document.getElementById('total-price').textContent = `${totalPrice} `;
 }
-
 // 商品數量歸零刪除，數量減少
 document.querySelectorAll('.decrement').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -90,7 +88,7 @@ document.querySelectorAll('.increment').forEach(function (button) {
     button.addEventListener('click', function () {
         var input = this.parentNode.querySelector('input[type=number]');
         input.stepUp();
-        // PlusCartCount();, ShoppintCart 頁面當中 Header 沒有可以更新的數據
+        // PlusCartCount();, ShoppingCart 頁面當中 Header 沒有可以更新的數據
         updatePrice(input);
     });
 });
