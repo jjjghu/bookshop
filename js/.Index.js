@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    var cartCount = document.getElementById('cart-count');
+    if (cartCount.textContent == 0) {
+        cartCount.style.display = 'none';
+    }
+    else cartCount.style.display = 'block';
     $('.cart-link').on('click', function (e) {
         e.preventDefault();
         var productId = $(this).data('product-id');

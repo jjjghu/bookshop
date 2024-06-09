@@ -480,7 +480,7 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 12px;
     text-align: center;
     border-radius: 50%;
-    display: none;
+    display: block;
 }
 
 /* 購物車詳細內容開始 */

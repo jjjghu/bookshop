@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 黑暗模式切換按鈕, 都在Loaded之後確認按紐存在, 再加入功
-    var cartCount = document.getElementById('cart-count');
-    if (cartCount) {
-
-        if (cartCount.textContent == 0) {
-            cartCount.style.display = 'none';
-        }
-        else cartCount.style.display = 'block';
-    }
+    // 黑暗模式切換按鈕, 都在Loaded之後確認按紐存在, 再加入功能
     var themeIcon = document.getElementById('themeIcon');
     if (themeIcon) {
         themeIcon.onclick = function () {

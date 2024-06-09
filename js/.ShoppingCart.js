@@ -80,7 +80,7 @@ document.querySelectorAll('.decrement').forEach(function (button) {
         if (input.value == 0) {
             this.closest('.preview-product').remove();
         }
-        MinusCartCount();
+        // MinusCartCount();
         updatePrice(input);
     });
 });
@@ -90,7 +90,7 @@ document.querySelectorAll('.increment').forEach(function (button) {
     button.addEventListener('click', function () {
         var input = this.parentNode.querySelector('input[type=number]');
         input.stepUp();
-        PlusCartCount();
+        // PlusCartCount();, ShoppintCart 頁面當中 Header 沒有可以更新的數據
         updatePrice(input);
     });
 });
