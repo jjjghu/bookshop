@@ -112,6 +112,7 @@
     <?php include '.Footer.php'; ?>
 </body>
 <?php include '.Script.php' ?>
+<script src=".ShoppingCart.js"></script>
 <script src="js/.Index.js"></script>
 <script>
 

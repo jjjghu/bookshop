@@ -25,6 +25,7 @@ function updatePrice(input) {
     const newPrice = pricePerUnit * quantity;
     const productId = input.dataset.productId;
 
+
     // 更新資料庫
     $.ajax({
         url: 'update_cart.php',
@@ -49,11 +50,13 @@ function updatePrice(input) {
     document.querySelectorAll('#summary-list li').forEach(function (item) {
         const itemName = item.querySelector('h6');
         if (itemName && itemName.textContent.trim() === productTitle) {
-            if (quantity != 0) {
+            if (quantity == 0) {
+                item.remove();
+                input.closest('.preview-product').remove();
+            }
+            else {
                 const productTotalElement = item.querySelector('.product-total');
                 productTotalElement.textContent = `${newPrice} `;
-            } else {
-                item.remove();
             }
         }
     });

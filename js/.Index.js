@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    var cartCount = document.getElementById('cart-count');
+    if (cartCount.textContent == 0) {
+        cartCount.style.display = 'none';
+    }
+    else cartCount.style.display = 'block';
     $('.cart-link').on('click', function (e) {
         e.preventDefault();
         var productId = $(this).data('product-id');
@@ -35,6 +40,12 @@ $(document).ready(function () {
                         $(".productPrice[data-product-id='" + productId + "']").text(response.newProductSum);
                     }
                     // 更新總價格
+                    var cartCount = document.getElementById('cart-count');
+                    if (cartCount.textContent == 0) {
+                        cartCount.style.display = 'block';
+                    }
+                    ++cartCount.textContent;
+                    // 更新畫面數量
                     $('#productSum').text(response.total_price);
                 } else {
                     alert('加入購物車失敗');

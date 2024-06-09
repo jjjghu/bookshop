@@ -223,17 +223,17 @@ input[type="number"]::-webkit-outer-spin-button {
     max-height: 70vh;
     overflow-y: auto;
 }
-.list-group
-{
+
+.list-group {
     --bs-list-group-color: var(--jjjghu-Nmain);
     --bs-list-group-bg: var(--jjjghu-main);
 }
-.list-group-item
-{
-    border: 2px solid var(--jjjghu-card-border); 
+
+.list-group-item {
+    border: 2px solid var(--jjjghu-card-border);
 }
-.text-muted
-{
+
+.text-muted {
     color: var(--jjjghu-Nmain) !important;
 }
 
@@ -462,7 +462,7 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 12px;
     text-align: center;
     border-radius: 50%;
-    display: none;
+    display: block;
 }
 
 /* 購物車詳細內容開始 */

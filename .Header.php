@@ -19,10 +19,18 @@ if (isset($_SESSION['user_id'])) {
     while ($row = $result->fetch_assoc()) {
         $products[] = $row;
     }
-    $stmt->close();
-    $link->close();
 
     $current_page = basename($_SERVER['SCRIPT_NAME']);
+
+    // 獲取 cartCount (quantity 的總和)
+    $sql = "SELECT SUM(quantity) as cartCount FROM cart WHERE user_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    $cartCount = $result['cartCount'];
+    $stmt->close();
+    $link->close();
 }
 
 ?>
@@ -72,7 +80,10 @@ if (isset($_SESSION['user_id'])) {
                             <?php if ($current_page !== 'shoppingcart.php'): ?>
                                 <li class="nav-item title-nav me-3">
                                     <div class="nav-link text-Nmain" id='toggleCart'>
-                                        <span class='red-dot' id='cart-count'>0</span>
+                                        <span class='red-dot' id='cart-count'><?php if ($cartCount != '')
+                                            echo htmlspecialchars($cartCount);
+                                        else
+                                            echo 0; ?></span>
                                         <i class="bx bx-cart me-1"></i>購物車
                                     </div>
                                     <!-- 購物車預覽頁面開始 -->
