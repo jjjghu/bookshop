@@ -40,7 +40,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div class='card-body shopping-cart w-75'>
                                     <h5 class='card-title clamp-lines'>$product_name</h5>
                                     <p class='card-text my-3'>
-                                        $<span class='product-price' data-price='$price'>" . $price * $quantity . "
+                                        $<span class='product-price' data-price='$price'>" . $price . "
                                     </span></p>
                                     <div class='btn-group' role='group' aria-label='Quantity'>
                                         <button type='button' class='btn btn-secondary decrement'>-</button>

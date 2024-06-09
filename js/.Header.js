@@ -49,10 +49,10 @@ function updatePrice(input) {
     //卡片顯示價格更新
     const productCard = input.closest('.preview-product');
     const priceElement = productCard.querySelector('.product-price');
-    const pricePerUnit = parseFloat(priceElement.dataset.price);
+    const pricePerUnit = priceElement.dataset.price;
     const quantity = input.value;
     const newPrice = pricePerUnit * quantity;
-    priceElement.textContent = `${newPrice}`;
+    // priceElement.textContent = `${pricePerUnit} X ${quantity}`;
 
 
     const productTitle = productCard.querySelector('.card-title').textContent.trim();
@@ -62,7 +62,7 @@ function updatePrice(input) {
         if (itemName && itemName.textContent.trim() === productTitle) {
             if (quantity != 0) {
                 const productTotalElement = item.querySelector('.product-total');
-                productTotalElement.textContent = `${newPrice}`;
+                productTotalElement.textContent = `${newPrice} `;
             }
             else {
                 // 商品數量歸零, 小介面當中的物件也要刪掉
@@ -75,11 +75,11 @@ function updatePrice(input) {
 
 function updateTotalPrice() {
     let totalPrice = 0;
-    document.querySelectorAll('.preview-product .product-price').forEach(function (priceElement) {
-        const price = parseFloat(priceElement.textContent.replace('$', ''));
+    document.querySelectorAll('.product-total').forEach(function (priceElement) {
+        const price = parseInt(priceElement.textContent);
         totalPrice += price;
     });
-    document.getElementById('total-price').textContent = `${totalPrice}`;
+    document.getElementById('total-price').textContent = `${totalPrice} `;
 }
 
 // 商品數量歸零刪除, 數量減少
