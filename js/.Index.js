@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function bindCartButton() {
     $('.cart-link').on('click', function (e) {
         e.preventDefault();
         var productId = $(this).data('product-id');
@@ -48,4 +48,5 @@ $(document).ready(function () {
             }
         });
     });
-});
+}
+$(document).ready(function () { bindCartButton(); });
