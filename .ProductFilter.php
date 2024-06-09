@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $price = floatval($row['price']);
         // 後兩位數都是 0 就只顯示整數
-        $formatted_price = ($price == intval($price)) ? intval($price) : number_format($price, 2);
+        $formatted_price = ($price == intval($price)) ? intval($price) : $price;
 
         $products[] = [
             "id" => $row['id'],

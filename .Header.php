@@ -87,7 +87,7 @@ if (isset($_SESSION['user_id'])) {
                                                     </div>
                                                     <div class='me-3 w-25'>
                                                         $<span class="productPrice"
-                                                            data-product-id='<?php echo $product['id']; ?>'><?php echo htmlspecialchars(number_format($product['price'] * $product['quantity'])); ?></span>
+                                                            data-product-id='<?php echo $product['id']; ?>'><?php echo htmlspecialchars($product['price'] * $product['quantity']); ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@ if (isset($_SESSION['user_id'])) {
                                         $total_price = array_reduce($products, function ($sum, $product) {
                                             return $sum + $product['price'] * $product['quantity'];
                                         }, 0);
-                                        echo number_format($total_price, 0);
+                                        echo $total_price;
                                         ?></span>
                                     </div>
                                     <a href=" shoppingcart.php" class='btn btn-success mt-3'>結帳</a>

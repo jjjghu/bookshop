@@ -25,7 +25,7 @@ if ($product_id > 0) {
 
         // 後兩位數都是 0 就只顯示整數
         $price = floatval($row['price']);
-        $formatted_price = ($price == intval($price)) ? intval($price) : number_format($price, 2);
+        $formatted_price = ($price == intval($price)) ? intval($price) : $price;
 
         $product_name = $row['product_name']; // 商品名稱
         $author_name = $row['author_name']; // 作者

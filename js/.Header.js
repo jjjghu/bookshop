@@ -52,7 +52,7 @@ function updatePrice(input) {
     const pricePerUnit = parseFloat(priceElement.dataset.price);
     const quantity = input.value;
     const newPrice = pricePerUnit * quantity;
-    priceElement.textContent = `$${newPrice}`;
+    priceElement.textContent = `${newPrice}`;
 
 
     const productTitle = productCard.querySelector('.card-title').textContent.trim();
@@ -62,7 +62,7 @@ function updatePrice(input) {
         if (itemName && itemName.textContent.trim() === productTitle) {
             if (quantity != 0) {
                 const productTotalElement = item.querySelector('.product-total');
-                productTotalElement.textContent = `$${newPrice}`;
+                productTotalElement.textContent = `${newPrice}`;
             }
             else {
                 // 商品數量歸零, 小介面當中的物件也要刪掉
