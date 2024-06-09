@@ -125,6 +125,8 @@ $(document).ready(function () {
                         // 經過2秒之後恢復原狀
                         setTimeout(function () {
                             $('#message').html("");
+                            // reload 頁面
+                            location.reload();
                         }, 2000);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {

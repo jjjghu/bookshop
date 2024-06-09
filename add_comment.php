@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 
     if (!empty($comment) && $product_id > 0) {
-        $author_name = $_SESSION['username'];
+        $author_name = $_SESSION['penName'];
         $author_id = $_SESSION['user_id'];
         $comment_date = date('Y-m-d H:i:s');
 

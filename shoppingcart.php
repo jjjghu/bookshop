@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // 獲取購物車資料
-    $sql = "SELECT p.product_name, p.price, c.quantity, 
+    $sql = "SELECT p.id, p.product_name, p.price, c.quantity, 
                    (SELECT image_path FROM product_images WHERE product_id = p.id LIMIT 1) AS image 
             FROM cart c 
             JOIN products p ON c.product_id = p.id 
@@ -27,6 +27,7 @@ if (isset($_SESSION['user_id'])) {
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
+        $product_id = htmlspecialchars($row['id']);
         $product_name = htmlspecialchars($row['product_name']);
         $price = htmlspecialchars($row['price']);
         $quantity = htmlspecialchars($row['quantity']);
@@ -44,7 +45,7 @@ if (isset($_SESSION['user_id'])) {
                                     </span></p>
                                     <div class='btn-group' role='group' aria-label='Quantity'>
                                         <button type='button' class='btn btn-secondary decrement'>-</button>
-                                        <input min='0' value='$quantity' type='number' class='btn btn-outline-secondary quantity text-Nmain'>
+                                        <input min='0' value='$quantity' type='number' data-product-id='$product_id' class='btn btn-outline-secondary quantity text-Nmain'>
                                         <button type='button' class='btn btn-secondary increment'>+</button>
                                     </div>
                                 </div>
@@ -65,7 +66,6 @@ $link->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>購物車</title>
-    <link href="bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <?php include '.Style.php'; ?>
 </head>
 <?php include '.Theme.php'; ?>
@@ -102,8 +102,8 @@ $link->close();
                         </li>
                     <?php endforeach; ?>
                     <li class="list-group-item d-flex justify-content-between">
-                        <h5><strong><span class="text-orange">總計</span></strong></h5>
-                        <h5><strong class="text-orange w-25">$<span
+                        <h5 class="w-75"><strong><span class="text-orange">總計</span></strong></h5>
+                        <h5 class="w-25"><strong class="text-orange">$<span
                                     id="total-price"><?php echo htmlspecialchars($total); ?></span></strong>
                         </h5>
                     </li>

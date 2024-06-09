@@ -46,26 +46,42 @@ function MinusCartCount() {
     }
 }
 function updatePrice(input) {
-    //卡片顯示價格更新
+    // 卡片顯示價格更新
     const productCard = input.closest('.preview-product');
     const priceElement = productCard.querySelector('.product-price');
     const pricePerUnit = priceElement.dataset.price;
     const quantity = input.value;
     const newPrice = pricePerUnit * quantity;
-    // priceElement.textContent = `${pricePerUnit} X ${quantity}`;
+    const productId = input.dataset.productId;
 
+    // 更新資料庫
+    $.ajax({
+        url: 'update_cart.php',
+        type: 'POST',
+        data: {
+            product_id: productId,
+            quantity: quantity
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (!response.success) {
+                alert('更新購物車失敗');
+            }
+        },
+        error: function () {
+            alert('發生錯誤');
+        }
+    });
 
+    // 更新前端顯示
     const productTitle = productCard.querySelector('.card-title').textContent.trim();
     document.querySelectorAll('#summary-list li').forEach(function (item) {
         const itemName = item.querySelector('h6');
-        // 需要去掉空白字元, 但為甚麼?
         if (itemName && itemName.textContent.trim() === productTitle) {
             if (quantity != 0) {
                 const productTotalElement = item.querySelector('.product-total');
                 productTotalElement.textContent = `${newPrice} `;
-            }
-            else {
-                // 商品數量歸零, 小介面當中的物件也要刪掉
+            } else {
                 item.remove();
             }
         }
@@ -76,13 +92,13 @@ function updatePrice(input) {
 function updateTotalPrice() {
     let totalPrice = 0;
     document.querySelectorAll('.product-total').forEach(function (priceElement) {
-        const price = parseInt(priceElement.textContent);
+        const price = parseFloat(priceElement.textContent);
         totalPrice += price;
     });
     document.getElementById('total-price').textContent = `${totalPrice} `;
 }
 
-// 商品數量歸零刪除, 數量減少
+// 商品數量歸零刪除，數量減少
 document.querySelectorAll('.decrement').forEach(function (button) {
     button.addEventListener('click', function () {
         var input = this.parentNode.querySelector('input[type=number]');
@@ -111,3 +127,4 @@ document.querySelectorAll('.quantity').forEach(function (input) {
         updatePrice(input);
     });
 });
+

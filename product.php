@@ -92,15 +92,19 @@
                         </div>
                         <div class="tab-pane fade" id="content-comments">
                             <?php if (isset($_SESSION['user_id'])): ?>
-                                <form id="commentForm" method="post" class="comment-section">
-                                    <div class="d-flex">
-                                        <img src="images/book.png" class="comment-image me-2">
-                                        <input type="text" name="comment" class="form-control me-1" placeholder="輸入你的留言"
-                                            required>
-                                        <button type="submit"
-                                            class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
-                                    </div>
-                                </form>
+                                <?php if (isset($_SESSION['penName'])): ?>
+                                    <form id="commentForm" method="post" class="comment-section">
+                                        <div class="d-flex">
+                                            <img src="images/book.png" class="comment-image me-2">
+                                            <input type="text" name="comment" class="form-control me-1" placeholder="輸入你的留言"
+                                                required>
+                                            <button type="submit"
+                                                class="btn btn-primary bx bx-arrow-back bx-rotate-180"></button>
+                                        </div>
+                                    </form>
+                                <?php else: ?>
+                                    <div>請先設定筆名</div>
+                                <?php endif; ?>
                                 <!-- 留言區塊 -->
                                 <div class="comment-section" id="comments">
                                     <?php foreach ($comments as $comment): ?>
@@ -133,7 +137,6 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-
                     </div>
                 </div>
             </div>
