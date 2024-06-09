@@ -82,7 +82,6 @@ document.querySelectorAll('.decrement').forEach(function (button) {
         updatePrice(input);
     });
 });
-
 // 商品數量增加
 document.querySelectorAll('.increment').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -92,7 +91,6 @@ document.querySelectorAll('.increment').forEach(function (button) {
         updatePrice(input);
     });
 });
-
 // 直接修改數量輸入框
 document.querySelectorAll('.quantity').forEach(function (input) {
     input.addEventListener('change', function () {

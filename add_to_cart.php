@@ -1,6 +1,6 @@
 <?php
+// 商品數量 + 1
 include_once '.LinkSql.php';
-
 session_start();
 
 $response = ['success' => false]; // 确保拼写正确

@@ -53,7 +53,7 @@
                 <div class="d-flex justify-content-start mt-3">
                     <button class="btn btn-primary me-2" id='add-to-cart'><i
                             class="bx bx-cart-add me-1"></i>加入購物車</button>
-                    <button class="btn btn-success">直接購買</button>
+                    <button class="btn btn-success" id='buy-now'>直接購買</button>
                 </div>
             </div>
         </div>
@@ -149,6 +149,75 @@
 </body>
 <?php include '.Script.php' ?>
 <script src="js/.comment_CRUD.js"></script>
+<script>
+    $(document).ready(function () {
+        // 獲取商品詳細信息
+        var productId = <?php echo json_encode($product_id); ?>;
+        var productName = <?php echo json_encode($product_name); ?>;
+        var productPrice = <?php echo json_encode($price); ?>;
+
+        // 加入購物車函數
+        function addToCart() {
+            $.ajax({
+                url: 'add_to_cart.php',
+                type: 'POST',
+                data: {
+                    product_id: productId,
+                    product_name: productName,
+                    product_price: productPrice
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        if (response.is_new) {
+                            // 新增商品到購物車
+                            var newProductHtml = '<div class="preview-product pt-3">' +
+                                '<div class="d-flex justify-content-between align-items-center mb-3">' +
+                                '<div class="w-75">' +
+                                '<span class="me-3 clamp-lines">' + productName +
+                                ' X <span class="productQuantity" data-product-id= ' + productId +
+                                '>1</span></span > ' +
+                                '</div>' +
+                                '<div class="me-3 w-25">$<span class="productPrice"  data-product-id=' + productId + '>' + productPrice + '</span></div>' +
+                                '</div>' +
+                                '</div>';
+                            $('#product-list').append(newProductHtml);
+                        } else {
+                            // console.log($("[data-product-id='" + productId + "'] .productPrice").text());
+                            $(".productQuantity[data-product-id='" + productId + "']").text(response.newQuantity);
+                            $(".productPrice[data-product-id='" + productId + "']").text(response.newProductSum);
+                        }
+                        // 更新總價格
+                        var cartCount = document.getElementById('cart-count');
+                        if (cartCount.textContent == 0) {
+                            cartCount.style.display = 'block';
+                        }
+                        ++cartCount.textContent;
+                        // 更新畫面數量
+                        $('#productSum').text(response.total_price);
+                    } else {
+                        alert('加入購物車失敗');
+                    }
+                }
+            });
+        }
+
+        // 綁定加入購物車按鈕事件
+        $('#add-to-cart').on('click', function () {
+            addToCart();
+        });
+
+        // 綁定直接購買按鈕事件
+        $('#buy-now').on('click', function () {
+            addToCart();
+            // 跳轉到購物車頁面
+            setTimeout(function () {
+                window.location.href = 'shoppingcart.php';
+            }, 500);
+        });
+    });
+
+</script>
 <!-- 
 作者： 貓膩
 出版社：人民文學出版社

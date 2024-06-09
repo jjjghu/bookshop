@@ -13,7 +13,7 @@ function bindCartButton() {
                 product_name: productName,
                 product_price: productPrice
             },
-            dataType: 'json', // 确保 jQuery 解析响应为 JSON 对象
+            dataType: 'json',
             success: function (response) {
                 if (response.success) {
                     if (response.is_new) {
