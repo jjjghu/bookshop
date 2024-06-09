@@ -115,6 +115,7 @@ $link->close();
     <!-- 主要頁面內容結束 -->
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php'; ?>
+    <script src="js/.ShoppingCart.js"></script>
 </body>
 
 </html>

@@ -19,6 +19,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['product_id'])) {
     $result = $stmt->get_result();
 
     $is_new = true;
+    $new_quantity = 1;
     if ($result->num_rows > 0) {
         // 如果存在，更新數量
         $row = $result->fetch_assoc();
@@ -65,7 +66,8 @@ if (isset($_SESSION['user_id']) && isset($_POST['product_id'])) {
         'success' => true,
         'is_new' => $is_new,
         'total_price' => floor($total_price),
-        'newProductSum' => floor($newProductSum)
+        'newProductSum' => floor($newProductSum),
+        'newQuantity' => $new_quantity
     ];
 }
 

@@ -21,6 +21,8 @@ if (isset($_SESSION['user_id'])) {
     }
     $stmt->close();
     $link->close();
+
+    $current_page = basename($_SERVER['SCRIPT_NAME']);
 }
 
 ?>
@@ -67,46 +69,53 @@ if (isset($_SESSION['user_id'])) {
                                 <a class="nav-link text-Nmain" href="userProfile.php"><i
                                         class="bx bx-home me-1"></i>會員中心</a>
                             </li>
-                            <li class="nav-item title-nav me-3">
-                                <div class="nav-link text-Nmain" id='toggleCart'>
-                                    <span class='red-dot' id='cart-count'>0</span>
-                                    <i class="bx bx-cart me-1"></i>購物車
-                                </div>
-                                <!-- 購物車預覽頁面開始 -->
-                                <div id='cart-preview'>
-                                    <!-- 商品列表開始 -->
-                                    <div id='product-list'>
-                                        <!-- 商品資訊開始 -->
-                                        <?php foreach ($products as $product): ?>
-                                            <div class="preview-product pt-3 ">
-                                                <!-- 數量和價格 -->
-                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                    <div class="w-75">
-                                                        <span
-                                                            class=".clamp-lines me-3 clamp-lines"><?php echo htmlspecialchars($product['product_name']); ?></span>
-                                                    </div>
-                                                    <div class='me-3 w-25'>
-                                                        $<span class="productPrice"
-                                                            data-product-id='<?php echo $product['id']; ?>'><?php echo htmlspecialchars($product['price'] * $product['quantity']); ?></span>
+                            <?php if ($current_page !== 'shoppingcart.php'): ?>
+                                <li class="nav-item title-nav me-3">
+                                    <div class="nav-link text-Nmain" id='toggleCart'>
+                                        <span class='red-dot' id='cart-count'>0</span>
+                                        <i class="bx bx-cart me-1"></i>購物車
+                                    </div>
+                                    <!-- 購物車預覽頁面開始 -->
+                                    <div id='cart-preview'>
+                                        <!-- 商品列表開始 -->
+                                        <div id='product-list'>
+                                            <!-- 商品資訊開始 -->
+                                            <?php foreach ($products as $product): ?>
+                                                <div class="preview-product pt-3 ">
+                                                    <!-- 數量和價格 -->
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <div class="w-75">
+                                                            <span class=".clamp-lines me-3 clamp-lines">
+                                                                <?php echo htmlspecialchars($product['product_name']) ?> X
+                                                                <span class="productQuantity"
+                                                                    data-product-id="<?php echo $product['id']; ?>">
+                                                                    <?php echo $product['quantity'] ?>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                        <div class='me-3 w-25'>
+                                                            $<span class="productPrice"
+                                                                data-product-id='<?php echo $product['id']; ?>'><?php echo htmlspecialchars($product['price'] * $product['quantity']); ?></span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                        <!-- 商品資訊結束 -->
+                                            <?php endforeach; ?>
+                                            <!-- 商品資訊結束 -->
+                                        </div>
+                                        <!-- 商品列表結束 -->
+                                        <div class='mt-3'>總價格:
+                                            $<span id='productSum'><?php
+                                            $total_price = array_reduce($products, function ($sum, $product) {
+                                                return $sum + $product['price'] * $product['quantity'];
+                                            }, 0);
+                                            echo $total_price;
+                                            ?></span>
+                                        </div>
+                                        <a href=" shoppingcart.php" class='btn btn-success mt-3'>結帳</a>
                                     </div>
-                                    <!-- 商品列表結束 -->
-                                    <div class='mt-3'>總價格:
-                                        $<span id='productSum'><?php
-                                        $total_price = array_reduce($products, function ($sum, $product) {
-                                            return $sum + $product['price'] * $product['quantity'];
-                                        }, 0);
-                                        echo $total_price;
-                                        ?></span>
-                                    </div>
-                                    <a href=" shoppingcart.php" class='btn btn-success mt-3'>結帳</a>
-                                </div>
-                                <!-- 購物車預覽頁面結束 -->
-                            </li>
+                                    <!-- 購物車預覽頁面結束 -->
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item title-nav me-3">
                                 <a class="nav-link text-Nmain" href="#"><i class="bx bx-book-open me-1"></i>電子書櫃</a>
                             </li>
