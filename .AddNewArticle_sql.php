@@ -4,10 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include '.LinkSql.php'; // 包含資料庫連接
 
-// 獲取所有分類
-$category_query = "SELECT * FROM categories";
-$category_result = $link->query($category_query);
-
 // 獲取所有作者
 $author_query = "SELECT * FROM author";
 $author_result = $link->query($author_query);

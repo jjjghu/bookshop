@@ -13,7 +13,7 @@ $category_result = $link->query($category_query);
             </div>
             <div class="modal-body">
                 <form id="editArticle" action=".UpdateArticle.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="product_id" id="edit_product_id">
+                    <input type="text" class='form-control' name="product_id" id="edit_product_id">
                     <div class="mb-3">
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['user_id']; ?>">
                     </div>
@@ -22,11 +22,11 @@ $category_result = $link->query($category_query);
                             placeholder="標題" required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="edit_articleContent" name="intro" rows="20"
+                        <textarea class="form-control" id="edit_articleContent" name="intro" rows="5"
                             placeholder="內容簡介"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="edit_description" name="detail" rows="5" placeholder="詳細資料"
+                        <textarea class="form-control" id="edit_description" name="detail" rows="20" placeholder="詳細資料"
                             required></textarea>
                     </div>
                     <div class="row mb-3">

@@ -1,4 +1,4 @@
-// 調整文章高度
+// edit_product_id// 調整文章高度
 function adjustTextareaHeight() {
     textarea.style.height = 'auto';
     const scrollHeight = textarea.scrollHeight;
