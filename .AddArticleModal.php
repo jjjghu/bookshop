@@ -45,7 +45,7 @@ $category_result = $link->query($category_query);
                             <div class="relative">
                                 <input type="date" class="form-control" id="add_write_date" name="write_date"
                                     placeholder="撰寫日期" required>
-                                <i class="bi bi-calendar icon-right" id="toggleDate"></i>
+                                <i class="bi bi-calendar icon-right" id="add_toggleDate"></i>
                             </div>
                         </div>
                         <div class="col">

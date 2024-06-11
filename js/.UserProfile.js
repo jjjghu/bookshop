@@ -43,9 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // 日期選擇器
-var write_date = document.getElementById('write_date');
-document.getElementById('toggleDate').addEventListener('click', function () {
-    write_date.showPicker();
+var edit_write_date = document.getElementById('edit_write_date');
+document.getElementById('edit_toggleDate').addEventListener('click', function () {
+    edit_write_date.showPicker();
+});
+var add_write_date = document.getElementById('add_write_date');
+document.getElementById('add_toggleDate').addEventListener('click', function () {
+    add_write_date.showPicker();
 });
 // 新增驗證方法
 // $.validator.addMethod("notEqualTo", function (value, element, param) {
