@@ -45,7 +45,7 @@
             <!-- 文字靠左, 距離頂部10vh-->
             <div class="col-md-6 mt-10vh text-start">
                 <h2 class='fs-1 mt-2'> <?php echo htmlspecialchars($product_name) ?></h2>
-                <p class='fs-4 text-orange mt-3'><span class='fs-3'>$</span><?php echo $price ?></p>
+                <p class='fs-4 text-orange mt-3'><span class='fs-3'>$</span><?php echo htmlspecialchars($price) ?></p>
                 <div class='mt-2' id='author'>作者: <?php echo htmlspecialchars($author_name) ?></div>
                 <div class='mt-2' id='write_date'>出版日期: <?php echo htmlspecialchars($write_date) ?></div>
                 <div class='mt-2' id='category'>分類: <?php echo htmlspecialchars($category_names) ?></div>
@@ -82,10 +82,10 @@
                     <!-- table-content -->
                     <div class="tab-content my-3">
                         <div class="tab-pane fade show active" id="content-intro">
-                            <p><?php echo htmlspecialchars($product_intro) ?></p>
+                            <p><?php echo nl2br(htmlspecialchars($product_intro)); ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-details">
-                            <p><?php echo htmlspecialchars($product_detail) ?></p>
+                            <p><?php echo nl2br(htmlspecialchars($product_detail)); ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-author">
                             <p><?php echo htmlspecialchars($author_bio) ?> </p>

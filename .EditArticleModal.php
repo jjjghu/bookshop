@@ -13,10 +13,14 @@ $category_result = $link->query($category_query);
             </div>
             <div class="modal-body">
                 <form id="editArticle" action=".UpdateArticle.php" method="POST" enctype="multipart/form-data">
+                    <!-- 當前編輯的商品 Id, 加入form-control 方便除錯-->
                     <input type="hidden" class='form-control' name="product_id" id="edit_product_id">
-                    <div class="mb-3">
+                    <!-- 當前的使用者, 在 UpdateArticle 時用不到 -->
+                    <!-- <div class="mb-3">
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['user_id']; ?>">
-                    </div>
+                    </div> -->
+                    <!-- 當前要做的操作, 判斷是要刪除還是做其他事情 -->
+                    <input type="hidden" name="action" id="action" value="update">
                     <div class="mb-3">
                         <input type="text" class="form-control" id="edit_product_name" name="product_name"
                             placeholder="標題" required>
@@ -54,10 +58,15 @@ $category_result = $link->query($category_query);
                                 accept="image/*">
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-between">
+                        <!-- 刪除按鈕, 使用垃圾桶圖標表示 -->
+                        <button type="button" class="btn btn-danger me-2" id="deleteButton"><i
+                                class="bi bi-trash me-1"></i>刪除</button>
                         <div>
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">確認修改</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
+                                    class="bi bi-x-circle me-1"></i>取消</button>
+                            <button type="submit" class="btn btn-primary"><i
+                                    class="bi bi-check-circle me-1"></i>確認修改</button>
                         </div>
                     </div>
                 </form>
@@ -65,3 +74,12 @@ $category_result = $link->query($category_query);
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('deleteButton').addEventListener('click', function () {
+        if (confirm('確定要刪除此文章嗎？')) {
+            document.getElementById('action').value = 'delete';
+            document.getElementById('editArticle').submit();
+        }
+    });
+
+</script>

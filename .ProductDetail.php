@@ -31,8 +31,8 @@ if ($product_id > 0) {
         $author_name = $row['author_name']; // 作者
         $author_bio = empty($row['author_bio']) ? '暫無簡介' : $row['author_bio'];
         $write_date = $row['write_date']; // 寫作時間
-        $product_intro = nl2br($row['intro']); // 商品介紹 
-        $product_detail = nl2br($row['detail']); // 商品資訊 (詳細資料)
+        $product_intro = $row['intro']; // 商品介紹 
+        $product_detail = $row['detail']; // 商品資訊 (詳細資料)
 
         // 查詢商品分類
         $sql_categories = "SELECT c.name AS category_name 
