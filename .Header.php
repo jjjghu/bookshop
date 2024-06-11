@@ -35,7 +35,7 @@ if (isset($_SESSION['user_id'])) {
 
 ?>
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">

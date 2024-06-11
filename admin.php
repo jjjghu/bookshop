@@ -1,6 +1,6 @@
 <?php include 'admin_CRUD.php' ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">

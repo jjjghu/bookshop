@@ -43,7 +43,7 @@ function bindCartButton() {
                     // 更新畫面數量
                     $('#productSum').text(response.total_price);
                 } else {
-                    alert('加入購物車失敗');
+                    alert('請先登入');
                 }
             }
         });

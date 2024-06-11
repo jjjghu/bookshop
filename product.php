@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
@@ -196,7 +196,7 @@
                         // 更新畫面數量
                         $('#productSum').text(response.total_price);
                     } else {
-                        alert('加入購物車失敗');
+                        alert('請先登入');
                     }
                 }
             });
@@ -205,12 +205,13 @@
         // 綁定加入購物車按鈕事件
         $('#add-to-cart').on('click', function () {
             addToCart();
+            window.location.href = 'shoppingcart.php';
         });
 
         // 綁定直接購買按鈕事件
         $('#buy-now').on('click', function () {
             addToCart();
-            // 跳轉到購物車頁面
+            // 跳轉到購物車頁面, 需要等待商品加入購物車
             setTimeout(function () {
                 window.location.href = 'shoppingcart.php';
             }, 500);

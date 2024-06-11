@@ -1,6 +1,6 @@
 <?php include ".LoginRedirect.php"; ?>
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">

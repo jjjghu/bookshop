@@ -66,7 +66,7 @@ if ($stmt->num_rows == 1) {
                     <textarea class="form-control" rows="10" id="bio"
                         placeholder="<?php echo ($bio == "") ? '暫無簡介' : "$bio"; ?>" readonly></textarea>
                 </div>
-                <div class="d-flex">
+                <!-- <div class="d-flex">
                     <h3>動態<h3>
                 </div>
                 <div class="scroll-box">
@@ -76,7 +76,7 @@ if ($stmt->num_rows == 1) {
                         <li>兩天前發布了新的文章「我打江南走過」</li>
                         <li>七天前發布了新的文章「我欲乘風歸去」</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-8">
                 <h3>文章撰寫</h3>
