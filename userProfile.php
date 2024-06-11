@@ -71,7 +71,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="row">
                     <div class="col-md-3">
                         <div data-bs-toggle='modal' data-bs-target='#addArticleModal'
-                            class='edit text-decoration-none text-primary'>
+                            class='text-decoration-none text-primary'>
                             <div class='card d-flex align-items-center justify-content-center'>
                                 <i class="bi bi-file-earmark-plus"></i>
                                 <h5 id="new-article" class='card-title text-Nmain clamp-lines mb-auto'>
@@ -177,7 +177,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
             </div>
-            <!-- 兩個面板 -->
+            <!-- 兩個 Modal -->
             <?php include '.AddArticleModal.php'; ?>
             <?php include '.EditArticleModal.php'; ?>
         </div>
@@ -186,6 +186,52 @@ if (!isset($_SESSION['username'])) {
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php' ?>
     <script src="js/.UserProfile.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.edit').on('click', function () {
+                const productId = $(this).data('product-id');
+                console.log(productId);
+                fetchProductData(productId);
+            });
+        });
+
+        function fetchProductData(productId) {
+            $.ajax({
+                url: 'fetchProductData.php',
+                type: 'POST',
+                data: { product_id: productId },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        // Fill the modal with the fetched data
+                        $('#edit_product_id').val(data.product.id);
+                        $('#edit_product_name').val(data.product.product_name);
+                        $('#edit_price').val(data.product.price);
+                        $('#edit_write_date').val(data.product.write_date);
+                        $('#edit_articleContent').val(data.product.intro);
+                        $('#edit_description').val(data.product.detail);
+                        $('#edit_category_id option').each(function () {
+                            if ($(this).val() == data.product.category_id) {
+                                $(this).attr('selected', 'selected');
+                            } else {
+                                $(this).removeAttr('selected');
+                            }
+                        });
+                    } else {
+                        alert('獲取商品失敗');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX error: ', textStatus, errorThrown);
+                    alert('AJAX請求失敗');
+                }
+            });
+        }
+
+    </script>
+
+
 
 </body>
 

@@ -13,11 +13,16 @@ function openModal() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     // 輸入框高度自適應
-    const textarea = document.getElementById('articleContent');
-    if (textarea) {
-        textarea.addEventListener('input', adjustTextareaHeight);
+    const editContext = document.getElementById('edit_articleContent')
+    const addContext = document.getElementById('add_articleContent');
+    if (editContext) {
+        editContext.addEventListener('input', adjustTextareaHeight);
     }
-    else console.log("can't find articleContent");
+    else console.log("can't find edit_articleContent");
+    if (addContext) {
+        addContext.addEventListener('input', adjustTextareaHeight);
+    }
+    else console.log("can't find add_articleContent");
     // 簡介區塊點擊後顯示對話框 (textarea)
     var bio = document.getElementById('bio');
     if (bio) {
