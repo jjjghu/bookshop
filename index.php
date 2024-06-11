@@ -93,7 +93,7 @@
 <script src="js/.Index.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const itemsPerPage = 10;
+        const itemsPerPage = 18;
         const allProducts = <?php echo json_encode($products); ?>;
         let currentPage = 1;
 
