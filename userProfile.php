@@ -70,7 +70,7 @@ if (!isset($_SESSION['username'])) {
                 <h3>文章撰寫</h3>
                 <div class="row">
                     <div class="col-md-3">
-                        <div data-bs-toggle='modal' data-bs-target='#editArticleModal'
+                        <div data-bs-toggle='modal' data-bs-target='#addArticleModal'
                             class='edit text-decoration-none text-primary'>
                             <div class='card d-flex align-items-center justify-content-center'>
                                 <i class="bi bi-file-earmark-plus"></i>
@@ -88,7 +88,7 @@ if (!isset($_SESSION['username'])) {
                         echo "
                         <div class='col-md-3'>
                             <!-- 跳轉文章編輯 -->
-                            <div data-bs-toggle='modal' data-bs-target='#editArticleModal' class='edit text-decoration-none text-primary'>
+                            <div data-bs-toggle='modal' data-bs-target='#editArticleModal' class='edit text-decoration-none text-primary' data-product-id='{$product['id']}'>
                                 <div class='card mb-3 d-flex flex-column'>
                                     <img src='{$product['image']}' class='card-img-top' alt='Product Image'>
                                     <div class='card-body d-flex flex-column'>
@@ -177,13 +177,16 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
             </div>
-            <?php include '.EditArticle.php'; ?>
+            <!-- 兩個面板 -->
+            <?php include '.AddArticleModal.php'; ?>
+            <?php include '.EditArticleModal.php'; ?>
         </div>
     </main>
     <!-- 主要頁面內容結束 -->
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php' ?>
     <script src="js/.UserProfile.js"></script>
+
 </body>
 
 </html>
