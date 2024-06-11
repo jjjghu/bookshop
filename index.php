@@ -10,7 +10,7 @@
 <!-- 主題切換 -->
 <?php include '.Theme.php'; ?>
 
-<body class=<?php echo $theme; ?>>
+<body class=<?php echo htmlspecialchars($theme); ?>>
     <!-- 標題橫條 + 切換按鈕 -->
     <?php include '.Header.php'; ?>
     <!-- 搜尋資料, 需要放在.Header後面, 因為它有購物車 -->
@@ -92,6 +92,15 @@
 <?php include '.Script.php'; ?>
 <script src="js/.Index.js"></script>
 <script>
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         const itemsPerPage = 18;
         const allProducts = <?php echo json_encode($products); ?>;
@@ -170,7 +179,7 @@
                 return li;
             };
 
-            // Always show the first page
+            // 第一頁顯示
             paginationList.appendChild(createPageItem(1));
 
             if (currentPage > 3) {
@@ -185,7 +194,7 @@
                 paginationList.appendChild(createEllipsis());
             }
 
-            // Always show the last page
+            // 最後一頁顯示
             if (totalPages > 1) {
                 paginationList.appendChild(createPageItem(totalPages));
             }

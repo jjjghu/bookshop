@@ -44,11 +44,11 @@
             </div>
             <!-- 文字靠左, 距離頂部10vh-->
             <div class="col-md-6 mt-10vh text-start">
-                <h2 class='fs-1 mt-2'> <?php echo $product_name ?></h2>
+                <h2 class='fs-1 mt-2'> <?php echo htmlspecialchars($product_name) ?></h2>
                 <p class='fs-4 text-orange mt-3'><span class='fs-3'>$</span><?php echo $price ?></p>
-                <div class='mt-2' id='author'>作者: <?php echo $author_name ?></div>
-                <div class='mt-2' id='write_date'>出版日期: <?php echo $write_date ?></div>
-                <div class='mt-2' id='category'>分類: <?php echo $category_names ?></div>
+                <div class='mt-2' id='author'>作者: <?php echo htmlspecialchars($author_name) ?></div>
+                <div class='mt-2' id='write_date'>出版日期: <?php echo htmlspecialchars($write_date) ?></div>
+                <div class='mt-2' id='category'>分類: <?php echo htmlspecialchars($category_names) ?></div>
                 <!-- 按鈕靠左 -->
                 <div class="d-flex justify-content-start mt-3">
                     <button class="btn btn-primary me-2" id='add-to-cart'><i
@@ -82,13 +82,13 @@
                     <!-- table-content -->
                     <div class="tab-content my-3">
                         <div class="tab-pane fade show active" id="content-intro">
-                            <p><?php echo $product_intro ?></p>
+                            <p><?php echo htmlspecialchars($product_intro) ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-details">
-                            <p><?php echo $product_detail ?></p>
+                            <p><?php echo htmlspecialchars($product_detail) ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-author">
-                            <p><?php echo $author_bio ?> </p>
+                            <p><?php echo htmlspecialchars($author_bio) ?> </p>
                         </div>
                         <div class="tab-pane fade" id="content-comments">
                             <?php if (isset($_SESSION['user_id'])): ?>

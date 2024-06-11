@@ -85,22 +85,27 @@ if (!isset($_SESSION['username'])) {
                     // 搜尋文章 
                     // 找到本作者寫的所有書籍
                     foreach ($products as $product) {
+                        $product_id = htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8');
+                        $product_image = htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8');
+                        $product_name = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8');
+                        $product_price = htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8');
                         echo "
                         <div class='col-md-3'>
                             <!-- 跳轉文章編輯 -->
-                            <div data-bs-toggle='modal' data-bs-target='#editArticleModal' class='edit text-decoration-none text-primary' data-product-id='{$product['id']}'>
+                            <div data-bs-toggle='modal' data-bs-target='#editArticleModal' class='edit text-decoration-none text-primary' data-product-id='{$product_id}'>
                                 <div class='card mb-3 d-flex flex-column'>
-                                    <img src='{$product['image']}' class='card-img-top' alt='Product Image'>
+                                    <img src='{$product_image}' class='card-img-top' alt='Product Image'>
                                     <div class='card-body d-flex flex-column'>
-                                        <h5 class='card-title text-Nmain clamp-lines mb-auto'>{$product['name']}</h5>
+                                        <h5 class='card-title text-Nmain clamp-lines mb-auto'>{$product_name}</h5>
                                         <button class='btn cart' aria-label='編輯圖示'>編輯</button>
-                                        <p class='card-text fw-bold text-orange mt-auto'>\${$product['price']}</p>
+                                        <p class='card-text fw-bold text-orange mt-auto'>\${$product_price}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         ";
                     }
+
                     ?>
                     <!-- --------------------------------------------------------- -->
                 </div>
