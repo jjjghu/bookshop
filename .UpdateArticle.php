@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_id'])) {
         $stmt->close();
     }
     // 更新成功後的訊息
-    $_SESSION['message'] = $product_id;
+    $_SESSION['message'] = '商品更新成功';
     header("Location: userProfile.php");
     exit();
 }
