@@ -13,7 +13,7 @@ $category_result = $link->query($category_query);
             </div>
             <div class="modal-body">
                 <form id="editArticle" action=".UpdateArticle.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" class='form-control' name="product_id" id="edit_product_id">
+                    <input type="hidden" class='form-control' name="product_id" id="edit_product_id">
                     <div class="mb-3">
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['user_id']; ?>">
                     </div>

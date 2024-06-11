@@ -52,7 +52,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="mb-3">
                     <!-- 簡介區塊 -->
                     <textarea class="form-control" rows="10" id="bio"
-                        placeholder="<?php echo ($bio == "") ? '暫無簡介' : "$bio"; ?>" readonly></textarea>
+                        placeholder="<?php echo ($bio == "") ? '暫無簡介' : htmlspecialchars($bio); ?>" readonly></textarea>
                 </div>
                 <!-- <div class="d-flex">
                     <h3>動態<h3>
@@ -122,12 +122,12 @@ if (!isset($_SESSION['username'])) {
                             <form id="EditProfile" action=".EditProfile.php" method="post">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="使用者名稱" value="<?php echo $username; ?>">
+                                        placeholder="使用者名稱" value="<?php echo htmlspecialchars($username); ?>">
                                     <p class="text-danger" id="username-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="penName" name="penName" placeholder="筆名"
-                                        value="<?php echo $penName; ?>">
+                                        value="<?php echo htmlspecialchars($penName); ?>">
                                     <p class="text-danger" id="penName-err"></p>
                                 </div>
                                 <div class="mb-3">
@@ -137,12 +137,12 @@ if (!isset($_SESSION['username'])) {
                                 </div>
                                 <div class="mb-3">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="電子信箱"
-                                        value="<?php echo $email; ?>">
+                                        value="<?php echo htmlspecialchars($email); ?>">
                                     <p class="text-danger" id="email-err"></p>
                                 </div>
                                 <div class="mb-3">
                                     <input type="tel" class="form-control" id="phone" name="phone" placeholder="手機號碼"
-                                        value="<?php echo $phone; ?>">
+                                        value="<?php echo htmlspecialchars($phone); ?>">
                                     <p class="text-danger" id="phone-err"></p>
                                 </div>
                                 <div class="d-flex justify-content-between">
@@ -206,7 +206,7 @@ if (!isset($_SESSION['username'])) {
                 data: { product_id: productId },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+                    console.log(data.product.id);
                     if (data.success) {
                         // Fill the modal with the fetched data
                         $('#edit_product_id').val(data.product.id);
@@ -227,7 +227,6 @@ if (!isset($_SESSION['username'])) {
                 }
             });
         }
-
     </script>
 
 

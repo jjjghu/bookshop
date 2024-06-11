@@ -19,38 +19,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_id'])) {
     $stmt->execute();
     $stmt->close();
 
-    // // 更新商品內容
-    // $stmt = $link->prepare("UPDATE product_contents SET intro = ?, detail = ? WHERE product_id = ?");
-    // $stmt->bind_param("ssi", $intro, $detail, $product_id);
-    // $stmt->execute();
-    // $stmt->close();
+    // 更新商品內容
+    $stmt = $link->prepare("UPDATE product_contents SET intro = ?, detail = ? WHERE product_id = ?");
+    $stmt->bind_param("ssi", $intro, $detail, $product_id);
+    $stmt->execute();
+    $stmt->close();
 
-    // // 更新商品分類
-    // $stmt = $link->prepare("UPDATE product_category SET category_id = ? WHERE product_id = ?");
-    // $stmt->bind_param("ii", $category_id, $product_id);
-    // $stmt->execute();
-    // $stmt->close();
+    // 更新商品分類
+    $stmt = $link->prepare("UPDATE product_category SET category_id = ? WHERE product_id = ?");
+    $stmt->bind_param("ii", $category_id, $product_id);
+    $stmt->execute();
+    $stmt->close();
 
-    // // 加入新的圖片
-    // if (isset($_FILES['images'])) {
-    //     $images = $_FILES['images'];
-    //     $image_paths = [];
-    //     foreach ($images['tmp_name'] as $key => $tmp_name) {
-    //         $image_path = 'images/' . $images['name'][$key];
-    //         move_uploaded_file($tmp_name, $image_path);
-    //         $image_paths[] = $image_path;
-    //     }
+    // 加入新的圖片
+    if (isset($_FILES['images'])) {
+        $images = $_FILES['images'];
+        $image_paths = [];
+        foreach ($images['tmp_name'] as $key => $tmp_name) {
+            $image_path = 'images/' . $images['name'][$key];
+            move_uploaded_file($tmp_name, $image_path);
+            $image_paths[] = $image_path;
+        }
 
-    //     $sql = "INSERT INTO product_images (product_id, image_path) VALUES (?, ?)";
-    //     $stmt = $link->prepare($sql);
-    //     foreach ($image_paths as $image_path) {
-    //         $stmt->bind_param("is", $product_id, $image_path);
-    //         $stmt->execute();
-    //     }
-    //     $stmt->close();
-    // }
+        $sql = "INSERT INTO product_images (product_id, image_path) VALUES (?, ?)";
+        $stmt = $link->prepare($sql);
+        foreach ($image_paths as $image_path) {
+            $stmt->bind_param("is", $product_id, $image_path);
+            $stmt->execute();
+        }
+        $stmt->close();
+    }
     // 更新成功後的訊息
-    $_SESSION['message'] = $product_id;
+    $_SESSION['message'] = "文章內容更新成功!";
+    // 重新導向, 刷新頁面
     header("Location: userProfile.php");
     exit();
 }
