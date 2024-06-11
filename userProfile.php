@@ -85,10 +85,10 @@ if (!isset($_SESSION['username'])) {
                     // 搜尋文章 
                     // 找到本作者寫的所有書籍
                     foreach ($products as $product) {
-                        $product_id = htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8');
-                        $product_image = htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8');
-                        $product_name = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8');
-                        $product_price = htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8');
+                        $product_id = htmlspecialchars($product['id']);
+                        $product_image = htmlspecialchars($product['image']);
+                        $product_name = htmlspecialchars($product['name']);
+                        $product_price = htmlspecialchars($product['price']);
                         echo "
                         <div class='col-md-3'>
                             <!-- 跳轉文章編輯 -->
@@ -209,7 +209,7 @@ if (!isset($_SESSION['username'])) {
                     console.log(data.product.id);
                     if (data.success) {
                         // Fill the modal with the fetched data
-                        $('#edit_product_id').val(data.product.id);
+                        $('#edit_product_id').val(productId);
                         $('#edit_product_name').val(data.product.product_name);
                         $('#edit_price').val(data.product.price);
                         $('#edit_write_date').val(data.product.write_date);

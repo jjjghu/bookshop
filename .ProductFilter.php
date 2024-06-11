@@ -1,7 +1,7 @@
 <?php
 include '.LinkSql.php';
 // 查詢商品資料
-$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products";
+$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products ORDER BY id DESC";
 
 $search = isset($_GET['search']) ? $link->real_escape_string($_GET['search']) : '';
 $category = isset($_GET['category']) ? intval($_GET['category']) : 0;
@@ -32,11 +32,11 @@ if ($result->num_rows > 0) {
 
         $products[] = [
             "id" => $row['id'],
-            "name" => $row['product_name'],
-            // "image" => $row['image'] ? $row['image'] : "https://via.placeholder.com/150",
-            "image" => $row['image'] ? $row['image'] : "images/book_big.png",
+            "name" => htmlspecialchars($row['product_name']),
+            "image" => htmlspecialchars($row['image'] ? $row['image'] : "images/book_big.png"),
             "price" => $formatted_price
         ];
+
     }
 } else {
     $message = "沒有找到商品資料";

@@ -92,15 +92,6 @@
 <?php include '.Script.php'; ?>
 <script src="js/.Index.js"></script>
 <script>
-    function escapeHtml(unsafe) {
-        return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
         const itemsPerPage = 18;
         const allProducts = <?php echo json_encode($products); ?>;
@@ -111,7 +102,7 @@
             shoppingList.innerHTML = '';
             products.forEach(product => {
                 const productHtml = `
-                    <div class='col-md-2 product-item' title='${product.name}'>
+                    <div class='col-md-2 product-item' title='${(product.name)}'>
                         <a href='product.php?id=${product.id}' class='card-link text-decoration-none text-primary'>
                             <div class='card mb-3 d-flex flex-column'>
                                 <img src='${product.image}' class='card-img-top' alt='Product Image'>

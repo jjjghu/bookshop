@@ -6,10 +6,9 @@ if (session_status() == PHP_SESSION_NONE) {
 include '.LinkSql.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']): 0;
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
     // 獲取商品資訊
     $sql = "SELECT 
-            p.id,
             p.product_name, 
             p.price, 
             a.penName AS author_name, 

@@ -1,29 +1,17 @@
 <?php
 session_start();
-include '.LinkSql.php'; // 包含資料庫連接
 
 // 檢查是否為管理員
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
     echo "權限不足!";
+    exit();
 }
 
+include '.LinkSql.php';
+include 'function.php'; // 通用函數
 // 獲取所有使用者
 $query = "SELECT * FROM author";
 $result = $link->query($query);
-function ExecuteSQL($link, $sql, $param, $type, $count, $errorMsg)
-{
-    $stmt = $link->prepare($sql);
-    $stmt->bind_param($type, $param);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > $count) {
-        echo "<span class='text-danger'>$errorMsg</span>";
-        $stmt->close();
-        exit();
-    }
-    $stmt->close();
-}
 
 // 處理新增和修改使用者
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
@@ -36,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
 
     // 更新使用者資料
     if (isset($_POST['user_id']) && $_POST['user_id'] != '') {
-
         ExecuteSQL($link, "SELECT id FROM author WHERE username = ?", $username, "s", 1, "使用者名稱已存在");
         ExecuteSQL($link, "SELECT id FROM author WHERE email = ?", $email, "s", 1, "電子郵件已存在");
         ExecuteSQL($link, "SELECT id FROM author WHERE phone = ?", $phone, "s", 1, "手機號碼已被使用");
@@ -86,47 +73,11 @@ if (isset($_GET['delete_user'])) {
     }
     $stmt->close();
 
-    if (!empty($product_ids)) {
-
-        $product_ids_placeholder = implode(',', array_fill(0, count($product_ids), '?'));
-        $types = str_repeat('i', count($product_ids));
-
-        // 刪除商品圖片
-        $stmt = $link->prepare("DELETE FROM product_images WHERE product_id IN ($product_ids_placeholder)");
-        $stmt->bind_param($types, ...$product_ids);
-        $stmt->execute();
-        $stmt->close();
-
-        // 刪除 product content
-        $stmt = $link->prepare("DELETE FROM product_contents WHERE product_id IN ($product_ids_placeholder)");
-        $stmt->bind_param($types, ...$product_ids);
-        $stmt->execute();
-        $stmt->close();
-
-        // 刪除商品分類
-        $stmt = $link->prepare("DELETE FROM product_category WHERE product_id IN ($product_ids_placeholder)");
-        $stmt->bind_param($types, ...$product_ids);
-        $stmt->execute();
-        $stmt->close();
-
-        // 刪除商品
-        $stmt = $link->prepare("DELETE FROM products WHERE id IN ($product_ids_placeholder)");
-        $stmt->bind_param($types, ...$product_ids);
-        $stmt->execute();
-        $stmt->close();
-
-        // 刪除商品的留言
-        $stmt = $link->prepare("DELETE FROM product_comment WHERE product_id IN ($product_ids_placeholder)");
-        $stmt->bind_param($types, ...$product_ids);
-        $stmt->execute();
-        $stmt->close();
-    }
+    // 使用通用函數刪除所有相關的商品
+    deleteProducts($link, $product_ids);
 
     // 刪除使用者留下的留言
-    $stmt = $link->prepare("DELETE FROM product_comment WHERE author_id = ?");
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();
-    $stmt->close();
+    deleteUserComments($link, $user_id);
 
     // 刪除使用者
     $stmt = $link->prepare("DELETE FROM author WHERE id = ?");
@@ -135,6 +86,7 @@ if (isset($_GET['delete_user'])) {
     $stmt->close();
 
     echo "刪除使用者成功";
-    Header("Location: admin.php");
+    header("Location: admin.php");
     exit();
 }
+?>

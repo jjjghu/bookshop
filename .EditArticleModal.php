@@ -14,11 +14,11 @@ $category_result = $link->query($category_query);
             <div class="modal-body">
                 <form id="editArticle" action=".UpdateArticle.php" method="POST" enctype="multipart/form-data">
                     <!-- 當前編輯的商品 Id, 加入form-control 方便除錯-->
-                    <input type="hidden" class='form-control' name="product_id" id="edit_product_id">
+                    <input type="number" class='form-control' name="product_id" id="edit_product_id">
                     <!-- 當前的使用者, 在 UpdateArticle 時用不到 -->
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['user_id']; ?>">
-                    </div> -->
+                    </div>
                     <!-- 當前要做的操作, 判斷是要刪除還是做其他事情 -->
                     <input type="hidden" name="action" id="action" value="update">
                     <div class="mb-3">
