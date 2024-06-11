@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // 日期選擇器
-var write_date = document.getElementById('write_date')
+var write_date = document.getElementById('write_date');
 document.getElementById('toggleDate').addEventListener('click', function () {
     write_date.showPicker();
 });

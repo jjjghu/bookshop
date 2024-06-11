@@ -1,5 +1,5 @@
-<!-- 沒有登入 -> 跳轉到登入頁面 -->
 <?php
+// 沒有登入 -> 跳轉到登入頁面
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
@@ -19,23 +19,11 @@ if (!isset($_SESSION['username'])) {
     <?php include '.Style.php' ?>
 </head>
 <?php include '.Theme.php'; ?>
-<?php include '.LinkSql.php';
-// 找到使用者 id, 獲取資料
-$check_sql = "SELECT username, bio, phone, email, penName FROM author WHERE id = ?";
-$stmt = $link->prepare($check_sql);
-$stmt->bind_param("s", $_SESSION['user_id']);
-$stmt->execute();
-$stmt->store_result();
-if ($stmt->num_rows == 1) {
-    //獲取個人資訊
-    $stmt->bind_result($username, $bio, $phone, $email, $penName);
-    $stmt->fetch();
-}
-?>
 
 <body class=<?php echo $theme ?>>
     <!-- 標題橫條 + 切換按鈕 -->
     <?php include '.Header.php'; ?>
+    <?php include 'userProfile_sql.php'; ?>
     <!-- 主要頁面內容開始 -->
     <main class="container mt-10vh">
         <div class="row">
@@ -92,23 +80,29 @@ if ($stmt->num_rows == 1) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <!-- 跳轉文章編輯 -->
-                        <div data-bs-toggle='modal' data-bs-target='#EditArticle'
-                            class='edit text-decoration-none text-primary'>
-                            <div class='card mb-3 d-flex flex-column'>
-                                <img src='images/book_big.png' class='card-img-top' alt='Product Image'>
-                                <div class='card-body d-flex flex-column'>
-                                    <h5 class='card-title text-Nmain clamp-lines mb-auto'>
-                                        銀河鐵道之夜
-                                    </h5>
-                                    <button class='btn cart' aria-label='編輯圖示'>編輯</button>
-                                    <p class='card-text fw-bold text-orange mt-auto'>$200
-                                    </p>
+                    <!-- --------------------------------------------------------- -->
+                    <?php
+                    // 搜尋文章 
+                    // 找到本作者寫的所有書籍
+                    foreach ($products as $product) {
+                        echo "
+                        <div class='col-md-3'>
+                            <!-- 跳轉文章編輯 -->
+                            <div data-bs-toggle='modal' data-bs-target='#editArticleModal' class='edit text-decoration-none text-primary'>
+                                <div class='card mb-3 d-flex flex-column'>
+                                    <img src='{$product['image']}' class='card-img-top' alt='Product Image'>
+                                    <div class='card-body d-flex flex-column'>
+                                        <h5 class='card-title text-Nmain clamp-lines mb-auto'>{$product['name']}</h5>
+                                        <button class='btn cart' aria-label='編輯圖示'>編輯</button>
+                                        <p class='card-text fw-bold text-orange mt-auto'>\${$product['price']}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        ";
+                    }
+                    ?>
+                    <!-- --------------------------------------------------------- -->
                 </div>
             </div>
             <!-- 個人資料編輯區Modal -->
