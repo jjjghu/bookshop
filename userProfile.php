@@ -190,7 +190,6 @@ if (!isset($_SESSION['username'])) {
         $(document).ready(function () {
             $('.edit').on('click', function () {
                 const productId = $(this).data('product-id');
-                console.log(productId);
                 fetchProductData(productId);
             });
         });
@@ -211,13 +210,8 @@ if (!isset($_SESSION['username'])) {
                         $('#edit_write_date').val(data.product.write_date);
                         $('#edit_articleContent').val(data.product.intro);
                         $('#edit_description').val(data.product.detail);
-                        $('#edit_category_id option').each(function () {
-                            if ($(this).val() == data.product.category_id) {
-                                $(this).attr('selected', 'selected');
-                            } else {
-                                $(this).removeAttr('selected');
-                            }
-                        });
+                        // 需要 catogorie_id
+                        $('#edit_category_id').val(data.product.category_ids);
                     } else {
                         alert('獲取商品失敗');
                     }
