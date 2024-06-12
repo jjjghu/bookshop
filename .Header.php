@@ -128,7 +128,7 @@ if (isset($_SESSION['user_id'])) {
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item title-nav me-3">
-                                <a class="nav-link text-Nmain" href="#"><i class="bx bx-book-open me-1"></i>電子書櫃</a>
+                                <a class="nav-link text-Nmain" href="library.php"><i class="bx bx-book-open me-1"></i>電子書櫃</a>
                             </li>
                             <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                                 <li class="nav-item title-nav me-3">
