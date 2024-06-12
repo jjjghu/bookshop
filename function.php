@@ -20,6 +20,7 @@ function deleteProducts($link, $product_ids)
     $stmt->bind_param($types, ...$product_ids);
     $stmt->execute();
     $stmt->close();
+
     // 刪除商品圖片
     $stmt = $link->prepare("DELETE FROM product_images WHERE product_id IN ($product_ids_placeholder)");
     $stmt->bind_param($types, ...$product_ids);

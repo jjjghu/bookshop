@@ -21,11 +21,11 @@ $category_result = $link->query($category_query);
                             placeholder="標題" required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="add_articleContent" name="intro" rows="5"
+                        <textarea class="form-control" id="add_articleContent" name="intro" rows="20"
                             placeholder="內容簡介"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="add_description" name="detail" rows="20" placeholder="詳細資料"
+                        <textarea class="form-control" id="add_description" name="detail" rows="5" placeholder="詳細資料"
                             required></textarea>
                     </div>
                     <div class="row mb-3">
@@ -55,8 +55,10 @@ $category_result = $link->query($category_query);
                     </div>
                     <div class="d-flex justify-content-end">
                         <div>
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">確認發布</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
+                                    class="bi bi-x-circle me-1"></i>取消</button>
+                            <button type="submit" class="btn btn-primary"><i
+                                    class="bi bi-check-circle me-1"></i>確認修改</button>
                         </div>
                     </div>
                 </form>

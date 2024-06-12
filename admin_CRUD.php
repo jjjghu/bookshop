@@ -15,11 +15,11 @@ $result = $link->query($query);
 
 // 處理新增和修改使用者
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
-    $username = $_POST['username'];
-    $penName = $_POST['penName'];
-    $hashed_password = isset($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : '';
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
+    $username = htmlspecialchars($_POST['username']);
+    $penName = htmlspecialchars($_POST['penName']);
+    $hashed_password = isset($_POST['password']) ? password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT) : '';
+    $email = htmlspecialchars($_POST['email']);
+    $phone = htmlspecialchars($_POST['phone']);
     $is_admin = isset($_POST['is_admin']) ? 1 : 0;
 
     // 更新使用者資料
@@ -73,7 +73,7 @@ if (isset($_GET['delete_user'])) {
     }
     $stmt->close();
 
-    // 使用通用函數刪除所有相關的商品
+    // 刪除所有相關的商品
     deleteProducts($link, $product_ids);
 
     // 刪除使用者留下的留言

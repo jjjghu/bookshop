@@ -24,7 +24,7 @@ if (!empty($where_conditions)) {
 $result = $link->query($sql);
 
 $products = [];
-if ($result->num_rows > 0) {
+if ($result !== false && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $price = floatval($row['price']);
         // 後兩位數都是 0 就只顯示整數
