@@ -10,4 +10,3 @@
 <!--自定義js連結 -->
 <script src="js/.Header.js"></script>
 <script src="js/.Slider.js"></script>
-<script src="js/.Register.js"></script>

@@ -69,5 +69,6 @@
   <!-- footer結束 -->
 </body>
 <?php include '.Script.php' ?>
+<script src="js/.Register.js"></script>
 
 </html>
