@@ -15,6 +15,12 @@ function deleteProducts($link, $product_ids)
     $product_ids_placeholder = implode(',', array_fill(0, count($product_ids), '?'));
     $types = str_repeat('i', count($product_ids));
 
+    // 刪除訂單當中的商品
+    $stmt = $link->prepare("DELETE FROM order_items WHERE product_id IN ($product_ids_placeholder)");
+    $stmt->bind_param($types, ...$product_ids);
+    $stmt->execute();
+    $stmt->close();
+
     // 刪除購物車商品
     $stmt = $link->prepare("DELETE FROM cart WHERE product_id IN ($product_ids_placeholder)");
     $stmt->bind_param($types, ...$product_ids);

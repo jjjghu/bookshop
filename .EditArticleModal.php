@@ -26,8 +26,8 @@ $category_result = $link->query($category_query);
                             placeholder="標題" required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="edit_description" name="detail" rows="5" placeholder="詳細資料"
-                            required></textarea>
+                        <textarea class="form-control" id="edit_description" name="detail" rows="5"
+                            placeholder="詳細資料(ISBN 頁數 ... )" required></textarea>
                     </div>
                     <div class="mb-3">
                         <textarea class="form-control" id="edit_articleContent" name="intro" rows="20"

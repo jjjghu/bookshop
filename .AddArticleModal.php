@@ -21,12 +21,12 @@ $category_result = $link->query($category_query);
                             placeholder="標題" required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="add_articleContent" name="intro" rows="20"
-                            placeholder="內容簡介"></textarea>
+                        <textarea class="form-control" id="add_description" name="detail" rows="5"
+                            placeholder="詳細資料(ISBN 頁數 ... )" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="add_description" name="detail" rows="5" placeholder="詳細資料"
-                            required></textarea>
+                        <textarea class="form-control" id="add_articleContent" name="intro" rows="20"
+                            placeholder="內容簡介"></textarea>
                     </div>
                     <div class="row mb-3">
                         <div class="col">

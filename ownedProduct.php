@@ -38,21 +38,23 @@ if (isset($_SESSION['user_id'])) {
 }
 $link->close();
 ?>
-<h2>我擁有的商品</h2>
-<div class="row">
-    <?php foreach ($ownedProducts as $product): ?>
-        <div class='col-md-3 product-item' title='<?php echo htmlspecialchars($product["product_name"]); ?>'>
-            <a href='product.php?id=<?php echo htmlspecialchars($product["product_id"]); ?>'
-                class='card-link text-decoration-none text-primary'>
-                <div class='card mb-3 d-flex flex-column'>
-                    <img src='<?php echo htmlspecialchars($product["image"]); ?>' class='card-img-top' alt='Product Image'>
-                    <div class='card-body d-flex flex-column'>
-                        <h5 class='card-title text-Nmain clamp-lines mb-auto'>
-                            <?php echo htmlspecialchars($product["product_name"]); ?>
-                        </h5>
+<?php if (!empty($ownedProducts)): ?>
+    <h2>我擁有的商品</h2>
+    <div class="row">
+        <?php foreach ($ownedProducts as $product): ?>
+            <div class='col-md-3 product-item' title='<?php echo htmlspecialchars($product["product_name"]); ?>'>
+                <a href='product.php?id=<?php echo htmlspecialchars($product["product_id"]); ?>'
+                    class='card-link text-decoration-none text-primary'>
+                    <div class='card mb-3 d-flex flex-column'>
+                        <img src='<?php echo htmlspecialchars($product["image"]); ?>' class='card-img-top' alt='Product Image'>
+                        <div class='card-body d-flex flex-column'>
+                            <h5 class='card-title text-Nmain clamp-lines mb-auto'>
+                                <?php echo htmlspecialchars($product["product_name"]); ?>
+                            </h5>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-    <?php endforeach; ?>
-</div>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
