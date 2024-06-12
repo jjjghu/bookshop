@@ -97,7 +97,7 @@ document.querySelectorAll('.quantity').forEach(function (input) {
         updatePrice(input);
     });
 });
-// 加入購物車按鈕
+// 建立訂單按鈕
 document.getElementById('checkout-btn').addEventListener('click', function () {
     var products = [];
     var total_price = document.getElementById('total-price').textContent;
@@ -128,7 +128,7 @@ document.getElementById('checkout-btn').addEventListener('click', function () {
                 alert('訂單建立成功!');
                 window.location.reload();
             } else {
-                alert('購物車內無商品!');
+                alert('生成訂單失敗');
             }
         },
         error: function () {
@@ -136,3 +136,4 @@ document.getElementById('checkout-btn').addEventListener('click', function () {
         }
     });
 });
+
