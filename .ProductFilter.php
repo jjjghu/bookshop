@@ -1,7 +1,7 @@
 <?php
 include '.LinkSql.php';
 // 查詢商品資料
-$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products ORDER BY id DESC";
+$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products "; // 需要加入空格, 後面 ORDER 的時候會用到
 
 $search = isset($_GET['search']) ? $link->real_escape_string($_GET['search']) : '';
 $category = isset($_GET['category']) ? intval($_GET['category']) : 0;
@@ -21,10 +21,12 @@ if (!empty($where_conditions)) {
     $sql .= " WHERE " . implode(" AND ", $where_conditions);
 }
 
+$sql .= "ORDER BY id DESC"; // 加入排序
+
 $result = $link->query($sql);
 
 $products = [];
-if ($result !== false && $result->num_rows > 0) {
+if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $price = floatval($row['price']);
         // 後兩位數都是 0 就只顯示整數
@@ -32,11 +34,11 @@ if ($result !== false && $result->num_rows > 0) {
 
         $products[] = [
             "id" => $row['id'],
-            "name" => htmlspecialchars($row['product_name']),
-            "image" => htmlspecialchars($row['image'] ? $row['image'] : "images/book_big.png"),
+            "name" => $row['product_name'],
+            // "image" => $row['image'] ? $row['image'] : "https://via.placeholder.com/150",
+            "image" => $row['image'] ? $row['image'] : "images/book_big.png",
             "price" => $formatted_price
         ];
-
     }
 } else {
     $message = "沒有找到商品資料";
