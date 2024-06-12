@@ -109,6 +109,7 @@ if (!isset($_SESSION['username'])) {
                     ?>
                     <!-- --------------------------------------------------------- -->
                 </div>
+                <?php include 'ownedProduct.php'; ?>
             </div>
             <!-- 個人資料編輯區Modal -->
             <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"

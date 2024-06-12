@@ -27,6 +27,7 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // 圖片之後要顯示 ? 
     while ($row = $result->fetch_assoc()) {
         $orders[$row['order_id']]['order_id'] = htmlspecialchars($row['order_id']);
         $orders[$row['order_id']]['total_price'] = htmlspecialchars($row['total_price']);
@@ -66,10 +67,13 @@ $link->close();
                 <div class="order card shadow-sm mb-4">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span><strong>訂單編號：</strong><?php echo $order['order_id']; ?></span>
-                            <span class="text-orange"><strong>總金額：</strong>$<?php echo $order['total_price']; ?></span>
+                            <!-- 在前面補0, 讓訂單是8位數 -->
+                            <span><strong>訂單編號</strong><span
+                                    class="ms-2">#<?php echo str_pad($order['order_id'], 8, '0', STR_PAD_LEFT); ?></span></span>
+                            <span class="text-orange "><strong>總金額</strong>$<span
+                                    class="ms-2"><?php echo $order['total_price']; ?></span></span>
                         </div>
-                        <small>訂單時間：<?php echo $order['order_date']; ?></small>
+                        <small>訂單時間:<?php echo $order['order_date']; ?></small>
                     </div>
                     <div class="card-body overflow-auto">
                         <ul class="list-group">
@@ -78,8 +82,8 @@ $link->close();
                                     <div>
                                         <h6 class="my-0"><?php echo $item['product_name']; ?></h6>
                                         <small>
-                                            數量：<?php echo $item['quantity']; ?>
-                                            單價：$<?php echo $item['price']; ?>
+                                            數量<span class="ms-1"><?php echo $item['quantity']; ?></span>
+                                            單價<span class="ms-1">$<?php echo $item['price']; ?></span>
                                         </small>
                                     </div>
                                     <span>$<?php echo $item['quantity'] * $item['price']; ?></span>
