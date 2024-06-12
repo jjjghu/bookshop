@@ -1,6 +1,13 @@
 <?php
 include '.LinkSql.php';
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['user_id'])) {
+    echo "請先登入";
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comment_id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
