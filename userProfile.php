@@ -192,46 +192,6 @@ if (!isset($_SESSION['username'])) {
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php' ?>
     <script src="js/.UserProfile.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.edit').on('click', function () {
-                const productId = $(this).data('product-id');
-                fetchProductData(productId);
-            });
-        });
-
-        function fetchProductData(productId) {
-            $.ajax({
-                url: 'fetchProductData.php',
-                type: 'POST',
-                data: { product_id: productId },
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data.product.id);
-                    if (data.success) {
-                        // Fill the modal with the fetched data
-                        $('#edit_product_id').val(productId);
-                        $('#edit_product_name').val(data.product.product_name);
-                        $('#edit_price').val(data.product.price);
-                        $('#edit_write_date').val(data.product.write_date);
-                        $('#edit_articleContent').val(data.product.intro);
-                        $('#edit_description').val(data.product.detail);
-                        // 需要 catogorie_id
-                        $('#edit_category_id').val(data.product.category_ids);
-                    } else {
-                        alert('獲取商品失敗');
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error('AJAX error: ', textStatus, errorThrown);
-                    alert('AJAX請求失敗');
-                }
-            });
-        }
-    </script>
-
-
-
 </body>
 
 </html>

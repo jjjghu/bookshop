@@ -1,5 +1,5 @@
 <?php
-include '../.Bookshop/.LinkSql.php';
+include '.LinkSql.php';
 
 $query = "SELECT * FROM author";
 $result = $link->query($query);
