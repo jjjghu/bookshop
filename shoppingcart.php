@@ -108,7 +108,7 @@ $link->close();
                         </h5>
                     </li>
                 </ul>
-                <button class="btn btn-success btn-lg btn-block mt-3 w-100">結帳</button>
+                <button class="btn btn-success btn-lg btn-block mt-3 w-100" id="checkout-btn">結帳</button>
             </div>
         </div>
     </main>
@@ -116,6 +116,47 @@ $link->close();
     <?php include '.Footer.php'; ?>
     <?php include '.Script.php'; ?>
     <script src="js/.ShoppingCart.js"></script>
+    <script>
+        document.getElementById('checkout-btn').addEventListener('click', function () {
+            var products = [];
+            var total_price = document.getElementById('total-price').textContent;
+            // console.log(total_price); span 必須要使用 textContent
+            // 獲取總價格
+
+            document.querySelectorAll('.preview-product').forEach(function (productCard) {
+                // 獲取當前購物車內的商品
+                var productId = productCard.querySelector('input[type=number]').dataset.productId;
+                var quantity = productCard.querySelector('input[type=number]').value;
+                var price = productCard.querySelector('.product-price').dataset.price;
+                products.push({
+                    product_id: productId,
+                    quantity: quantity,
+                    price: price
+                });
+            });
+            console.log(products);
+
+            $.ajax({
+                // 發送請求建立訂單
+                url: 'checkout.php',
+                type: 'POST',
+                data: { products: products, total_price: total_price},
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        alert('訂單建立成功!');
+                        window.location.reload();
+                    } else {
+                        alert('生成訂單失敗');
+                    }
+                },
+                error: function () {
+                    alert('發生錯誤');
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>
