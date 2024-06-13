@@ -93,10 +93,11 @@
 <script src="js/.Index.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const itemsPerPage = 18;
+        const itemsPerPage = 18; //一頁 18 個商品
         const allProducts = <?php echo json_encode($products); ?>;
         let currentPage = 1;
 
+        // 為了動態更新頁面, 使用 javascript 
         function renderProducts(products) {
             const shoppingList = document.getElementById('shopping-list');
             shoppingList.innerHTML = '';

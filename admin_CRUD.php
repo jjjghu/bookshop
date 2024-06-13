@@ -4,6 +4,7 @@ session_start();
 // 檢查是否為管理員
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
     echo "權限不足!";
+    header("Location: index.php");
     exit();
 }
 

@@ -29,7 +29,6 @@
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#AddUserModal">
             新增使用者
         </button>
-        <!-- 顯示所有商品按鈕 -->
         <!-- 新增/編輯使用者 Modal -->
         <div class="modal fade" id="AddUserModal" tabindex="-1" aria-labelledby="AddUserModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -83,6 +82,7 @@
                 </div>
             </div>
         </div>
+
     </main>
 </body>
 <?php include '.Footer.php'; ?>
