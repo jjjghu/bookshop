@@ -25,7 +25,20 @@
                 </tr>
             </thead>
         </table>
-
+        <div class="bold-hr"></div>
+        <h2 class="my-3">所有商品</h2>
+        <table id="ProductTable" class="table table-stroped table-bordered mb-3">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>名稱</th>
+                    <th>價格</th>
+                    <th>作者</th>
+                    <th>撰寫日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+        </table>
         <!-- 新增/編輯使用者 Modal -->
         <div class="modal fade" id="AddUserModal" tabindex="-1" aria-labelledby="AddUserModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

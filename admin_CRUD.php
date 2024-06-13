@@ -90,4 +90,12 @@ if (isset($_GET['delete_user'])) {
     header("Location: admin.php");
     exit();
 }
+
+if(isset($_GET['delete_product'])){
+    $product_id = $_GET['delete_product'];
+    deleteProducts($link, [$product_id]);
+    echo "刪除商品成功";
+    header("Location: admin.php");
+    exit();
+}
 ?>

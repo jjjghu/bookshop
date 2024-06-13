@@ -106,9 +106,9 @@ $(document).ready(function () {
             $("#AddUserForm").submit();
         }
     });
-    // dataTable
+    // dataTable, 使用者列表
     $('#UserTable').DataTable({
-        "ajax": ".dataTable_ajax.php",
+        "ajax": ".UserDataTable_ajax.php",
         "columns": [
             { "data": "id" },
             { "data": "username" },
@@ -132,13 +132,39 @@ $(document).ready(function () {
             }
         },
         "drawCallback": function (settings) {
-            // 確保按鈕只被添加一次
+            // 按鈕只有一個, 翻頁時需要移除現有的
             $(".dataTables_paginate .btn-add-user").remove();
             $(".dataTables_paginate").append(`
                 <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal" data-bs-target="#AddUserModal">
                     新增使用者
                 </button>
         `);
+        }
+    });
+    // dataTable, 商品列表
+    $('#ProductTable').DataTable({
+        "ajax": ".ProductDataTable_ajax.php",
+        "columns": [
+            { "data": "id" },
+            { "data": "product_name" },
+            { "data": "price" },
+            { "data": "author" },
+            { "data": "write_date" },
+            { "data": "actions" }
+        ],
+        "language": {
+            "lengthMenu": "顯示 _MENU_ 筆資料", // 客製化顯示文字
+            "zeroRecords": "沒有找到符合的資料",
+            "info": "顯示第 _PAGE_ 頁，共 _PAGES_ 頁",
+            "infoEmpty": "沒有可用的資料",
+            "infoFiltered": "(從 _MAX_ 條資料中篩選)",
+            "search": "搜尋:",
+            "paginate": {
+                "first": "第一頁",
+                "last": "最後一頁",
+                "next": "下一頁",
+                "previous": "上一頁"
+            }
         }
     });
 });
