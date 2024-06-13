@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id'])) {
 $link->close();
 ?>
 <?php if (!empty($ownedProducts)): ?>
-    <h2>我擁有的商品</h2>
+    <h3 class="mt-3">我擁有的商品</h3>
     <div class="row">
         <?php foreach ($ownedProducts as $product): ?>
             <div class='col-md-3 product-item' title='<?php echo htmlspecialchars($product["product_name"]); ?>'>

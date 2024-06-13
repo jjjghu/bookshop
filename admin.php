@@ -27,7 +27,7 @@
         </table>
         <div class="bold-hr"></div>
         <h2 class="my-3">所有商品</h2>
-        <table id="ProductTable" class="table table-stroped table-bordered">
+        <table id="ProductTable" class="table table-stroped table-bordered ProductTable">
             <thead>
                 <tr>
                     <th>id</th>
@@ -99,6 +99,14 @@
 <?php include '.Script.php'; ?>
 <script src="js/.Admin.js"></script>
 <script>
+    document.ready(function () {
+        $(".dataTables_paginate .btn-add-user").remove();
+        $(".dataTables_paginate").append(`
+                <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal" data-bs-target="#AddUserModal">
+                    新增使用者
+                </button>
+        `);
+    });
 
 </script>
 
