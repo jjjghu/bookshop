@@ -49,8 +49,8 @@
             <!-- 商品購買區域開始 -->
             <section class="container mt-5">
                 <!--分類按鈕開始 -->
-                <div class="row mb-4">
-                    <form action="" method="get" class="input-group">
+                <form action="" method="get">
+                    <div class="row mb-4">
                         <div class="col-md-6 d-flex">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -72,17 +72,16 @@
                                 <label class="form-check-label" for="orderCheckbox">升序</label>
                             </div>
                         </div>
-                        <!-- 搜尋框 -->
                         <div class="col-md-6 d-flex justify-content-end">
                             <div id='search-box' class="input-group">
-                                <input type="hidden" name="category" value="<?php echo $current_category_id; ?>">
                                 <input type="search" name="search" class="form-control" placeholder="搜尋商品..."
                                     value="<?php echo htmlspecialchars($search); ?>">
+                                <input type="hidden" name="category" value="<?php echo $current_category_id; ?>">
                                 <button type="submit" class="btn btn-primary bx bx-search"></button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
                 <!-- 購物列表 -->
                 <div class="row" id="shopping-list"></div>
                 <div id="no-products-message">沒有找到商品資料</div>
