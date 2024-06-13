@@ -82,9 +82,10 @@
                             <div class="d-flex justify-content-between">
                                 <div id="message"></div>
                                 <div>
-                                    <button type="button" class="btn btn-secondary me-2"
-                                        data-bs-dismiss="modal">取消</button>
-                                    <button type="submit" id="AddUserConfirm" class="btn btn-primary">保存變更</button>
+                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
+                                            class=""></i>取消</button>
+                                    <button type="submit" id="AddUserConfirm" class="btn btn-primary"><i
+                                            class="bi bi-check-circle me-1"></i>保存變更</button>
                                 </div>
                             </div>
                         </form>

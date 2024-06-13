@@ -31,7 +31,7 @@ if (!isset($_SESSION['username'])) {
             <div class="col-md-4">
                 <div class="profile-header">
                     <div class="profile-info d-flex flex-column align-items-center mb-5">
-                        <img src="images/book.png" class="profile-image mb-2">
+                        <!-- <img src="images/book.png" class="profile-image mb-2"> -->
                         <div class="d-flex">
                             <h2 class="h4">
                                 <!-- 使用 session, 而不是搜尋結果 -->
@@ -54,8 +54,8 @@ if (!isset($_SESSION['username'])) {
                     <textarea class="form-control" rows="10" id="bio"
                         placeholder="<?php echo ($bio == "") ? '暫無簡介' : htmlspecialchars($bio); ?>" readonly></textarea>
                 </div>
-                <!-- <div class="d-flex">
-                    <h3>動態<h3>
+                <div class="d-flex">
+                    <h3>※ 動態 (施工中) ※<h3>
                 </div>
                 <div class="scroll-box">
                     <ul>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['username'])) {
                         <li>兩天前發布了新的文章「我打江南走過」</li>
                         <li>七天前發布了新的文章「我欲乘風歸去」</li>
                     </ul>
-                </div> -->
+                </div>
             </div>
             <div class="col-md-8">
                 <h3>文章撰寫</h3>
@@ -150,9 +150,10 @@ if (!isset($_SESSION['username'])) {
                                 <div class="d-flex justify-content-between">
                                     <div id="message"></div>
                                     <div>
-                                        <button type="button" class="btn btn-secondary me-2"
-                                            data-bs-dismiss="modal">取消</button>
-                                        <button type="submit" id="EditConfirm" class="btn btn-primary">保存變更</button>
+                                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
+                                                class="bi bi-x-circle me-1"></i>取消</button>
+                                        <button type="submit" id="EditConfirm" class="btn btn-primary"><i
+                                                class="bi bi-check-circle me-1"></i>保存變更</button>
                                     </div>
                                 </div>
                             </form>
@@ -175,9 +176,10 @@ if (!isset($_SESSION['username'])) {
                                         rows="15"><?php echo $bio; ?></textarea>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary me-2"
-                                        data-bs-dismiss="modal">取消</button>
-                                    <button type="submit" class="btn btn-primary">保存變更</button>
+                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
+                                            class="bi bi-x-circle me-1"></i>取消</button>
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="bi bi-check-circle me-1"></i>保存變更</button>
                                 </div>
                             </form>
                         </div>
