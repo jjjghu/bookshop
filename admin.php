@@ -25,9 +25,15 @@
                 </tr>
             </thead>
         </table>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal"
+                data-bs-target="#AddUserModal">
+                新增使用者
+            </button>
+        </div>
         <div class="bold-hr"></div>
         <h2 class="my-3">所有商品</h2>
-        <table id="ProductTable" class="table table-stroped table-bordered ProductTable">
+        <table id="ProductTable" class="table table-stroped table-bordered mb-3">
             <thead>
                 <tr>
                     <th>id</th>
@@ -39,6 +45,7 @@
                 </tr>
             </thead>
         </table>
+        <div class="mb-3"></div>
         <!-- 新增/編輯使用者 Modal -->
         <div class="modal fade" id="AddUserModal" tabindex="-1" aria-labelledby="AddUserModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -82,10 +89,9 @@
                             <div class="d-flex justify-content-between">
                                 <div id="message"></div>
                                 <div>
-                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
-                                            class=""></i>取消</button>
-                                    <button type="submit" id="AddUserConfirm" class="btn btn-primary"><i
-                                            class="bi bi-check-circle me-1"></i>保存變更</button>
+                                    <button type="button" class="btn btn-secondary me-2"
+                                        data-bs-dismiss="modal">取消</button>
+                                    <button type="submit" id="AddUserConfirm" class="btn btn-primary">保存變更</button>
                                 </div>
                             </div>
                         </form>
@@ -93,22 +99,10 @@
                 </div>
             </div>
         </div>
-        <div class="mb-3"></div>
     </main>
 </body>
 <?php include '.Footer.php'; ?>
 <?php include '.Script.php'; ?>
 <script src="js/.Admin.js"></script>
-<script>
-    document.ready(function () {
-        $(".dataTables_paginate .btn-add-user").remove();
-        $(".dataTables_paginate").append(`
-                <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal" data-bs-target="#AddUserModal">
-                    新增使用者
-                </button>
-        `);
-    });
-
-</script>
 
 </html>

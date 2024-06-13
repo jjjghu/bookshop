@@ -130,16 +130,7 @@ $(document).ready(function () {
                 "next": "下一頁",
                 "previous": "上一頁"
             }
-        },
-        // "drawCallback": function (settings) {
-        //     // 按鈕只有一個, 翻頁時需要移除現有的
-        //     $(".dataTables_paginate .btn-add-user").remove();
-        //     $(".dataTables_paginate").append(`
-        //         <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal" data-bs-target="#AddUserModal">
-        //             新增使用者
-        //         </button>
-        // `);
-        // }
+        }
     });
     // dataTable, 商品列表
     $('#ProductTable').DataTable({
@@ -200,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             modalTitle.textContent = '新增使用者';
             submitButton.textContent = '新增使用者';
+
             userIdInput.value = '';
             usernameInput.value = '';
             penNameInput.value = '';
