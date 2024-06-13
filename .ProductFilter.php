@@ -5,6 +5,7 @@ $sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images W
 
 $search = isset($_GET['search']) ? $link->real_escape_string($_GET['search']) : '';
 $category = isset($_GET['category']) ? intval($_GET['category']) : 0;
+$order = isset($_GET['order']) && $_GET['order'] == 'asc' ? 'ASC' : 'DESC';
 
 // 添加搜索條件和分類篩選條件
 $where_conditions = [];
@@ -21,7 +22,7 @@ if (!empty($where_conditions)) {
     $sql .= " WHERE " . implode(" AND ", $where_conditions);
 }
 
-$sql .= "ORDER BY id DESC"; // 加入排序
+$sql .= " ORDER BY id $order";
 
 $result = $link->query($sql);
 

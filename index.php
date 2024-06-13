@@ -50,29 +50,38 @@
             <section class="container mt-5">
                 <!--分類按鈕開始 -->
                 <div class="row mb-4">
-                    <div class="col-md-6">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo htmlspecialchars($current_category_name); ?>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <?php foreach ($categories as $category): ?>
-                                    <li><a class="dropdown-item"
-                                            href="?category=<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
+                    <form action="" method="get" class="input-group">
+                        <div class="col-md-6 d-flex">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <?php echo htmlspecialchars($current_category_name); ?>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <?php foreach ($categories as $category): ?>
+                                        <li><a class="dropdown-item"
+                                                href="?category=<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                            <!-- 升或降序 -->
+                            <div class="mt-2 ms-2">
+                                <input class="form-check-input" type="checkbox" id="orderCheckbox" name="order"
+                                    value="asc" <?php echo isset($_GET['order']) && $_GET['order'] == 'asc' ? 'checked' : ''; ?>>
+                                <label class="form-check-label" for="orderCheckbox">升序</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <form id='search-box' action="" method="get" class="input-group">
-                            <input type="search" name="search" class="form-control" placeholder="搜尋商品..."
-                                value="<?php echo htmlspecialchars($search); ?>">
-                            <input type="hidden" name="category" value="<?php echo $current_category_id; ?>">
-                            <button type="submit" class="btn btn-primary bx bx-search"></button>
-                        </form>
-                    </div>
+                        <!-- 搜尋框 -->
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <div id='search-box' class="input-group">
+                                <input type="hidden" name="category" value="<?php echo $current_category_id; ?>">
+                                <input type="search" name="search" class="form-control" placeholder="搜尋商品..."
+                                    value="<?php echo htmlspecialchars($search); ?>">
+                                <button type="submit" class="btn btn-primary bx bx-search"></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- 購物列表 -->
                 <div class="row" id="shopping-list"></div>
@@ -119,7 +128,7 @@
                     </div>
                 `;
                 shoppingList.insertAdjacentHTML('beforeend', productHtml);
-                
+
             });
             bindCartButton();
         }
