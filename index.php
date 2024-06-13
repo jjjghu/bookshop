@@ -119,7 +119,9 @@
                     </div>
                 `;
                 shoppingList.insertAdjacentHTML('beforeend', productHtml);
+                
             });
+            bindCartButton();
         }
 
         function showPage(page) {

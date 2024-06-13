@@ -44,7 +44,7 @@
             </div>
             <!-- 文字靠左, 距離頂部10vh-->
             <div class="col-md-6 mt-10vh text-start">
-                <h2 class='fs-1 mt-2'> <?php echo htmlspecialchars($product_name) ?></h2>
+                <h2 class='fs-1 mt-2 clamp-lines'> <?php echo htmlspecialchars($product_name) ?></h2>
                 <p class='fs-4 text-orange mt-3'><span class='fs-3'>$</span><?php echo htmlspecialchars($price) ?></p>
                 <div class='mt-2' id='author'>作者: <?php echo htmlspecialchars($author_name) ?></div>
                 <div class='mt-2' id='write_date'>出版日期: <?php echo htmlspecialchars($write_date) ?></div>

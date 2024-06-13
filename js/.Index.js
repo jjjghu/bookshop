@@ -49,4 +49,4 @@ function bindCartButton() {
         });
     });
 }
-$(document).ready(function () { bindCartButton(); });
+// $(document).ready(function () { bindCartButton(); });
