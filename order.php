@@ -54,6 +54,13 @@ $link->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的訂單</title>
     <?php include '.Script.php'; ?>
+    <script>
+        function confirmDelete(form) {
+            if (confirm("您確定要刪除此訂單嗎？")) {
+                form.submit();
+            }
+        }
+    </script>
 </head>
 <?php include '.Theme.php'; ?>
 <?php include '.Style.php'; ?>
@@ -73,11 +80,14 @@ $link->close();
                             <span class="text-orange "><strong>總金額</strong>$<span
                                     class="ms-2"><?php echo $order['total_price']; ?></span></span>
                         </div>
-                        <small>訂單時間:<?php echo $order['order_date']; ?></small>
-                        <form method="POST" action="delete_order.php" class="d-inline-block ms-3">
-                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">刪除</button>
-                        </form>
+                        <div class="d-flex justify-content-between">
+                            <small class="mt-2">訂單時間:<?php echo $order['order_date']; ?></small>
+                            <form method="POST" action="delete_order.php" class="d-inline-block ms-3"
+                                onsubmit="event.preventDefault(); confirmDelete(this);">
+                                <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body overflow-auto">
                         <ul class="list-group">
