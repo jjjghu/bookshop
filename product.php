@@ -121,9 +121,14 @@
                                             <div class="d-flex justify-content-between comment-content">
                                                 <p><?php echo nl2br(htmlspecialchars($comment['content'])); ?></p>
                                                 <!-- 管理員和留言的人才可以編輯 -->
-                                                <?php if ($_SESSION['user_id'] == $comment['author_id'] || $_SESSION['is_admin'] == 1): ?>
+                                                <?php if ($_SESSION['user_id'] == $comment['author_id']): ?>
                                                     <div>
                                                         <i class="bx bxs-edit edit-comment"></i>
+                                                        <i class="bx bx-x delete-comment"></i>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <?php if ($_SESSION['is_admin'] == 1): ?>
+                                                    <div>
                                                         <i class="bx bx-x delete-comment"></i>
                                                     </div>
                                                 <?php endif; ?>
