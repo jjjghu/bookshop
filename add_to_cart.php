@@ -1,5 +1,4 @@
-<?php
-// 商品數量 + 1
+<?php 
 include_once '.LinkSql.php';
 session_start();
 

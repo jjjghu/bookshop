@@ -27,7 +27,7 @@
         </table>
         <div class="bold-hr"></div>
         <h2 class="my-3">所有商品</h2>
-        <table id="ProductTable" class="table table-stroped table-bordered mb-3">
+        <table id="ProductTable" class="table table-stroped table-bordered">
             <thead>
                 <tr>
                     <th>id</th>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-
+        <div class="mb-3"></div>
     </main>
 </body>
 <?php include '.Footer.php'; ?>

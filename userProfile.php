@@ -1,6 +1,6 @@
 <?php
-// 沒有登入 -> 跳轉到登入頁面
 if (session_status() == PHP_SESSION_NONE) {
+    // 沒有登入 -> 跳轉到登入頁面
     session_start();
 }
 if (!isset($_SESSION['username'])) {

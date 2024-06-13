@@ -1,7 +1,4 @@
-<?php
-// functions.php
-include '.LinkSql.php';
-
+<?php include '.LinkSql.php';
 function deleteProducts($link, $product_ids)
 {
     if (empty($product_ids)) {
