@@ -130,6 +130,15 @@ $(document).ready(function () {
                 "next": "下一頁",
                 "previous": "上一頁"
             }
+        },
+        "drawCallback": function (settings) {
+            // 確保按鈕只被添加一次
+            $(".dataTables_paginate .btn-add-user").remove();
+            $(".dataTables_paginate").append(`
+                <button type="button" class="btn btn-primary my-3 btn-add-user" data-bs-toggle="modal" data-bs-target="#AddUserModal">
+                    新增使用者
+                </button>
+        `);
         }
     });
 });
