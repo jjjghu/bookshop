@@ -74,6 +74,10 @@ $link->close();
                                     class="ms-2"><?php echo $order['total_price']; ?></span></span>
                         </div>
                         <small>訂單時間:<?php echo $order['order_date']; ?></small>
+                        <form method="POST" action="delete_order.php" class="d-inline-block ms-3">
+                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                        </form>
                     </div>
                     <div class="card-body overflow-auto">
                         <ul class="list-group">
