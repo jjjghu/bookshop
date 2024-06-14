@@ -58,7 +58,7 @@ $category_result = $link->query($category_query);
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"><i
                                     class="bi bi-x-circle me-1"></i>取消</button>
                             <button type="submit" class="btn btn-primary"><i
-                                    class="bi bi-check-circle me-1"></i>確認修改</button>
+                                    class="bi bi-check-circle me-1"></i>確認發布</button>
                         </div>
                     </div>
                 </form>

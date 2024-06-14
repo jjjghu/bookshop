@@ -88,7 +88,7 @@
                             <p><?php echo nl2br(htmlspecialchars($product_detail)); ?></p>
                         </div>
                         <div class="tab-pane fade" id="content-author">
-                            <p><?php echo htmlspecialchars($author_bio) ?> </p>
+                            <p><?php echo nl2br(htmlspecialchars($author_bio)) ?> </p>
                         </div>
                         <div class="tab-pane fade" id="content-comments">
                             <?php if (isset($_SESSION['user_id'])): ?>
