@@ -70,15 +70,26 @@ if (!isset($_SESSION['username'])) {
                 <h3>文章撰寫</h3>
                 <div class="row">
                     <div class="col-md-3">
-                        <div data-bs-toggle='modal' data-bs-target='#addArticleModal'
-                            class='text-decoration-none text-primary'>
-                            <div class='card d-flex align-items-center justify-content-center'>
-                                <i class="bi bi-file-earmark-plus"></i>
-                                <h5 id="new-article" class='card-title text-Nmain clamp-lines mb-auto'>
-                                    撰寫新文章
-                                </h5>
+                        <?php if (isset($_SESSION['penName'])): ?>
+                            <div data-bs-toggle='modal' data-bs-target='#addArticleModal'
+                                class='text-decoration-none text-primary'>
+                                <div class='card d-flex align-items-center justify-content-center'>
+                                    <i class="bi bi-file-earmark-plus"></i>
+                                    <h5 id="new-article" class='card-title text-Nmain clamp-lines mb-auto'>
+                                        撰寫新文章
+                                    </h5>
+                                </div>
                             </div>
-                        </div>
+                        <?php else: ?>
+                            <div class='text-decoration-none text-primary'>
+                                <div class='card d-flex align-items-center justify-content-center'>
+                                    <i class="bi bi-file-earmark-plus"></i>
+                                    <h5 id="new-article" class='card-title text-Nmain clamp-lines mb-auto'>
+                                        請設定筆名
+                                    </h5>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     </div>
                     <!-- --------------------------------------------------------- -->
                     <?php
@@ -124,7 +135,8 @@ if (!isset($_SESSION['username'])) {
                             <form id="EditProfile" action=".EditProfile.php" method="post">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="使用者名稱" value="<?php echo htmlspecialchars($username); ?>">
+                                        placeholder="使用者名稱"
+                                        value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
                                     <p class="text-danger" id="username-err"></p>
                                 </div>
                                 <div class="mb-3">
