@@ -11,13 +11,12 @@ if ($stmt->num_rows == 1) {
     $stmt->fetch();
 }
 
-$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1)
-AS image FROM products WHERE author_id = ?";
+$sql = "SELECT id, product_name, price, write_date, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products WHERE author_id = ? ORDER BY write_date DESC";
 $stmt = $link->prepare($sql);
 $stmt->bind_param("s", $_SESSION['user_id']);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($id, $product_name, $price, $image_path);
+$stmt->bind_result($id, $product_name, $price, $write_date, $image_path);
 
 $products = [];
 if ($stmt->num_rows > 0) {

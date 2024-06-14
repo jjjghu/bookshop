@@ -69,7 +69,7 @@
                             <div class="mt-2 ms-2">
                                 <input class="form-check-input" type="checkbox" id="orderCheckbox" name="order"
                                     value="asc" <?php echo isset($_GET['order']) && $_GET['order'] == 'asc' ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="orderCheckbox">升序</label>
+                                <label class="form-check-label" for="orderCheckbox">最舊</label>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">

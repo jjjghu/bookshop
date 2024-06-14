@@ -1,7 +1,7 @@
 <?php
 include '.LinkSql.php';
 // 查詢商品資料
-$sql = "SELECT id, product_name, price, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products "; // 需要加入空格, 後面 ORDER 的時候會用到
+$sql = "SELECT id, product_name, price, write_date, (SELECT image_path FROM product_images WHERE product_id = products.id LIMIT 1) AS image FROM products "; // 需要加入空格, 後面 ORDER 的時候會用到
 
 $search = isset($_GET['search']) ? $link->real_escape_string($_GET['search']) : '';
 $category = isset($_GET['category']) ? intval($_GET['category']) : 0;
@@ -22,7 +22,7 @@ if (!empty($where_conditions)) {
     $sql .= " WHERE " . implode(" AND ", $where_conditions);
 }
 
-$sql .= " ORDER BY id $order";
+$sql .= " ORDER BY write_date $order";
 
 $result = $link->query($sql);
 
