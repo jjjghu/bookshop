@@ -61,7 +61,6 @@ $(document).ready(function () {
         var commentDiv = $(this).closest('.comment');
         var commentId = commentDiv.data('comment-id');
         var newContent = commentDiv.find('.edit-textarea').val();
-
         if (newContent !== null) {
             $.ajax({
                 url: 'edit_comment.php',
@@ -78,11 +77,14 @@ $(document).ready(function () {
                             '</div>'
                         );
                     } else {
-                        alert('編輯失敗，請稍後再試。');
+                        alert(data.message);
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
                     alert('發生錯誤，請稍後再試。');
+                    console.log("Error: " + error);
+                    console.log("Status: " + status);
+                    console.log(xhr.responseText);
                 }
             });
         }
