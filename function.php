@@ -54,7 +54,6 @@ function deleteProducts($link, $product_ids)
     $stmt->execute();
     $stmt->close();
 }
-
 function deleteUserComments($link, $user_id)
 {
     $stmt = $link->prepare("DELETE FROM product_comment WHERE author_id = ?");
@@ -62,7 +61,26 @@ function deleteUserComments($link, $user_id)
     $stmt->execute();
     $stmt->close();
 }
+function deleteOrders($link, $order_ids)
+{
+    if (empty($order_ids)) {
+        return;
+    }
 
+    // 刪除訂單項目
+    $in_clause = implode(',', array_fill(0, count($order_ids), '?'));
+    $stmt = $link->prepare("DELETE FROM order_items WHERE order_id IN ($in_clause)");
+    $types = str_repeat('i', count($order_ids));
+    $stmt->bind_param($types, ...$order_ids);
+    $stmt->execute();
+    $stmt->close();
+
+    // 刪除訂單
+    $stmt = $link->prepare("DELETE FROM orders WHERE id IN ($in_clause)");
+    $stmt->bind_param($types, ...$order_ids);
+    $stmt->execute();
+    $stmt->close();
+}
 function ExecuteSQL($link, $sql, $param, $type, $count, $errorMsg)
 {
     $stmt = $link->prepare($sql);

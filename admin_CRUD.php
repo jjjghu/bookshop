@@ -74,6 +74,22 @@ if (isset($_GET['delete_user'])) {
     }
     $stmt->close();
 
+    // 找到所有的訂單
+    $stmt = $link->prepare("SELECT id FROM orders WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($order_id);
+
+    $order_ids = [];
+    while ($stmt->fetch()) {
+        $order_ids[] = $order_id;
+    }
+    $stmt->close();
+
+    // 刪除相關的訂單和訂單項目
+    deleteOrders($link, $order_ids);
+
+
     // 刪除所有相關的商品
     deleteProducts($link, $product_ids);
 
@@ -91,11 +107,12 @@ if (isset($_GET['delete_user'])) {
     exit();
 }
 
-if(isset($_GET['delete_product'])){
+if (isset($_GET['delete_product'])) {
     $product_id = $_GET['delete_product'];
     deleteProducts($link, [$product_id]);
     echo "刪除商品成功";
     header("Location: admin.php");
     exit();
 }
+
 ?>
