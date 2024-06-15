@@ -41,23 +41,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_id'])) {
         $stmt->execute();
         $stmt->close();
 
-        // 加入新的圖片
-        if (isset($_FILES['images'])) {
-            $images = $_FILES['images'];
-            $image_paths = [];
-            foreach ($images['tmp_name'] as $key => $tmp_name) {
-                $image_path = 'images/' . $images['name'][$key];
-                move_uploaded_file($tmp_name, $image_path);
-                $image_paths[] = $image_path;
-            }
+        $imageDir = 'images/';
+        if (isset($_FILES['fileUpload'])) {
+            for ($i = 0; $i < count($_FILES['fileUpload']['tmp_name']); $i++) {
+                if ($_FILES['fileUpload']['error'][$i] === UPLOAD_ERR_OK) {
+                    // 獲取圖片資訊
+                    $tmp_name = $_FILES['fileUpload']['tmp_name'][$i];
+                    $file_name = basename($_FILES['fileUpload']['name'][$i]);
 
-            $sql = "INSERT INTO product_images (product_id, image_path) VALUES (?, ?)";
-            $stmt = $link->prepare($sql);
-            foreach ($image_paths as $image_path) {
-                $stmt->bind_param("is", $product_id, $image_path);
-                $stmt->execute();
+                    // 設定目標路徑
+                    $target_file = $imageDir . $file_name;
+
+                    // 將圖片移動到本機
+                    if (move_uploaded_file($tmp_name, $target_file)) {
+                        // 將路徑存到資料庫
+                        $stmt = $link->prepare("INSERT INTO product_images (product_id, image_path) VALUES (?, ?)");
+                        $stmt->bind_param("is", $product_id, $target_file);
+                        $stmt->execute();
+                    } else {
+                        echo "上傳失敗";
+                    }
+                } else {
+                    echo "上傳時發生錯誤" . $_FILES['fileUpload']['error'][$i];
+                }
             }
-            $stmt->close();
         }
 
         // 更新成功後的訊息
