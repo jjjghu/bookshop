@@ -23,13 +23,9 @@
                 <div class="slider-wrapper mt-10vh">
                     <!-- 廣告圖片開始 -->
                     <div class="slider">
-                        <img id="slide-1" src="images/book_big.png" alt="slider 1">
-                        <img id="slide-2"
-                            src="https://plus.unsplash.com/premium_photo-1709311394823-8b0856db0bcc?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="slider 2">
-                        <img id="slide-3"
-                            src="https://images.unsplash.com/photo-1654859869130-fd0a2aa5539b?q=80&w=1228&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="slider 3">
+                        <img id="slide-1" src="images/137_113459734_67_mainCoverImage1.jpg" alt="slider 1">
+                        <img id="slide-2" src="images/134_103429221_291_mainCoverImage1.jpg" alt="slider 2">
+                        <img id="slide-3" src="images/131_181345651_116_mainCoverImage1.jpg" alt="slider 3">
                     </div>
                     <!-- 廣告圖片結束 -->
                     <!-- 廣告輪播按鈕開始 (下方的三個點) -->
