@@ -110,12 +110,12 @@ $(document).ready(function () {
     $('#UserTable').DataTable({
         "ajax": ".UserDataTable_ajax.php",
         "columns": [
-            { "data": "id" },
-            { "data": "username" },
-            { "data": "penName" },
-            { "data": "email" },
-            { "data": "phone" },
-            { "data": "actions" }
+            { "data": "id", "width": "5%" },
+            { "data": "username", "width": "10%" },
+            { "data": "penName", "width": "10%" },
+            { "data": "email", "width": "20%" },
+            { "data": "phone", "width": "20%" },
+            { "data": "actions", "width": "10%" }
         ],
         "language": {
             "lengthMenu": "顯示 _MENU_ 筆資料", // 客製化顯示文字
@@ -139,7 +139,7 @@ $(document).ready(function () {
             { "data": "id" },
             { "data": "product_name" },
             { "data": "price" },
-            { "data": "author" },
+            { "data": "author", "width": "10%" },
             { "data": "write_date" },
             { "data": "actions" }
         ],
