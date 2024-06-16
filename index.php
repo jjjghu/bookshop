@@ -102,32 +102,45 @@
         let currentPage = 1;
 
         // 為了動態更新頁面, 使用 javascript 
+        function escapeHtml(string) {
+            var entityMap = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '/': '&#x2F;',
+                '`': '&#x60;',
+                '=': '&#x3D;'
+            };
+            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return entityMap[s];
+            });
+        }
         function renderProducts(products) {
             const shoppingList = document.getElementById('shopping-list');
             shoppingList.innerHTML = '';
             products.forEach(product => {
                 const productHtml = `
-                    <div class='col-md-2 product-item'ad title='${(product.name)}'>
-                        <a href='product.php?id=${product.id}' class='card-link text-decoration-none text-primary'>
+                    <div class='col-md-2 product-item' title='${escapeHtml(product.name)}'>
+                        <a href='product.php?id=${escapeHtml(product.id)}' class='card-link text-decoration-none text-primary'>
                             <div class='card mb-3 d-flex flex-column'>
-                                <img src='${product.image}' class='card-img-top' alt='Product Image'>
+                                <img src='${escapeHtml(product.image)}' class='card-img-top' alt='Product Image'>
                                 <div class='card-body d-flex flex-column'>
-                                    <h5 class='card-title text-Nmain clamp-lines mb-auto'>${product.name}</h5>
-                                    <a class='cart-link' href="#" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.price}">
+                                    <h5 class='card-title text-Nmain clamp-lines mb-auto'>${escapeHtml(product.name)}</h5>
+                                    <a class='cart-link' href="#" data-product-id="${escapeHtml(product.id)}" data-product-name="${escapeHtml(product.name)}" data-product-price="${escapeHtml(product.price)}">
                                         <button class='btn cart' aria-label='購物車圖示'><i class='bi bi-cart'></i></button>
                                     </a>
-                                    <p class='card-text fw-bold text-orange mt-auto'>$${product.price}</p>
+                                    <p class='card-text fw-bold text-orange mt-auto'>$${escapeHtml(product.price)}</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                 `;
                 shoppingList.insertAdjacentHTML('beforeend', productHtml);
-
             });
             bindCartButton();
         }
-
         function showPage(page) {
             const start = (page - 1) * itemsPerPage;
             const end = start + itemsPerPage;
