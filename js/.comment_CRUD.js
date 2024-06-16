@@ -90,11 +90,28 @@ $(document).ready(function () {
         }
     });
     // 取消留言
+    function escapeHtml(string) {
+        var entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+        return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+
     $(document).on('click', '.cancel-edit', function () {
         var commentDiv = $(this).closest('.comment');
         var originalContent = commentDiv.find('.edit-textarea').text();
+        var escapedContent = escapeHtml(originalContent);
         commentDiv.find('.comment-content').html(
-            '<p>' + originalContent + '</p>' +
+            '<p>' + escapedContent + '</p>' +
             '<div>' +
             '<i class="bx bxs-edit edit-comment"></i>' +
             '<i class="bx bx-x delete-comment"></i>' +
